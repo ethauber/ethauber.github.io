@@ -5,5 +5,4 @@ date: 2017-06-07
 ---
 
 Put a website together. 
-It is powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> and I can use Markdown to author my posts. 
-It is a simple process.
+It is powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> and I can use Markdown to author my posts.
