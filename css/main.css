@@ -42,7 +42,7 @@ ul.posts li {
     list-style: none;
 }
 
-#glowText{
+.glowText{
     -webkit-animation-name: glow; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 4; /* Safari 4.0 - 8.0 */
     -webkit-animation-delay: 2s; /* Safari 4.0 - 8.0 */
