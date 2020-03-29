@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<title>{{ page.title }}</title>
-			<!-- link to main stylesheet -->
-			<link rel="stylesheet" type="text/css" href="/css/main.css">
-			{% include analytics.html %}
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<script>
-			  (adsbygoogle = window.adsbygoogle || []).push({
-			    google_ad_client: "ca-pub-1717785919257585",
-			    enable_page_level_ads: true
-			  });
-			</script>
-		</head>
-		<body>
-			<nav>
-	    		<ul>
-	        		<li><a href="/">Home</a></li>
-		        	<li><a href="/about">About</a></li>
-	        		<li><a href="/works">Works</a></li>
-	        		<li><a href="/blog">Blog</a></li>
-	    		</ul>
-			</nav>
-			<div class="container">
-			
-			{{ content }}
-			
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		<!-- link to main stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		{% include analytics.js %}
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+			(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-1717785919257585",
+			enable_page_level_ads: true
+			});
+		</script>
+	</head>
+	<body>
+		<div class="vh-100 flex-column">
+			<header>
+				<nav>
+					<ul>
+						<li id="logo"><a href="/">Home</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/works">Works</a></li>
+						<li><a href="/blog">Blog</a></li>
+						<li> <a href="/space">Space <small>(Experimental)</small></a></li>
+					</ul>
+				</nav>
+			</header>
+			<div class="flex-column content-container">
+				{{ content }}
 			</div><!-- /.container -->
 			<footer>
-	    		<ul>
-	        		<li><a href="https://github.com/ethauber" target="_blank">github.com/ethauber</a></li>
+				<ul>
+					<li><a href="https://github.com/ethauber" target="_blank">github.com/ethauber</a></li>
 				</ul>
 			</footer>
-		</body>
-	</html>
+		</div>
+	</body>
+</html>

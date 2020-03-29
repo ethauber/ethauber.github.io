@@ -3,4 +3,52 @@ layout: default
 title: Elijah Hauber's Works
 ---
 	<h1>{{ page.title }}</h1>
-	<p>...</p>
+	<canvas id="myCanvas" width="600" height="600"></canvas>
+	<script>
+	let myCanvas = document.getElementById('myCanvas');
+	let ctx = myCanvas.getContext('2d');
+	// ctx.rotate(40 * Math.PI / 180);
+	
+	function checkIfBelongsToMandelbrotSet(x, y, iterations) {
+		let realComponentOfResult = x;
+		let imaginaryComponentOfResult = y;
+	
+		for(let i = 0; i < iterations; i++) {
+			// Calculate the real and imaginary components of the result
+			// separately
+			let tempRealComponent = realComponentOfResult * realComponentOfResult
+									- imaginaryComponentOfResult * imaginaryComponentOfResult
+									+ x;
+	
+			let tempImaginaryComponent = 2 * realComponentOfResult * imaginaryComponentOfResult
+									+ y;
+	
+			realComponentOfResult = tempRealComponent;
+			imaginaryComponentOfResult = tempImaginaryComponent;
+			if (realComponentOfResult * imaginaryComponentOfResult > 99999)
+				return (i/iterations * 100) //  not In the Mandelbrot set
+		}
+	
+		return 0; // not Not in the set (return 0 if in the set)
+	}
+	
+	let magnificationFactor = 200;
+	let panX = 2;
+	let panY = 1.5;
+	let iterations = 100;
+	for(let x=0; x < myCanvas.width; x++) {
+	   for(let y=0; y < myCanvas.height; y++) {
+		   let belongsToSet = 
+				checkIfBelongsToMandelbrotSet(x/magnificationFactor - panX, 
+											  y/magnificationFactor - panY,
+											  iterations);
+		   if(belongsToSet === 0) {
+			   	ctx.fillStyle = '#fbdc75';
+				ctx.fillRect(x,y, 1,1); // Draw a yellow pixel
+		   } else {
+			ctx.fillStyle = 'hsl(261, 80%, ' + Math.abs(belongsToSet - 100) + '%)';
+			ctx.fillRect(x,y, 1,1); // Draw a colorful pixel
+		   }               
+	   } 
+	}
+	</script>
