@@ -21,16 +21,11 @@ a, a:visited {
 }
 
 a:hover {
-    color: grey;
+    color: blue;
 }
 
 ul {
     margin: 0.75rem 0;
-}
-
-header {
-    width: 100%;
-    background-color: #fbdc75;
 }
 
 footer {
@@ -42,27 +37,21 @@ footer {
 }
 
 nav {
+    background-color: #fbdc75;
     display: flex;
     justify-content: center;
-    padding: 15px 0 15px 0;
+    font-weight: bold;
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
 }
 
-#logo {
-    margin-right: auto;
-}
-
 nav ul, footer ul {
-    list-style: none;
-    font-weight: bold;
     margin: 0 auto;
-    width: 80%;
+    /* width: 80%; */
     display: flex;
     justify-content: space-between;
 }
 
 nav ul li, footer ul li {
-    text-decoration: none;
     display: inline;
     margin-right: 15px;
 }
@@ -101,6 +90,13 @@ ul.posts {
 
 ul.posts li {
     list-style: none;
+}
+
+.bars {
+    display: inline-block;
+    width:   1.5rem;
+    height:  1.5rem;
+    background-image: url("/assets/bars.svg");
 }
 
 .weekly-unsplash-background {
