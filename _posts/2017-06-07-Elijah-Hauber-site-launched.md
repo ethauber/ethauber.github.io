@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Elijah Hauber, Security, Launches Site"
+title: "Elijah Hauber, Launches Site"
 date: 2017-06-07
 ---
 
