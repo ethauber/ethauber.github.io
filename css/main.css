@@ -56,15 +56,14 @@ h1 {
 }
 
 p {
-    font-size: 1.5em;
     line-height: 1.4em;
     color: #333;
     margin: 0.15rem 0;
 }
 
-posts { 
-    margin: 20px auto 40px; 
-    font-size: 1.5em;
+.post p a, .post p { 
+    text-align: left;
+    font-size: .85rem;
 }
 
 ul.posts li {
