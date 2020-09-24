@@ -3,9 +3,10 @@ layout: default
 title: Space
 ---
 <link rel="stylesheet" href="../css/bootOverrides.css">
-<div class="container" style="z-index: 0; position: relative;">
+<div id="planetsContainer" class="container" style="z-index: 0; position: relative;">
   <h1>Space</h1>
-  <div class="h-100" style="width: 18rem;  top: 10px; left: 10px;">
+  <span class="d-flex justify-content-center arrow-up"></span>
+  <div id="mercury" class="h-100" style="width: 18rem;  top: 10px; left: 10px;">
     <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-rowors/?category=planets_mercury">
       <img src="../assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="Nasa Mercury">
     </a>
@@ -27,7 +28,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 40px; left: 10px;">
+  <div id="venus" class="h-100" style="display: none; width: 18rem;  top: 40px; left: 10px;">
     <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html">
       <img src="../assets/venusglobe.jpg" class="card-img-top" alt="Nasa Venus">
     </a>
@@ -49,7 +50,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 70px; left: 10px;">
+  <div id="earth" class="h-100" style="display: none; width: 18rem;  top: 70px; left: 10px;">
     <a href="https://www.nasa.gov/topics/earth/images/index.html">
       <img src="../assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="Nasa Earth">
     </a>
@@ -73,7 +74,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 100px; left: 10px;">
+  <div id="mars" class="h-100" style="display: none; width: 18rem;  top: 100px; left: 10px;">
     <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html">
       <img src="../assets/marsglobe1.jpg" class="card-img-top" alt="Nasa Mars">
     </a>
@@ -95,7 +96,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 130px; left: 10px;">
+  <div id="jupiter" class="h-100" style="display: none; width: 18rem;  top: 130px; left: 10px;">
     <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/">
       <img src="../assets/jupiterglobe.jpg" class="card-img-top" alt="Nasa Jupiter">
     </a>
@@ -118,7 +119,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 160px; left: 10px;">
+  <div id="saturn" class="h-100" style="display: none; width: 18rem;  top: 160px; left: 10px;">
     <a href="https://solarsystem.nasa.gov/planets/saturn/overview/">
       <img src="../assets/saturngloberesize.png" class="card-img-top" alt="Nasa Saturn">
     </a>
@@ -140,7 +141,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div class="h-100" style="width: 18rem;  top: 190px; left: 10px;">
+  <div id="uranus" class="h-100" style="display: none; width: 18rem;  top: 190px; left: 10px;">
     <a href="https://solarsystem.nasa.gov/planets/uranus/overview/">
       <img src="../assets/uranusglobe.jpg" class="card-img-top" alt="Nasa Uranus">
     </a>
@@ -163,7 +164,7 @@ title: Space
       </div>
     </div>
   </div>
-  <div id="neptune" class="h-100" style="width: 18rem; top: 220px; left: 10px;">
+  <div id="neptune" class="h-100" style="display: none; width: 18rem; top: 220px; left: 10px;">
     <a href="https://solarsystem.nasa.gov/planets/neptune/overview/">
       <img src="../assets/neptuneglobe.jpg" class="card-img-top" alt="Nasa Neptune">
     </a>
@@ -185,6 +186,7 @@ title: Space
       </div>
     </div>
   </div>
+  <span class="d-flex justify-content-center arrow-down"></span>
 </div>
 <script>
 function myFunction(event, planet_div) {
@@ -193,4 +195,33 @@ function myFunction(event, planet_div) {
   // planet_div.style.top = "750px";
   planet_div["z-index"] = 2;
 }
+
+// Document ready via jQuery
+var planet_index = 0;
+var planets = [
+  "#mercury", "#venus", "#earth", "#mars",
+  "#jupiter", "#saturn", "#uranus", "#neptune"
+];
+
+// https://stackoverflow.com/questions/
+// 4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+$(function() {
+  console.log('ready');
+  $('.arrow-up').click(function() {
+    $(planets[planet_index]).delay(50).fadeOut();
+    planet_index -= 1;
+    planet_index = mod(planet_index, 8)
+    $(planets[planet_index]).delay(100).fadeIn();
+  });
+  $('.arrow-down').click(function() {
+    $(planets[planet_index]).delay(25).fadeOut();
+    planet_index += 1;
+    planet_index %= 8;
+    $(planets[planet_index]).delay(90).fadeIn();
+  });
+});
 </script>

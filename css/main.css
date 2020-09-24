@@ -97,3 +97,17 @@ ul.posts li {
         text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
       }
 }
+
+.arrow-up {
+    margin: auto;
+    width:   1.5rem;
+    height:  1.5rem;
+    background-image: url("/assets/arrow-alt-circle-up.svg");
+}
+
+.arrow-down {
+    margin: auto;
+    width:   1.5rem;
+    height:  1.5rem;
+    background-image: url("/assets/arrow-alt-circle-down.svg");
+}
