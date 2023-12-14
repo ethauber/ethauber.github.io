@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-Pong MVP-1.0";
 const contentToCache = [
     "Build/builds.loader.js",
-    "Build/builds.framework.js.gz",
-    "Build/builds.data.gz",
-    "Build/builds.wasm.gz",
+    "Build/builds.framework.js",
+    "Build/builds.data",
+    "Build/builds.wasm",
     "TemplateData/style.css"
 
 ];
