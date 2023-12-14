@@ -1,3 +1,8 @@
+## To Run On Windows
+Follow guide https://jekyllrb.com/docs/installation/windows/
+If using vscode close windows and reopen for the integrated terminal to recognize the install of ruby and then jekyll
+Use cmd jekyll serve --livereload to develop
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/ethauber/ethauber.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
