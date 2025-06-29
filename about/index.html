@@ -3,24 +3,106 @@ layout: default
 title: About Elijah Hauber
 ---
 <div class="container mt-4">
-	<div class="row align-items-center">
+	<div class="row">
 		<!-- Left column: Name, Title, Summary -->
-		<div class="col-md-7 mb-4 mb-md-0">
-			<h1>{{ page.title }}</h1>
-			<h3 class="mb-3">Software Engineer</h3>
+		<div class="col-lg-7 col-md-12 mb-4">
+			<h1 class="display-4 mb-3">{{ page.title }}</h1>
+			<h2 class="h3 text-muted mb-4">Software Engineer</h2>
 			<section class="summary mb-4">
-				<h4>Professional Summary</h4>
-				<p>I am a software engineer with 6+ years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
+				<h3 class="h4 mb-3">Professional Summary</h3>
+				<p class="lead">I am a software engineer with 6+ years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
 			</section>
 		</div>
 		<!-- Right column: Contact Info & Image -->
-		<div class="col-md-5 d-flex flex-column align-items-md-end align-items-center">
-			<div class="contact-info mb-3 w-100" style="max-width: 320px;">
-				<p><strong>Email:</strong> <a href="mailto:ethauber@outlook.com">ethauber@outlook.com</a></p>
-				<p><strong>Location:</strong> IN, USA</p>
-				<p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank">Elijah Hauber</a></p>
+		<div class="col-lg-5 col-md-12">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<div class="contact-info mb-4">
+						<h3 class="h5 mb-3">Contact Information</h3>
+						<div class="contact-item mb-2">
+							<strong>Email:</strong><br>
+							<a href="mailto:ethauber@outlook.com" class="text-break">ethauber@outlook.com</a>
+						</div>
+						<div class="contact-item mb-2">
+							<strong>Location:</strong><br>
+							<span>IN, USA</span>
+						</div>
+						<div class="contact-item mb-3">
+							<strong>LinkedIn:</strong><br>
+							<a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank" rel="noopener">Elijah Hauber</a>
+						</div>
+					</div>
+					<div class="text-center">
+						<a href="https://www.pokemon.com/us/" class="d-inline-block">
+							<img src="/assets/squirtle-seeklogo.com.svg" 
+								 class="img-fluid" 
+								 style="max-width: 150px; height: auto;" 
+								 title="Pokemon" 
+								 alt="Squirtle from Pokemon...you know for a little fun...">
+						</a>
+					</div>
+				</div>
 			</div>
-			<a href="https://www.pokemon.com/us/" class="mt-2"><img src="/assets/squirtle-seeklogo.com.svg" class="img-fluid" style="max-width: 180px;" title="Pokemon" alt="Squirtle from Pokemon...you know for a little fun..."></a>
 		</div>
 	</div>
 </div>
+
+<style>
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+	.display-4 {
+		font-size: 2.5rem;
+	}
+	
+	.lead {
+		font-size: 1.1rem;
+	}
+	
+	.card {
+		margin-top: 1rem;
+	}
+	
+	.contact-item {
+		padding: 0.5rem 0;
+		border-bottom: 1px solid #f8f9fa;
+	}
+	
+	.contact-item:last-child {
+		border-bottom: none;
+	}
+}
+
+@media (max-width: 576px) {
+	.display-4 {
+		font-size: 2rem;
+	}
+	
+	.h3 {
+		font-size: 1.5rem;
+	}
+	
+	.card-body {
+		padding: 1.25rem;
+	}
+}
+
+/* Touch-friendly improvements */
+.contact-item a {
+	padding: 0.25rem 0;
+	display: inline-block;
+	min-height: 44px;
+	line-height: 1.4;
+}
+
+.contact-item a:hover {
+	text-decoration: underline;
+}
+
+/* Better spacing for mobile */
+@media (max-width: 768px) {
+	.container {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
+</style>
