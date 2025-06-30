@@ -7,10 +7,35 @@ title: About Elijah Hauber
 		<!-- Left column: Name, Title, Summary -->
 		<div class="col-lg-7 col-md-12 mb-4">
 			<h1 class="display-4 mb-3">{{ page.title }}</h1>
-			<h2 class="h3 text-muted mb-4">Software Engineer</h2>
+			<h2 class="h3 text-muted mb-4">Software Engineer & AI Specialist</h2>
 			<section class="summary mb-4">
 				<h3 class="h4 mb-3">Professional Summary</h3>
-				<p class="lead">I am a software engineer with 6+ years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
+				<p class="lead">I am a software engineer with 6+ years of experience specializing in AI/ML applications, particularly LangChain development. I excel at building intelligent systems, RAG applications, and AI-powered tools that solve real-world problems.</p>
+			</section>
+			
+			<!-- AI Expertise Section -->
+			<section class="ai-expertise mb-4">
+				<h3 class="h4 mb-3">AI & LangChain Expertise</h3>
+				<div class="row">
+					<div class="col-md-6">
+						<h5 class="h6 text-primary">Core Competencies</h5>
+						<ul class="list-unstyled">
+							<li>✅ LangChain Framework Mastery</li>
+							<li>✅ RAG System Development</li>
+							<li>✅ AI Agent Architecture</li>
+							<li>✅ Vector Database Integration</li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<h5 class="h6 text-primary">Technical Skills</h5>
+						<ul class="list-unstyled">
+							<li>✅ LLM Integration (OpenAI, Claude)</li>
+							<li>✅ Prompt Engineering</li>
+							<li>✅ Memory Management</li>
+							<li>✅ Production Deployment</li>
+						</ul>
+					</div>
+				</div>
 			</section>
 		</div>
 		<!-- Right column: Contact Info & Image -->
@@ -43,6 +68,18 @@ title: About Elijah Hauber
 					</div>
 				</div>
 			</div>
+			
+			<!-- Quick Links Card -->
+			<div class="card mt-3 shadow-sm">
+				<div class="card-body">
+					<h4 class="h6 mb-3">Explore My Work</h4>
+					<div class="d-grid gap-2">
+						<a href="/works" class="btn btn-outline-primary btn-sm">View AI Projects</a>
+						<a href="/blog" class="btn btn-outline-secondary btn-sm">Read AI Blog Posts</a>
+						<a href="/space" class="btn btn-outline-info btn-sm">Experimental Space</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -69,6 +106,10 @@ title: About Elijah Hauber
 	
 	.contact-item:last-child {
 		border-bottom: none;
+	}
+	
+	.ai-expertise ul li {
+		margin-bottom: 0.5rem;
 	}
 }
 
@@ -104,5 +145,25 @@ title: About Elijah Hauber
 		padding-left: 1rem;
 		padding-right: 1rem;
 	}
+}
+
+/* AI Expertise styling */
+.ai-expertise {
+	background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	border-left: 4px solid #007bff;
+}
+
+.ai-expertise ul li {
+	font-size: 0.9rem;
+	margin-bottom: 0.25rem;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-info:hover {
+	transform: translateY(-1px);
+	transition: transform 0.2s ease;
 }
 </style>
