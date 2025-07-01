@@ -3,11 +3,26 @@ layout: default
 title: Elijah Hauber's Works
 ---
 	<h1>{{ page.title }}</h1>
+	<h3>Games</h3>
+	<div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
+		<a href="../games/pong" style="text-align: center; text-decoration: none; color: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 180px; box-shadow: 2px 2px 8px #eee; transition: box-shadow 0.2s; background: #faf9f6;">
+			<img src="/assets/pong.png" alt="Pong Image" style="width: 100%; height: 120px; object-fit: contain; margin-bottom: 0.5rem;">
+			<div style="font-size: 1.2rem; font-weight: bold;">Pong</div>
+		</a>
+		<a href="../games/flappy" style="text-align: center; text-decoration: none; color: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 180px; box-shadow: 2px 2px 8px #eee; transition: box-shadow 0.2s; background: #faf9f6;">
+			<img src="/assets/flappy.png" alt="Flappy flyer Image" style="width: 100%; height: 120px; object-fit: contain; margin-bottom: 0.5rem;">
+			<div style="font-size: 1.2rem; font-weight: bold;">Flappy Flyer</div>
+		</a>
+	</div>
+
 	<h3>Mandelbrot</h3>
 	<canvas id="myCanvas" width="600" height="600" class="img-fluid"></canvas>
-	<h3>Games</h3>
-	<a href="../games/pong">Pong <br><img src="/assets/pong.png" alt="Pong Image"></a>
+
+	<h3>Julia Set</h3>
+	<canvas id="juliaCanvas" width="600" height="600" class="img-fluid"></canvas>
+
 	<script>
+	// Mandelbrot
 	let myCanvas = document.getElementById('myCanvas');
 	let ctx = myCanvas.getContext('2d');
 	// ctx.rotate(40 * Math.PI / 180);
@@ -53,5 +68,77 @@ title: Elijah Hauber's Works
 			ctx.fillRect(x,y, 1,1); // Draw a colorful pixel
 		   }               
 	   } 
+	}
+
+	// --- Julia Set Rendering ---
+	function getDistanceFromCenter(x, y, width, height) {
+		let dx = (x - width / 2) / (width / 2);
+		let dy = (y - height / 2) / (height / 2);
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
+	function getJuliaColor(x, y, belongsToSet, width, height) {
+		const insideColor = [251, 220, 117]; // gold
+		const maxAlpha = 0.95;
+		const fadeStart = 0.92; // start fading at 92% radius
+		const fadeEnd = 1.0;    // fully transparent at edge
+		let dist = getDistanceFromCenter(x, y, width, height);
+		if (belongsToSet === 0) {
+			// Fade inside color near corners
+			let alpha = maxAlpha;
+			if (dist > fadeStart) {
+				alpha *= 1 - Math.min((dist - fadeStart) / (fadeEnd - fadeStart), 1);
+			}
+			return `rgba(${insideColor[0]}, ${insideColor[1]}, ${insideColor[2]}, ${alpha})`;
+		} else {
+			// Holographic, distinct coloring for outside points
+			let norm = Math.log(1 + belongsToSet) / Math.log(101);
+			let hue = (200 + 120 * norm + 60 * Math.sin((x - y) / 90)) % 360;
+			let light = 55 + 35 * Math.sin(norm * Math.PI * 2);
+			let alpha = 0.45 + 0.45 * Math.pow(norm, 0.7);
+			// Fade out corners for outside points too
+			if (dist > fadeStart) {
+				alpha *= 1 - Math.min((dist - fadeStart) / (fadeEnd - fadeStart), 1);
+			}
+			if (alpha < 0) alpha = 0;
+			return `hsla(${hue}, 85%, ${light}%, ${alpha})`;
+		}
+	}
+
+	function renderJuliaSet(canvas, cRe, cIm, magnification, panX, panY, iterations) {
+		const ctx = canvas.getContext('2d');
+		const width = canvas.width;
+		const height = canvas.height;
+		for (let x = 0; x < width; x++) {
+			for (let y = 0; y < height; y++) {
+				let zx = x / magnification - panX;
+				let zy = y / magnification - panY;
+				let belongsToSet = checkIfBelongsToJuliaSet(zx, zy, cRe, cIm, iterations);
+				ctx.fillStyle = getJuliaColor(x, y, belongsToSet, width, height);
+				ctx.fillRect(x, y, 1, 1);
+			}
+		}
+	}
+
+	// --- Julia Set Parameters ---
+	let juliaCanvas = document.getElementById('juliaCanvas');
+	let juliaMagnification = 200;
+	let juliaPanX = 1.5;
+	let juliaPanY = 1.5;
+	let cRe = -0.7, cIm = 0.27015; // classic Julia set
+	renderJuliaSet(juliaCanvas, cRe, cIm, juliaMagnification, juliaPanX, juliaPanY, iterations);
+
+	// Julia Set
+	let jctx = juliaCanvas.getContext('2d');
+	function checkIfBelongsToJuliaSet(x, y, cRe, cIm, iterations) {
+		let zx = x;
+		let zy = y;
+		for(let i = 0; i < iterations; i++) {
+			let xtemp = zx * zx - zy * zy + cRe;
+			zy = 2 * zx * zy + cIm;
+			zx = xtemp;
+			if (zx * zx + zy * zy > 16) return (i/iterations * 100);
+		}
+		return 0;
 	}
 	</script>

@@ -27,6 +27,9 @@ bundle init
 bundle install
 ```
 
+To run locall after everything is installed
+`bundle exec jekyll serve --livereload`
+
 
 ## Welcome to GitHub Pages
 
