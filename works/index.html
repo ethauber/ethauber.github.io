@@ -15,45 +15,79 @@ title: Elijah Hauber's Works
 		</a>
 	</div>
 
-	<h3>Mandelbrot Set</h3>
-	<div style="position: relative; display: inline-block;">
-		<canvas id="myCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
-		<div id="mandelbrotLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: none;">
-			<div style="text-align: center;">
-				<div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
-				<div>Rendering Mandelbrot Set...</div>
+	<div style="display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center;">
+		<div style="text-align: center;">
+			<h3 style="margin-bottom: 1rem;">Mandelbrot Set</h3>
+			<div style="position: relative; display: inline-block; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+				<canvas id="myCanvas" width="600" height="600" class="img-fluid" style="display: block; background: #f8f9fa;"></canvas>
+				<div id="mandelbrotLoader" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(248, 249, 250, 0.95); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+					<div style="text-align: center; padding: 2rem;">
+						<div style="width: 60px; height: 60px; border: 4px solid #e9ecef; border-top: 4px solid #fbdc75; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+						<div style="font-size: 1.1rem; color: #495057; font-weight: 500;">Rendering Mandelbrot Set...</div>
+						<div id="mandelbrotProgress" style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">Initializing...</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<button id="renderMandelbrot" style="margin: 10px 0; padding: 8px 16px; background: #fbdc75; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Render Mandelbrot Set</button>
 
-	<h3>Julia Set</h3>
-	<div style="position: relative; display: inline-block;">
-		<canvas id="juliaCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
-		<div id="juliaLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: none;">
-			<div style="text-align: center;">
-				<div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
-				<div>Rendering Julia Set...</div>
+		<div style="text-align: center;">
+			<h3 style="margin-bottom: 1rem;">Julia Set</h3>
+			<div style="position: relative; display: inline-block; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+				<canvas id="juliaCanvas" width="600" height="600" class="img-fluid" style="display: block; background: #f8f9fa;"></canvas>
+				<div id="juliaLoader" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(248, 249, 250, 0.95); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+					<div style="text-align: center; padding: 2rem;">
+						<div style="width: 60px; height: 60px; border: 4px solid #e9ecef; border-top: 4px solid #fbdc75; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+						<div style="font-size: 1.1rem; color: #495057; font-weight: 500;">Rendering Julia Set...</div>
+						<div id="juliaProgress" style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">Initializing...</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<button id="renderJulia" style="margin: 10px 0; padding: 8px 16px; background: #fbdc75; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Render Julia Set</button>
+
+	<div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; color: #6c757d;">
+		<small>
+			<strong>Mathematical Art:</strong> These fractals are generated in real-time using complex mathematical algorithms. 
+			The Mandelbrot set explores the boundary of chaos, while the Julia set reveals intricate patterns through iterative functions.
+		</small>
+	</div>
 
 	<style>
 		@keyframes spin {
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
 		}
+		
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		
+		.fractal-container {
+			animation: fadeIn 0.6s ease-out;
+		}
+		
+		canvas {
+			transition: opacity 0.3s ease;
+		}
+		
+		@media (max-width: 768px) {
+			canvas {
+				width: 100% !important;
+				height: auto !important;
+				max-width: 400px;
+			}
+		}
 	</style>
 
 	<script>
-	// Optimized rendering with requestAnimationFrame and chunked processing
+	// Enhanced fractal renderer with better UX
 	class FractalRenderer {
 		constructor() {
 			this.isRendering = false;
 		}
 
-		async renderMandelbrot(canvas, callback) {
+		async renderMandelbrot(canvas, progressCallback) {
 			if (this.isRendering) return;
 			this.isRendering = true;
 			
@@ -66,11 +100,12 @@ title: Elijah Hauber's Works
 			const panY = 1.5;
 			const iterations = 100;
 			
-			// Clear canvas
-			ctx.clearRect(0, 0, width, height);
+			// Clear canvas with a subtle background
+			ctx.fillStyle = '#f8f9fa';
+			ctx.fillRect(0, 0, width, height);
 			
-			// Process in chunks to prevent UI blocking
-			const chunkSize = 10000; // pixels per chunk
+			// Process in chunks with better progress tracking
+			const chunkSize = 8000;
 			let pixelCount = 0;
 			const totalPixels = width * height;
 			
@@ -92,23 +127,22 @@ title: Elijah Hauber's Works
 					
 					pixelCount++;
 					
-					// Yield control every chunk
+					// Update progress more frequently for better UX
 					if (pixelCount % chunkSize === 0) {
+						const progress = pixelCount / totalPixels;
+						progressCallback(progress);
 						await new Promise(resolve => {
-							requestAnimationFrame(() => {
-								callback(pixelCount / totalPixels);
-								resolve();
-							});
+							requestAnimationFrame(resolve);
 						});
 					}
 				}
 			}
 			
 			this.isRendering = false;
-			callback(1); // Complete
+			progressCallback(1);
 		}
 
-		async renderJulia(canvas, callback) {
+		async renderJulia(canvas, progressCallback) {
 			if (this.isRendering) return;
 			this.isRendering = true;
 			
@@ -123,11 +157,11 @@ title: Elijah Hauber's Works
 			const cIm = 0.27015;
 			const iterations = 100;
 			
-			// Clear canvas
-			ctx.clearRect(0, 0, width, height);
+			// Clear canvas with a subtle background
+			ctx.fillStyle = '#f8f9fa';
+			ctx.fillRect(0, 0, width, height);
 			
-			// Process in chunks
-			const chunkSize = 10000;
+			const chunkSize = 8000;
 			let pixelCount = 0;
 			const totalPixels = width * height;
 			
@@ -142,20 +176,18 @@ title: Elijah Hauber's Works
 					
 					pixelCount++;
 					
-					// Yield control every chunk
 					if (pixelCount % chunkSize === 0) {
+						const progress = pixelCount / totalPixels;
+						progressCallback(progress);
 						await new Promise(resolve => {
-							requestAnimationFrame(() => {
-								callback(pixelCount / totalPixels);
-								resolve();
-							});
+							requestAnimationFrame(resolve);
 						});
 					}
 				}
 			}
 			
 			this.isRendering = false;
-			callback(1); // Complete
+			progressCallback(1);
 		}
 
 		checkIfBelongsToMandelbrotSet(x, y, iterations) {
@@ -223,44 +255,51 @@ title: Elijah Hauber's Works
 		}
 	}
 
-	// Initialize renderer
-	const renderer = new FractalRenderer();
-
-	// Event listeners for lazy loading
+	// Auto-render fractals on page load
 	document.addEventListener('DOMContentLoaded', function() {
-		const mandelbrotBtn = document.getElementById('renderMandelbrot');
-		const juliaBtn = document.getElementById('renderJulia');
+		const renderer = new FractalRenderer();
 		const mandelbrotCanvas = document.getElementById('myCanvas');
 		const juliaCanvas = document.getElementById('juliaCanvas');
 		const mandelbrotLoader = document.getElementById('mandelbrotLoader');
 		const juliaLoader = document.getElementById('juliaLoader');
+		const mandelbrotProgress = document.getElementById('mandelbrotProgress');
+		const juliaProgress = document.getElementById('juliaProgress');
 
-		mandelbrotBtn.addEventListener('click', async function() {
-			mandelbrotLoader.style.display = 'block';
-			mandelbrotBtn.disabled = true;
-			mandelbrotBtn.textContent = 'Rendering...';
-			
-			await renderer.renderMandelbrot(mandelbrotCanvas, (progress) => {
-				// Could show progress here if needed
+		// Add staggered start for better UX
+		setTimeout(() => {
+			// Start Mandelbrot rendering
+			renderer.renderMandelbrot(mandelbrotCanvas, (progress) => {
+				const percentage = Math.round(progress * 100);
+				mandelbrotProgress.textContent = `${percentage}% complete`;
+				
+				if (progress >= 1) {
+					setTimeout(() => {
+						mandelbrotLoader.style.opacity = '0';
+						mandelbrotLoader.style.transition = 'opacity 0.5s ease';
+						setTimeout(() => {
+							mandelbrotLoader.style.display = 'none';
+						}, 500);
+					}, 200);
+				}
 			});
-			
-			mandelbrotLoader.style.display = 'none';
-			mandelbrotBtn.disabled = false;
-			mandelbrotBtn.textContent = 'Re-render Mandelbrot Set';
-		});
+		}, 500);
 
-		juliaBtn.addEventListener('click', async function() {
-			juliaLoader.style.display = 'block';
-			juliaBtn.disabled = true;
-			juliaBtn.textContent = 'Rendering...';
-			
-			await renderer.renderJulia(juliaCanvas, (progress) => {
-				// Could show progress here if needed
+		setTimeout(() => {
+			// Start Julia rendering with slight delay
+			renderer.renderJulia(juliaCanvas, (progress) => {
+				const percentage = Math.round(progress * 100);
+				juliaProgress.textContent = `${percentage}% complete`;
+				
+				if (progress >= 1) {
+					setTimeout(() => {
+						juliaLoader.style.opacity = '0';
+						juliaLoader.style.transition = 'opacity 0.5s ease';
+						setTimeout(() => {
+							juliaLoader.style.display = 'none';
+						}, 500);
+					}, 200);
+				}
 			});
-			
-			juliaLoader.style.display = 'none';
-			juliaBtn.disabled = false;
-			juliaBtn.textContent = 'Re-render Julia Set';
-		});
+		}, 1000);
 	});
 	</script>
