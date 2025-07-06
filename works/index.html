@@ -18,31 +18,46 @@ title: Elijah Hauber's Works
 	<h3>Mandelbrot Set</h3>
 	<div style="position: relative; display: inline-block;">
 		<canvas id="myCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
-		<div id="mandelbrotLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: none;">
+		<div id="mandelbrotLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: block;">
 			<div style="text-align: center;">
 				<div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
 				<div>Rendering Mandelbrot Set...</div>
 			</div>
 		</div>
 	</div>
-	<button id="renderMandelbrot" style="margin: 10px 0; padding: 8px 16px; background: #fbdc75; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Render Mandelbrot Set</button>
+	<div style="margin: 10px 0; text-align: center;">
+		<button id="renderMandelbrot" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Mandelbrot Set</button>
+	</div>
 
 	<h3>Julia Set</h3>
 	<div style="position: relative; display: inline-block;">
 		<canvas id="juliaCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
-		<div id="juliaLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: none;">
+		<div id="juliaLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: block;">
 			<div style="text-align: center;">
 				<div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
 				<div>Rendering Julia Set...</div>
 			</div>
 		</div>
 	</div>
-	<button id="renderJulia" style="margin: 10px 0; padding: 8px 16px; background: #fbdc75; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Render Julia Set</button>
+	<div style="margin: 10px 0; text-align: center;">
+		<button id="renderJulia" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Julia Set</button>
+	</div>
 
 	<style>
 		@keyframes spin {
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
+		}
+		
+		#renderMandelbrot:hover, #renderJulia:hover {
+			background: #2980b9 !important;
+			transform: translateY(-1px);
+		}
+		
+		#renderMandelbrot:disabled, #renderJulia:disabled {
+			background: #95a5a6 !important;
+			cursor: not-allowed !important;
+			transform: none !important;
 		}
 	</style>
 
@@ -226,8 +241,8 @@ title: Elijah Hauber's Works
 	// Initialize renderer
 	const renderer = new FractalRenderer();
 
-	// Event listeners for lazy loading
-	document.addEventListener('DOMContentLoaded', function() {
+	// Auto-render fractals on page load with re-render capability
+	document.addEventListener('DOMContentLoaded', async function() {
 		const mandelbrotBtn = document.getElementById('renderMandelbrot');
 		const juliaBtn = document.getElementById('renderJulia');
 		const mandelbrotCanvas = document.getElementById('myCanvas');
@@ -235,7 +250,8 @@ title: Elijah Hauber's Works
 		const mandelbrotLoader = document.getElementById('mandelbrotLoader');
 		const juliaLoader = document.getElementById('juliaLoader');
 
-		mandelbrotBtn.addEventListener('click', async function() {
+		// Function to render Mandelbrot set
+		async function renderMandelbrotSet() {
 			mandelbrotLoader.style.display = 'block';
 			mandelbrotBtn.disabled = true;
 			mandelbrotBtn.textContent = 'Rendering...';
@@ -247,9 +263,10 @@ title: Elijah Hauber's Works
 			mandelbrotLoader.style.display = 'none';
 			mandelbrotBtn.disabled = false;
 			mandelbrotBtn.textContent = 'Re-render Mandelbrot Set';
-		});
+		}
 
-		juliaBtn.addEventListener('click', async function() {
+		// Function to render Julia set
+		async function renderJuliaSet() {
 			juliaLoader.style.display = 'block';
 			juliaBtn.disabled = true;
 			juliaBtn.textContent = 'Rendering...';
@@ -261,6 +278,16 @@ title: Elijah Hauber's Works
 			juliaLoader.style.display = 'none';
 			juliaBtn.disabled = false;
 			juliaBtn.textContent = 'Re-render Julia Set';
-		});
+		}
+
+		// Auto-render both fractals on page load
+		setTimeout(async () => {
+			await renderMandelbrotSet();
+			await renderJuliaSet();
+		}, 100);
+
+		// Add click event listeners for re-rendering
+		mandelbrotBtn.addEventListener('click', renderMandelbrotSet);
+		juliaBtn.addEventListener('click', renderJuliaSet);
 	});
 	</script>
