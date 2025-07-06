@@ -5,223 +5,322 @@ title: Space
 <link rel="stylesheet" href="../css/bootOverrides.css">
 <div id="planetsContainer" class="container" style="z-index: 0; position: relative;">
   <h1>Space</h1>
-  <span class="d-flex justify-content-center arrow-up"></span>
-  <div id="mercury" class="h-100" style="width: 18rem;  top: 10px; left: 10px;">
-    <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-rowors/?category=planets_mercury">
-      <img src="../assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="Nasa Mercury">
+  <div style="text-align: center; margin: 20px 0;">
+    <span class="d-flex justify-content-center arrow-up" style="cursor: pointer;" title="Previous Planet"></span>
+    <div style="margin: 10px 0;">
+      <span id="planetCounter">Planet 1 of 8</span>
+    </div>
+    <span class="d-flex justify-content-center arrow-down" style="cursor: pointer;" title="Next Planet"></span>
+  </div>
+  
+  <div id="mercury" class="planet-card h-100" style="width: 18rem; top: 10px; left: 10px;">
+    <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury" target="_blank" rel="noopener">
+      <img src="../assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="NASA Mercury" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Mercury</h5>
       <div class="card-text">
-        <ul>
-          <a href="https://www.google.com/maps/space/mercury/@0,0,11727608m/data=!3m1!1e3" target="blank"
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/mercury/@0,0,11727608m/data=!3m1!1e3" target="_blank" rel="noopener"
             class="btn btn-primary btn-sm">Mercury in Space via Google</a>
+        </div>
+        <ul>
           <li>Distance from Sun: 35.98 million mi</li>
           <li>Orbital period: 88 days</li>
           <li>Mass: 3.285 × 10^23 kg (0.055 M⊕)</li>
-          <li>Surface area: 28.88 million mi² <a href=""></a></li>
+          <li>Surface area: 28.88 million mi²</li>
           <li>Length of day: 58d 15h 30m</li>
         </ul>
-        <a href="https://www.nasa.gov/planetmercury" target="blank" class="btn btn-link">Nasa.gov Page On
-          Mercury</a>
-        <a href="https://g.co/kgs/p2NV4e" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://www.nasa.gov/planetmercury" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On Mercury</a>
+          <a href="https://g.co/kgs/p2NV4e" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="venus" class="h-100" style="display: none; width: 18rem;  top: 40px; left: 10px;">
-    <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html">
-      <img src="../assets/venusglobe.jpg" class="card-img-top" alt="Nasa Venus">
+  
+  <div id="venus" class="planet-card h-100" style="display: none; width: 18rem; top: 40px; left: 10px;">
+    <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html" target="_blank" rel="noopener">
+      <img src="../assets/venusglobe.jpg" class="card-img-top" alt="NASA Venus" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Venus</h5>
       <div class="card-text">
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/venus" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Venus in Space via Google</a>
+        </div>
         <ul>
-          <a href="https://www.google.com/maps/space/venus" target="blank" class="btn btn-primary btn-sm">Venus in
-            Space via Google</a>
           <li>Distance from Sun: 67.24 million mi</li>
           <li>Orbital period: 225 days</li>
           <li>Length of day: 116d 18h 0m</li>
-          <li>Surface area: 177.7 million mi²<a href=""></a></li>
+          <li>Surface area: 177.7 million mi²</li>
           <li>Equatorial rotation velocity: 6.52 km/h (1.81 m/s)</li>
         </ul>
-        <a href="" target="blank" class="btn btn-link">Nasa.gov Page On
-          Venus</a>
-        <a href="" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/venus/overview/" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On Venus</a>
+          <a href="https://g.co/kgs/venus" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="earth" class="h-100" style="display: none; width: 18rem;  top: 70px; left: 10px;">
-    <a href="https://www.nasa.gov/topics/earth/images/index.html">
-      <img src="../assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="Nasa Earth">
+  
+  <div id="earth" class="planet-card h-100" style="display: none; width: 18rem; top: 70px; left: 10px;">
+    <a href="https://www.nasa.gov/topics/earth/images/index.html" target="_blank" rel="noopener">
+      <img src="../assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="NASA Earth" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Earth</h5>
       <div class="card-text">
-        <ul>
-          <a href="https://www.google.com/maps/@0,-87.6285003,22963938m/data=!3m1!1e3" target="blank"
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/@0,-87.6285003,22963938m/data=!3m1!1e3" target="_blank" rel="noopener"
             class="btn btn-primary btn-sm">Earth in Space via Google</a>
-          <li>Age is 4.543 billion years as of 2019</li>
-          <li>Distance from the Sun is 92.96 million mi</li>
-          <li>Radius is 3,958.8 mi</li>
-          <li>Population is 7.53 billion <a
-              href="http://datatopics.worldbank.org/world-development-indicators/">(2017) World Bank</a></li>
+        </div>
+        <ul>
+          <li>Age: 4.543 billion years</li>
+          <li>Distance from Sun: 92.96 million mi</li>
+          <li>Radius: 3,958.8 mi</li>
+          <li>Population: 7.53 billion (2017) World Bank</li>
           <li>Earth is wider around the equator</li>
         </ul>
-        <a href="https://www.nasa.gov/topics/earth/index.html" target="blank" class="btn btn-link">Nasa.gov Page
-          On
-          Earth</a>
-        <a href="https://g.co/kgs/bdiXLa" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://www.nasa.gov/topics/earth/index.html" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On Earth</a>
+          <a href="https://g.co/kgs/bdiXLa" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="mars" class="h-100" style="display: none; width: 18rem;  top: 100px; left: 10px;">
-    <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html">
-      <img src="../assets/marsglobe1.jpg" class="card-img-top" alt="Nasa Mars">
+  
+  <div id="mars" class="planet-card h-100" style="display: none; width: 18rem; top: 100px; left: 10px;">
+    <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html" target="_blank" rel="noopener">
+      <img src="../assets/marsglobe1.jpg" class="card-img-top" alt="NASA Mars" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Mars</h5>
       <div class="card-text">
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/mars" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Mars in Space via Google</a>
+        </div>
         <ul>
-          <a href="https://www.google.com/maps/space/mars" target="blank" class="btn btn-primary btn-sm">Mars in
-            Space via Google</a>
           <li>Distance from Sun: 141.6 million mi</li>
           <li>Orbital period: 687 days</li>
           <li>Length of day: 1d 0h 37m</li>
           <li>Surface pressure: 0.636 (0.4–0.87) kPa; 0.00628 atm</li>
         </ul>
-        <a href="https://solarsystem.nasa.gov/planets/mars/overview/" target="blank" class="btn btn-link">Nasa.gov
-          Page On
-          Mars</a>
-        <a href="https://g.co/kgs/c1k2gk" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/mars/overview/" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On Mars</a>
+          <a href="https://g.co/kgs/c1k2gk" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="jupiter" class="h-100" style="display: none; width: 18rem;  top: 130px; left: 10px;">
-    <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/">
-      <img src="../assets/jupiterglobe.jpg" class="card-img-top" alt="Nasa Jupiter">
+  
+  <div id="jupiter" class="planet-card h-100" style="display: none; width: 18rem; top: 130px; left: 10px;">
+    <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="_blank" rel="noopener">
+      <img src="../assets/jupiterglobe.jpg" class="card-img-top" alt="NASA Jupiter" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Jupiter</h5>
       <div class="card-text">
-        <ul>
-          <a href="https://www.google.com/maps/space/jupiter" target="blank"
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/jupiter" target="_blank" rel="noopener"
             class="btn btn-primary btn-sm">Jupiter in Space via Google</a>
+        </div>
+        <ul>
           <li>Distance from Sun: 483.8 million mi</li>
           <li>Mass: 1.898 × 10^27 kg (317.8 M⊕)</li>
           <li>Orbital period: 12 years</li>
           <li>Radius: 43,441 mi</li>
           <li>Surface area: 23.71 billion mi²</li>
         </ul>
-        <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="blank"
-          class="btn btn-link">Nasa.gov Page On
-          Jupiter</a>
-        <a href="https://g.co/kgs/FsEG8W" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="_blank" rel="noopener"
+            class="btn btn-link">NASA.gov Page On Jupiter</a>
+          <a href="https://g.co/kgs/FsEG8W" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="saturn" class="h-100" style="display: none; width: 18rem;  top: 160px; left: 10px;">
-    <a href="https://solarsystem.nasa.gov/planets/saturn/overview/">
-      <img src="../assets/saturngloberesize.png" class="card-img-top" alt="Nasa Saturn">
+  
+  <div id="saturn" class="planet-card h-100" style="display: none; width: 18rem; top: 160px; left: 10px;">
+    <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="_blank" rel="noopener">
+      <img src="../assets/saturngloberesize.png" class="card-img-top" alt="NASA Saturn" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Saturn</h5>
       <div class="card-text">
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/saturn" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Saturn in Space via Google</a>
+        </div>
         <ul>
-          <a href="https://www.google.com/maps/space/saturn" target="blank" class="btn btn-primary btn-sm">Saturn
-            in Space via Google</a>
           <li>Distance from Sun: 890.8 million mi</li>
           <li>Orbital period: 29 years</li>
           <li>Mass: 5.683 × 10^26 kg (95.16 M⊕)</li>
           <li>Radius: 36,184 mi</li>
         </ul>
-        <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="blank"
-          class="btn btn-link">Nasa.gov Page On
-          Saturn</a>
-        <a href="https://g.co/kgs/WU4hYp" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="_blank" rel="noopener"
+            class="btn btn-link">NASA.gov Page On Saturn</a>
+          <a href="https://g.co/kgs/WU4hYp" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="uranus" class="h-100" style="display: none; width: 18rem;  top: 190px; left: 10px;">
-    <a href="https://solarsystem.nasa.gov/planets/uranus/overview/">
-      <img src="../assets/uranusglobe.jpg" class="card-img-top" alt="Nasa Uranus">
+  
+  <div id="uranus" class="planet-card h-100" style="display: none; width: 18rem; top: 190px; left: 10px;">
+    <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="_blank" rel="noopener">
+      <img src="../assets/uranusglobe.jpg" class="card-img-top" alt="NASA Uranus" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Uranus</h5>
       <div class="card-text">
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/uranus" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Uranus in Space via Google</a>
+        </div>
         <ul>
-          <a href="https://www.google.com/maps/space/uranus" target="blank" class="btn btn-primary btn-sm">Uranus
-            in Space via Google</a>
           <li>Distance from Sun: 1.784 billion mi</li>
           <li>Orbital period: 84 years</li>
           <li>Mass: 8.681 × 10^25 kg (14.54 M⊕)</li>
           <li>Radius: 15,759 mi</li>
           <li>Surface area: 3.121 billion mi²</li>
         </ul>
-        <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="blank"
-          class="btn btn-link">Nasa.gov Page On
-          Uranus</a>
-        <a href="https://g.co/kgs/RQHkiH" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="_blank" rel="noopener"
+            class="btn btn-link">NASA.gov Page On Uranus</a>
+          <a href="https://g.co/kgs/RQHkiH" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <div id="neptune" class="h-100" style="display: none; width: 18rem; top: 220px; left: 10px;">
-    <a href="https://solarsystem.nasa.gov/planets/neptune/overview/">
-      <img src="../assets/neptuneglobe.jpg" class="card-img-top" alt="Nasa Neptune">
+  
+  <div id="neptune" class="planet-card h-100" style="display: none; width: 18rem; top: 220px; left: 10px;">
+    <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="_blank" rel="noopener">
+      <img src="../assets/neptuneglobe.jpg" class="card-img-top" alt="NASA Neptune" loading="lazy">
     </a>
-    <div onwheel="myFunction(event, neptune)" class="card-body" style="background-color: lightgrey;">
+    <div class="card-body" style="background-color: lightgrey;">
       <h5 class="card-title">Neptune</h5>
       <div class="card-text">
-        <ul>
-          <a href="https://www.google.com/maps/space/neptune" target="blank"
+        <div style="margin-bottom: 10px;">
+          <a href="https://www.google.com/maps/space/neptune" target="_blank" rel="noopener"
             class="btn btn-primary btn-sm">Neptune in Space via Google</a>
+        </div>
+        <ul>
           <li>Distance from Sun: 2.793 billion mi</li>
           <li>Orbital period: 165 years</li>
           <li>Mass: 1.024 × 10^26 kg (17.15 M⊕)</li>
           <li>Radius: 15,299 mi</li>
         </ul>
-        <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="blank"
-          class="btn btn-link">Nasa.gov Page On
-          Neptune</a>
-        <a href="https://g.co/kgs/LQa88m" target="blank" class="btn btn-light btn-sm">Source</a>
+        <div style="margin-top: 10px;">
+          <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="_blank" rel="noopener"
+            class="btn btn-link">NASA.gov Page On Neptune</a>
+          <a href="https://g.co/kgs/LQa88m" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source</a>
+        </div>
       </div>
     </div>
   </div>
-  <span class="d-flex justify-content-center arrow-down"></span>
 </div>
+
+<style>
+  .planet-card {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .arrow-up, .arrow-down {
+    transition: transform 0.2s ease;
+  }
+  
+  .arrow-up:hover, .arrow-down:hover {
+    transform: scale(1.1);
+  }
+  
+  #planetCounter {
+    font-weight: bold;
+    color: #666;
+  }
+</style>
+
 <script>
-function myFunction(event, planet_div) {
-  console.log(event);
-  console.log(planet_div);
-  // planet_div.style.top = "750px";
-  planet_div["z-index"] = 2;
+// Optimized planet navigation with better performance
+class PlanetNavigator {
+  constructor() {
+    this.planetIndex = 0;
+    this.planets = [
+      "#mercury", "#venus", "#earth", "#mars",
+      "#jupiter", "#saturn", "#uranus", "#neptune"
+    ];
+    this.planetNames = [
+      "Mercury", "Venus", "Earth", "Mars",
+      "Jupiter", "Saturn", "Uranus", "Neptune"
+    ];
+    this.isAnimating = false;
+    this.init();
+  }
+
+  init() {
+    // Cache DOM elements
+    this.arrowUp = document.querySelector('.arrow-up');
+    this.arrowDown = document.querySelector('.arrow-down');
+    this.planetCounter = document.getElementById('planetCounter');
+    
+    // Add event listeners
+    this.arrowUp.addEventListener('click', () => this.navigatePlanet(-1));
+    this.arrowDown.addEventListener('click', () => this.navigatePlanet(1));
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        this.navigatePlanet(-1);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        this.navigatePlanet(1);
+      }
+    });
+    
+    this.updateCounter();
+  }
+
+  mod(n, m) {
+    return ((n % m) + m) % m;
+  }
+
+  async navigatePlanet(direction) {
+    if (this.isAnimating) return;
+    this.isAnimating = true;
+    
+    // Hide current planet
+    const currentPlanet = document.querySelector(this.planets[this.planetIndex]);
+    if (currentPlanet) {
+      currentPlanet.style.opacity = '0';
+      await new Promise(resolve => setTimeout(resolve, 150));
+      currentPlanet.style.display = 'none';
+    }
+    
+    // Update index
+    this.planetIndex += direction;
+    this.planetIndex = this.mod(this.planetIndex, this.planets.length);
+    
+    // Show new planet
+    const newPlanet = document.querySelector(this.planets[this.planetIndex]);
+    if (newPlanet) {
+      newPlanet.style.display = 'block';
+      newPlanet.style.opacity = '0';
+      await new Promise(resolve => setTimeout(resolve, 50));
+      newPlanet.style.opacity = '1';
+    }
+    
+    this.updateCounter();
+    this.isAnimating = false;
+  }
+
+  updateCounter() {
+    if (this.planetCounter) {
+      this.planetCounter.textContent = `${this.planetNames[this.planetIndex]} (${this.planetIndex + 1} of ${this.planets.length})`;
+    }
+  }
 }
 
-// Document ready via jQuery
-var planet_index = 0;
-var planets = [
-  "#mercury", "#venus", "#earth", "#mars",
-  "#jupiter", "#saturn", "#uranus", "#neptune"
-];
-
-// https://stackoverflow.com/questions/
-// 4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
-function mod(n, m) {
-  return ((n % m) + m) % m;
-}
-
-$(function() {
-  console.log('ready');
-  $('.arrow-up').click(function() {
-    $(planets[planet_index]).delay(50).fadeOut();
-    planet_index -= 1;
-    planet_index = mod(planet_index, 8)
-    $(planets[planet_index]).delay(100).fadeIn();
-  });
-  $('.arrow-down').click(function() {
-    $(planets[planet_index]).delay(25).fadeOut();
-    planet_index += 1;
-    planet_index %= 8;
-    $(planets[planet_index]).delay(90).fadeIn();
-  });
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  new PlanetNavigator();
 });
 </script>
