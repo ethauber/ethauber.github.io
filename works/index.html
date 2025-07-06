@@ -43,6 +43,29 @@ title: Elijah Hauber's Works
 		<button id="renderJulia" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Julia Set</button>
 	</div>
 
+	<h3>Sophie Germain Primes</h3>
+	<div style="text-align: center; margin-bottom: 20px;">
+		<p style="font-size: 14px; color: #666; max-width: 600px; margin: 0 auto;">
+			Sophie Germain primes are primes p where 2p + 1 is also prime. The connected pairs show each Sophie Germain prime (blue) and its corresponding safe prime (orange).
+		</p>
+	</div>
+	<div style="position: relative; display: inline-block;">
+		<canvas id="sophieCanvas" width="800" height="500" class="img-fluid" style="border: 1px solid #ccc; background: #fafafa;"></canvas>
+		<div id="sophieLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: block;">
+			<div style="text-align: center;">
+				<div style="border: 4px solid #f3f3f3; border-top: 4px solid #e74c3c; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
+				<div>Generating Sophie Germain Primes...</div>
+			</div>
+		</div>
+	</div>
+	<div style="margin: 10px 0; text-align: center;">
+		<button id="renderSophie" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s; margin-right: 10px;">Regenerate Visualization</button>
+		<button id="toggleSophieView" style="padding: 8px 16px; background: #9b59b6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Toggle View</button>
+	</div>
+	<div id="sophieInfo" style="text-align: center; margin-top: 10px; font-size: 12px; color: #666;">
+		<div id="sophieStats"></div>
+	</div>
+
 	<style>
 		@keyframes spin {
 			0% { transform: rotate(0deg); }
@@ -59,6 +82,22 @@ title: Elijah Hauber's Works
 			cursor: not-allowed !important;
 			transform: none !important;
 		}
+		
+		#renderSophie:hover {
+			background: #c0392b !important;
+			transform: translateY(-1px);
+		}
+		
+		#renderSophie:disabled {
+			background: #95a5a6 !important;
+			cursor: not-allowed !important;
+			transform: none !important;
+		}
+		
+		#toggleSophieView:hover {
+			background: #8e44ad !important;
+			transform: translateY(-1px);
+		}
 	</style>
 
 	<script>
@@ -66,6 +105,7 @@ title: Elijah Hauber's Works
 	class FractalRenderer {
 		constructor() {
 			this.isRendering = false;
+			this.sophieViewMode = 'grid'; // 'grid' or 'spiral'
 		}
 
 		async renderMandelbrot(canvas, callback) {
@@ -236,6 +276,221 @@ title: Elijah Hauber's Works
 				return `hsla(${hue}, 85%, ${light}%, ${alpha})`;
 			}
 		}
+
+		// Sophie Germain Prime functions
+		isPrime(n) {
+			if (n < 2) return false;
+			if (n === 2) return true;
+			if (n % 2 === 0) return false;
+			
+			for (let i = 3; i * i <= n; i += 2) {
+				if (n % i === 0) return false;
+			}
+			return true;
+		}
+
+		isSophieGermainPrime(p) {
+			return this.isPrime(p) && this.isPrime(2 * p + 1);
+		}
+
+		getSophieGermainPrimes(limit) {
+			const primes = [];
+			for (let i = 2; i <= limit; i++) {
+				if (this.isSophieGermainPrime(i)) {
+					primes.push({
+						sophie: i,
+						safe: 2 * i + 1
+					});
+				}
+			}
+			return primes;
+		}
+
+		async renderSophieGermain(canvas, callback) {
+			if (this.isRendering) return;
+			this.isRendering = true;
+			
+			const ctx = canvas.getContext('2d');
+			const width = canvas.width;
+			const height = canvas.height;
+			
+			// Clear canvas
+			ctx.clearRect(0, 0, width, height);
+			
+			// Get Sophie Germain primes up to reasonable limit
+			const limit = 500;
+			const primes = this.getSophieGermainPrimes(limit);
+			
+			if (this.sophieViewMode === 'grid') {
+				await this.renderSophieGrid(ctx, primes, width, height, callback);
+			} else {
+				await this.renderSophieSpiral(ctx, primes, width, height, callback);
+			}
+			
+			this.isRendering = false;
+			callback(1, primes.length);
+		}
+
+		async renderSophieGrid(ctx, primes, width, height, callback) {
+			const maxValue = Math.max(...primes.map(p => p.safe));
+			const cols = Math.ceil(Math.sqrt(maxValue));
+			const rows = Math.ceil(maxValue / cols);
+			
+			const cellWidth = width / cols;
+			const cellHeight = height / rows;
+			
+			// Draw grid background
+			ctx.strokeStyle = '#e0e0e0';
+			ctx.lineWidth = 0.5;
+			
+			for (let i = 0; i <= cols; i++) {
+				ctx.beginPath();
+				ctx.moveTo(i * cellWidth, 0);
+				ctx.lineTo(i * cellWidth, height);
+				ctx.stroke();
+			}
+			
+			for (let i = 0; i <= rows; i++) {
+				ctx.beginPath();
+				ctx.moveTo(0, i * cellHeight);
+				ctx.lineTo(width, i * cellHeight);
+				ctx.stroke();
+			}
+			
+			// Draw numbers and highlight Sophie Germain primes
+			for (let i = 0; i < primes.length; i++) {
+				const prime = primes[i];
+				
+				// Sophie Germain prime position
+				const sophieRow = Math.floor((prime.sophie - 1) / cols);
+				const sophieCol = (prime.sophie - 1) % cols;
+				const sophieX = sophieCol * cellWidth + cellWidth / 2;
+				const sophieY = sophieRow * cellHeight + cellHeight / 2;
+				
+				// Safe prime position
+				const safeRow = Math.floor((prime.safe - 1) / cols);
+				const safeCol = (prime.safe - 1) % cols;
+				const safeX = safeCol * cellWidth + cellWidth / 2;
+				const safeY = safeRow * cellHeight + cellHeight / 2;
+				
+				// Draw connection line
+				ctx.strokeStyle = 'rgba(52, 152, 219, 0.3)';
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.moveTo(sophieX, sophieY);
+				ctx.lineTo(safeX, safeY);
+				ctx.stroke();
+				
+				// Draw Sophie Germain prime
+				ctx.fillStyle = '#3498db';
+				ctx.beginPath();
+				ctx.arc(sophieX, sophieY, Math.min(cellWidth, cellHeight) / 6, 0, 2 * Math.PI);
+				ctx.fill();
+				
+				// Draw safe prime
+				ctx.fillStyle = '#e67e22';
+				ctx.beginPath();
+				ctx.arc(safeX, safeY, Math.min(cellWidth, cellHeight) / 6, 0, 2 * Math.PI);
+				ctx.fill();
+				
+				// Add text labels for smaller primes
+				if (prime.sophie < 100) {
+					ctx.fillStyle = '#2c3e50';
+					ctx.font = '10px Arial';
+					ctx.textAlign = 'center';
+					ctx.fillText(prime.sophie.toString(), sophieX, sophieY - 15);
+					ctx.fillText(prime.safe.toString(), safeX, safeY - 15);
+				}
+				
+				// Yield control periodically
+				if (i % 10 === 0) {
+					await new Promise(resolve => {
+						requestAnimationFrame(() => {
+							callback(i / primes.length);
+							resolve();
+						});
+					});
+				}
+			}
+		}
+
+		async renderSophieSpiral(ctx, primes, width, height, callback) {
+			const centerX = width / 2;
+			const centerY = height / 2;
+			const maxRadius = Math.min(width, height) / 2 - 20;
+			
+			// Create spiral positions for all numbers up to max safe prime
+			const maxValue = Math.max(...primes.map(p => p.safe));
+			const angleStep = 0.3;
+			const radiusStep = maxRadius / (maxValue * angleStep / (2 * Math.PI));
+			
+			const primeSet = new Set();
+			const safeSet = new Set();
+			primes.forEach(p => {
+				primeSet.add(p.sophie);
+				safeSet.add(p.safe);
+			});
+			
+			// Draw spiral and highlight primes
+			for (let i = 0; i < primes.length; i++) {
+				const prime = primes[i];
+				
+				// Sophie Germain prime position
+				const sophieAngle = prime.sophie * angleStep;
+				const sophieRadius = prime.sophie * radiusStep;
+				const sophieX = centerX + sophieRadius * Math.cos(sophieAngle);
+				const sophieY = centerY + sophieRadius * Math.sin(sophieAngle);
+				
+				// Safe prime position
+				const safeAngle = prime.safe * angleStep;
+				const safeRadius = prime.safe * radiusStep;
+				const safeX = centerX + safeRadius * Math.cos(safeAngle);
+				const safeY = centerY + safeRadius * Math.sin(safeAngle);
+				
+				// Draw connection line
+				ctx.strokeStyle = 'rgba(52, 152, 219, 0.4)';
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.moveTo(sophieX, sophieY);
+				ctx.lineTo(safeX, safeY);
+				ctx.stroke();
+				
+				// Draw Sophie Germain prime
+				ctx.fillStyle = '#3498db';
+				ctx.beginPath();
+				ctx.arc(sophieX, sophieY, 4, 0, 2 * Math.PI);
+				ctx.fill();
+				
+				// Draw safe prime
+				ctx.fillStyle = '#e67e22';
+				ctx.beginPath();
+				ctx.arc(safeX, safeY, 4, 0, 2 * Math.PI);
+				ctx.fill();
+				
+				// Add text labels for smaller primes
+				if (prime.sophie < 50) {
+					ctx.fillStyle = '#2c3e50';
+					ctx.font = '9px Arial';
+					ctx.textAlign = 'center';
+					ctx.fillText(prime.sophie.toString(), sophieX, sophieY - 8);
+					ctx.fillText(prime.safe.toString(), safeX, safeY - 8);
+				}
+				
+				// Yield control periodically
+				if (i % 10 === 0) {
+					await new Promise(resolve => {
+						requestAnimationFrame(() => {
+							callback(i / primes.length);
+							resolve();
+						});
+					});
+				}
+			}
+		}
+
+		toggleSophieView() {
+			this.sophieViewMode = this.sophieViewMode === 'grid' ? 'spiral' : 'grid';
+		}
 	}
 
 	// Initialize renderer
@@ -245,10 +500,15 @@ title: Elijah Hauber's Works
 	document.addEventListener('DOMContentLoaded', async function() {
 		const mandelbrotBtn = document.getElementById('renderMandelbrot');
 		const juliaBtn = document.getElementById('renderJulia');
+		const sophieBtn = document.getElementById('renderSophie');
+		const toggleSophieBtn = document.getElementById('toggleSophieView');
 		const mandelbrotCanvas = document.getElementById('myCanvas');
 		const juliaCanvas = document.getElementById('juliaCanvas');
+		const sophieCanvas = document.getElementById('sophieCanvas');
 		const mandelbrotLoader = document.getElementById('mandelbrotLoader');
 		const juliaLoader = document.getElementById('juliaLoader');
+		const sophieLoader = document.getElementById('sophieLoader');
+		const sophieStats = document.getElementById('sophieStats');
 
 		// Function to render Mandelbrot set
 		async function renderMandelbrotSet() {
@@ -280,14 +540,40 @@ title: Elijah Hauber's Works
 			juliaBtn.textContent = 'Re-render Julia Set';
 		}
 
-		// Auto-render both fractals on page load
+		// Function to render Sophie Germain primes
+		async function renderSophieGermainSet() {
+			sophieLoader.style.display = 'block';
+			sophieBtn.disabled = true;
+			sophieBtn.textContent = 'Generating...';
+			
+			await renderer.renderSophieGermain(sophieCanvas, (progress, count) => {
+				if (count !== undefined) {
+					sophieStats.textContent = `Found ${count} Sophie Germain primes up to 500. View: ${renderer.sophieViewMode}`;
+				}
+			});
+			
+			sophieLoader.style.display = 'none';
+			sophieBtn.disabled = false;
+			sophieBtn.textContent = 'Regenerate Visualization';
+		}
+
+		// Auto-render all visualizations on page load
 		setTimeout(async () => {
 			await renderMandelbrotSet();
 			await renderJuliaSet();
+			await renderSophieGermainSet();
 		}, 100);
 
 		// Add click event listeners for re-rendering
 		mandelbrotBtn.addEventListener('click', renderMandelbrotSet);
 		juliaBtn.addEventListener('click', renderJuliaSet);
+		sophieBtn.addEventListener('click', renderSophieGermainSet);
+		
+		// Add toggle view functionality
+		toggleSophieBtn.addEventListener('click', async () => {
+			renderer.toggleSophieView();
+			toggleSophieBtn.textContent = renderer.sophieViewMode === 'grid' ? 'Switch to Spiral' : 'Switch to Grid';
+			await renderSophieGermainSet();
+		});
 	});
 	</script>
