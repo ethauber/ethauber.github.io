@@ -16,9 +16,9 @@ title: Elijah Hauber Software Engineer
           <li class="nav-item">
             <a class="nav-link" href="#home" data-section="home">Home</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#about" data-section="about">About</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="#works" data-section="works">Works</a>
           </li>
@@ -38,9 +38,9 @@ title: Elijah Hauber Software Engineer
     <!-- Home Section -->
     <section id="home" class="section">
       <div class="container d-flex justify-content-center">
-        <div class="mt-5 pt-4">
-          <h1>Elijah Hauber</h1>
-          <h3>Software Engineer</h3>
+        <div>
+          <h2 class="display-5 mb-3">Elijah Hauber</h2>
+          <h4>Software Engineer</h4>
           <div class="contact-info mb-3">
             <p><strong>Email:</strong> <a href="mailto:ethauber@outlook.com">ethauber@outlook.com</a></p>
             <p><strong>Location:</strong> IN, USA</p>
@@ -103,10 +103,9 @@ title: Elijah Hauber Software Engineer
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section">
-      <div class="container mt-4">
+    <!-- <section id="about" class="section">
+      <div class="container">
         <div class="row">
-          <!-- Left column: Name, Title, Summary -->
           <div class="col-lg-7 col-md-12 mb-4">
             <h1 class="display-4 mb-3">About Elijah Hauber</h1>
             <h2 class="h3 text-muted mb-4">Software Engineer</h2>
@@ -115,7 +114,6 @@ title: Elijah Hauber Software Engineer
               <p class="lead">I am a software engineer with 7 years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
             </section>
           </div>
-          <!-- Right column: Contact Info & Image -->
           <div class="col-lg-5 col-md-12">
             <div class="card shadow-sm">
               <div class="card-body">
@@ -148,13 +146,14 @@ title: Elijah Hauber Software Engineer
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Works Section -->
     <section id="works" class="section">
-      <div class="container d-flex justify-content-center">
-        <div class="mt-4">
-          <h1>Elijah Hauber's Works</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>Elijah Hauber's Works</h1>
           <h3>Games</h3>
           <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
             <a href="../games/pong" style="text-align: center; text-decoration: none; color: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 180px; box-shadow: 2px 2px 8px #eee; transition: box-shadow 0.2s; background: #faf9f6;">
@@ -194,15 +193,18 @@ title: Elijah Hauber Software Engineer
           <div style="margin: 10px 0; text-align: center;">
             <button id="renderJulia" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Julia Set</button>
           </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Blog Section -->
     <section id="blog" class="section">
-      <div class="container d-flex justify-content-center">
-        <div class="mt-4">
-          <h1>Elijah Hauber's Blog</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>Elijah Hauber's Blog</h1>
           <ul class="posts">
             {% for post in site.posts %}
               <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
@@ -212,6 +214,8 @@ title: Elijah Hauber Software Engineer
             <h4>More Posts</h4>
             <p>You can also find additional posts on my <a href="https://medium.com/@ethauber" target="_blank">Medium profile</a>.</p>
           </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -219,8 +223,9 @@ title: Elijah Hauber Software Engineer
     <!-- Space Section -->
     <section id="space" class="section">
       <div class="container">
-        <div class="mt-4">
-          <h1>Space</h1>
+        <div class="row">
+          <div class="col-12">
+            <h1>Space</h1>
           <div style="text-align: center; margin: 20px 0;">
             <span class="d-flex justify-content-center arrow-up" style="cursor: pointer;" title="Previous Planet"></span>
             <div style="margin: 10px 0;">
@@ -464,11 +469,31 @@ class SmoothScrollSPA {
       this.scrollToSection(section, false);
     });
 
-    // Handle scroll events for active nav highlighting
+    // Handle scroll events for active nav highlighting and navbar hide/show
+    let lastScrollTop = 0;
     window.addEventListener('scroll', () => {
       if (!this.isScrolling) {
         this.updateActiveNavOnScroll();
       }
+      
+      // Handle navbar hide/show
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const navbar = document.querySelector('.navbar');
+      
+      // Always show navbar when scrolling up, regardless of position
+      if (currentScrollTop < lastScrollTop) {
+        navbar.classList.remove('navbar-hidden');
+      } 
+      // Hide navbar when scrolling down and not at the top
+      else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+        navbar.classList.add('navbar-hidden');
+      }
+      // Always show navbar at the top
+      else if (currentScrollTop <= 100) {
+        navbar.classList.remove('navbar-hidden');
+      }
+      
+      lastScrollTop = currentScrollTop;
     });
 
     // Initialize fractal rendering when works section is visible
@@ -519,7 +544,7 @@ class SmoothScrollSPA {
 
   updateActiveNavOnScroll() {
     const sections = document.querySelectorAll('.section');
-    const scrollPosition = window.scrollY + 100; // Offset for navbar
+    const scrollPosition = window.scrollY; // Offset for fixed navbar height
 
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
@@ -666,16 +691,20 @@ style.textContent = `
     scroll-behavior: smooth;
   }
   
+  body {
+    padding-top: 56px; /* Account for fixed navbar height */
+  }
+  
   .section {
-    min-height: 100vh;
-    padding-top: 80px; /* Account for fixed navbar */
+    min-height: auto; /* Remove forced full height this causes enormous spacing */
+    padding-top: 0; /* No additional padding needed */
     padding-bottom: 2rem;
   }
   
   /* Mobile-specific adjustments */
   @media (max-width: 768px) {
     .section {
-      padding-top: 50px; /* Reduce top padding on mobile */
+      padding-top: 0.5vh; /* Reduced spacing between navbar and content on mobile */
     }
     
     .navbar {
@@ -694,6 +723,11 @@ style.textContent = `
   .navbar {
     background-color: #fbdc75 !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .navbar.navbar-hidden {
+    transform: translateY(-100%);
   }
   
   .navbar-nav {
