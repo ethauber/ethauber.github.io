@@ -4,12 +4,12 @@ title: Elijah Hauber Software Engineer
 ---
 
 <div id="app">
-  <!-- Navigation -->
+    <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
         aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="bars"></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -25,9 +25,9 @@ title: Elijah Hauber Software Engineer
           <li class="nav-item">
             <a class="nav-link" href="#blog" data-section="blog">Blog</a>
           </li>
-                      <li class="nav-item">
-              <a class="nav-link" href="#space" data-section="space">Space (Experimental)</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#space" data-section="space">Space (Experimental)</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -643,6 +643,20 @@ class SmoothScrollSPA {
 // Initialize SPA when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   new SmoothScrollSPA();
+  
+  // Auto-close hamburger menu when clicking on nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      // Close the navbar collapse on mobile
+      const navbarToggler = document.querySelector('.navbar-collapse');
+      if (navbarToggler && navbarToggler.classList.contains('show')) {
+        const bsCollapse = new bootstrap.Collapse(navbarToggler, {
+          toggle: false
+        });
+        bsCollapse.hide();
+      }
+    });
+  });
 });
 
 // Add styles for smooth scrolling and sections
@@ -658,10 +672,41 @@ style.textContent = `
     padding-bottom: 2rem;
   }
   
+  /* Mobile-specific adjustments */
+  @media (max-width: 768px) {
+    .section {
+      padding-top: 50px; /* Reduce top padding on mobile */
+    }
+    
+    .navbar {
+      padding: 0.25rem 0.5rem; /* Reduce navbar padding on mobile */
+    }
+    
+    .navbar-nav {
+      padding: 0.5rem 0;
+    }
+    
+    .nav-link {
+      padding: 0.5rem 1rem !important;
+    }
+  }
+  
   .navbar {
-    background-color: rgba(251, 220, 117, 0.95) !important;
-    backdrop-filter: blur(10px);
+    background-color: #fbdc75 !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .navbar-toggler {
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  
+  .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
   }
   
   .nav-link.active {
