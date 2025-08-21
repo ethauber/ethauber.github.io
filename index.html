@@ -3,66 +3,638 @@ layout: default
 title: Elijah Hauber Software Engineer
 ---
 
+<div id="app">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="bars"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#home" data-section="home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about" data-section="about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#works" data-section="works">Works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#blog" data-section="blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#space" data-section="space"><small>Space (Experimental)</small></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<div>
-	<h1>Elijah Hauber</h1>
-	<h3>Software Engineer</h3>
-	<div class="contact-info mb-3">
-		<p><strong>Email:</strong> <a href="mailto:ethauber@outlook.com">ethauber@outlook.com</a></p>
-		<p><strong>Location:</strong> IN, USA</p>
-		<p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank">Elijah Hauber</a></p>
-	</div>
-	<section class="summary mb-4">
-		<h4>Professional Summary</h4>
-		<p>I am a software engineer with 7 years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
-	</section>
-</div>
-<div>
-	<ul>
-		<li>BS in Computer Science from <strong> <a href="https://www.cs.purdue.edu/" target="blank">Purdue University</a> </strong></li>
-		<li>Employed at <strong><a href="https://www.linkedin.com/company/parus-holdings">Parus Holdings LLC</a></strong> as a software engineer</li>
-	</ul>
+  <!-- Main Content Area - All sections on one page -->
+  <main role="main">
+    <!-- Home Section -->
+    <section id="home" class="section">
+      <div class="container d-flex justify-content-center">
+        <div class="mt-5 pt-4">
+          <h1>Elijah Hauber</h1>
+          <h3>Software Engineer</h3>
+          <div class="contact-info mb-3">
+            <p><strong>Email:</strong> <a href="mailto:ethauber@outlook.com">ethauber@outlook.com</a></p>
+            <p><strong>Location:</strong> IN, USA</p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank">Elijah Hauber</a></p>
+          </div>
+          <section class="summary mb-4">
+            <h4>Professional Summary</h4>
+            <p>I am a software engineer with 7 years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
+          </section>
+          <div>
+            <ul>
+              <li>BS in Computer Science from <strong> <a href="https://www.cs.purdue.edu/" target="blank">Purdue University</a> </strong></li>
+              <li>Formerly employed at <strong><a href="https://www.linkedin.com/company/parus-holdings">Parus Holdings LLC</a></strong> as a software engineer</li>
+            </ul>
+          </div>
+          <section class="work-experience mb-4">
+            <h4>Work Experience</h4>
+            <div>
+              <strong>Software Engineer | Parus Holdings LLC | 2018-2025</strong>
+              <ul>
+                <li>Implemented an AI LLM-powered personalized email reminder system with Langchain, OpenAI, and MongoDB.</li>
+                <li>Implemented a dedicated full stack password reset website on AWS.</li>
+                <li>Maintained PHP web applications and wrote documentation.</li>
+                <li>Primarily worked as a back-end engineer, with recent full stack experience.</li>
+              </ul>
+            </div>
+            <div>
+              <strong>IT Security Operator | Purdue University | 2017-2018</strong>
+              <ul>
+                <li>Responded to tickets submitted by users of the Purdue University internet network.</li>
+                <li>Classified tickets as spam, phishing, update requests, or compromised email accounts.</li>
+              </ul>
+            </div>
+          </section>
+          <section class="education mb-4">
+            <h4>Education</h4>
+            <div>
+              <strong>Purdue University West Lafayette | 2014-2018</strong>
+              <ul>
+                <li>Bachelor of Science in Computer Science, Security Track</li>
+                <li>GPA: 3.29/4.00</li>
+                <li>Relevant Coursework: Problem Solving and Object-Oriented Programming, Data Structures and Algorithms, Software Engineering, Software Testing, Operating Systems, Systems Programming, Computer Security, Cryptography, and Information Systems.</li>
+              </ul>
+            </div>
+          </section>
+          <section class="skills mb-4">
+            <h4>Technical Skills</h4>
+            <ul>
+              <li><strong>Programming Languages:</strong> Python, JavaScript, Java, C, C++, C#, Apache Velocity, Apache Spark, HTML, CSS</li>
+              <li><strong>Cloud and Infrastructure:</strong> AWS (CloudFormation, EC2, ALB, Route 53, API Gateway, Lambda, S3, CloudFront, EFS), Terraform, Docker</li>
+              <li><strong>Databases:</strong> MongoDB (NoSQL), SAP ASE (Sybase), PostgreSQL</li>
+              <li><strong>DevOps and Tools:</strong> Git, GitHub, SQL (DBeaver), Swagger, Postman, iTerm2, Vim, Visual Studio Code, Cursor, SSH, FFmpeg, LogRocket, Sentry</li>
+              <li><strong>Operating Systems:</strong> macOS, Linux, Windows</li>
+              <li><strong>Collaboration and Communication:</strong> Slack, Google Meet, Zoom, Figma, Microsoft Teams, Discord, Google Workspace (Docs, Sheets, Drive)</li>
+              <li><strong>AI and LLM Engineering:</strong> Context management and retrieval strategies (RAG), LLM API integration (OpenAI, Anthropic), Vector database (Atlas Vector Search), LangChain</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container mt-4">
+        <div class="row">
+          <!-- Left column: Name, Title, Summary -->
+          <div class="col-lg-7 col-md-12 mb-4">
+            <h1 class="display-4 mb-3">About Elijah Hauber</h1>
+            <h2 class="h3 text-muted mb-4">Software Engineer</h2>
+            <section class="summary mb-4">
+              <h3 class="h4 mb-3">Professional Summary</h3>
+              <p class="lead">I am a software engineer with 7 years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
+            </section>
+          </div>
+          <!-- Right column: Contact Info & Image -->
+          <div class="col-lg-5 col-md-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="contact-info mb-4">
+                  <h3 class="h5 mb-3">Contact Information</h3>
+                  <div class="contact-item mb-2">
+                    <strong>Email:</strong><br>
+                    <a href="mailto:ethauber@outlook.com" class="text-break">ethauber@outlook.com</a>
+                  </div>
+                  <div class="contact-item mb-2">
+                    <strong>Location:</strong><br>
+                    <span>IN, USA</span>
+                  </div>
+                  <div class="contact-item mb-3">
+                    <strong>LinkedIn:</strong><br>
+                    <a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank" rel="noopener">Elijah Hauber</a>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <a href="https://www.pokemon.com/us/" class="d-inline-block">
+                    <img src="/assets/squirtle-seeklogo.com.svg" 
+                         class="img-fluid" 
+                         style="max-width: 150px; height: auto;" 
+                         title="Pokemon" 
+                         alt="Squirtle from Pokemon...you know for a little fun...">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works" class="section">
+      <div class="container d-flex justify-content-center">
+        <div class="mt-4">
+          <h1>Elijah Hauber's Works</h1>
+          <h3>Games</h3>
+          <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <a href="../games/pong" style="text-align: center; text-decoration: none; color: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 180px; box-shadow: 2px 2px 8px #eee; transition: box-shadow 0.2s; background: #faf9f6;">
+              <img src="/assets/pong.png" alt="Pong Game" style="width: 100%; height: 120px; object-fit: contain; margin-bottom: 0.5rem;" loading="lazy">
+              <div style="font-size: 1.2rem; font-weight: bold;">Pong</div>
+            </a>
+            <a href="../games/flappy" style="text-align: center; text-decoration: none; color: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 180px; box-shadow: 2px 2px 8px #eee; transition: box-shadow 0.2s; background: #faf9f6;">
+              <img src="/assets/flappy.png" alt="Flappy Flyer Game" style="width: 100%; height: 120px; object-fit: contain; margin-bottom: 0.5rem;" loading="lazy">
+              <div style="font-size: 1.2rem; font-weight: bold;">Flappy Flyer</div>
+            </a>
+          </div>
+
+          <h3>Mandelbrot Set</h3>
+          <div style="position: relative; display: inline-block;">
+            <canvas id="myCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
+            <div id="mandelbrotLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: block;">
+              <div style="text-align: center;">
+                <div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
+                <div>Rendering Mandelbrot Set...</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin: 10px 0; text-align: center;">
+            <button id="renderMandelbrot" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Mandelbrot Set</button>
+          </div>
+
+          <h3>Julia Set</h3>
+          <div style="position: relative; display: inline-block;">
+            <canvas id="juliaCanvas" width="600" height="600" class="img-fluid" style="border: 1px solid #ccc;"></canvas>
+            <div id="juliaLoader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; display: block;">
+              <div style="text-align: center;">
+                <div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
+                <div>Rendering Julia Set...</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin: 10px 0; text-align: center;">
+            <button id="renderJulia" style="padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s;">Re-render Julia Set</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+      <div class="container d-flex justify-content-center">
+        <div class="mt-4">
+          <h1>Elijah Hauber's Blog</h1>
+          <ul class="posts">
+            {% for post in site.posts %}
+              <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+            {% endfor %}
+          </ul>
+          <div class="medium-profile mt-4">
+            <h4>More Posts</h4>
+            <p>You can also find additional posts on my <a href="https://medium.com/@ethauber" target="_blank">Medium profile</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Space Section -->
+    <section id="space" class="section">
+      <div class="container d-flex justify-content-center">
+        <div class="mt-4">
+          <h1>Space (Experimental)</h1>
+          <p>This is an experimental space page.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
 
-<section class="work-experience mb-4">
-	<h4>Work Experience</h4>
-	<div>
-		<strong>Software Engineer | Parus Holdings LLC | 2018-2025</strong>
-		<ul>
-			<li>Implemented an AI LLM-powered personalized email reminder system with Langchain, OpenAI, and MongoDB.</li>
-			<li>Implemented a dedicated full stack password reset website on AWS.</li>
-			<li>Maintained PHP web applications and wrote documentation.</li>
-			<li>Primarily worked as a back-end engineer, with recent full stack experience.</li>
-		</ul>
-	</div>
-	<div>
-		<strong>IT Security Operator | Purdue University | 2017-2018</strong>
-		<ul>
-			<li>Responded to tickets submitted by users of the Purdue University internet network.</li>
-			<li>Classified tickets as spam, phishing, update requests, or compromised email accounts.</li>
-		</ul>
-	</div>
-</section>
-<section class="education mb-4">
-	<h4>Education</h4>
-	<div>
-		<strong>Purdue University West Lafayette | 2014-2018</strong>
-		<ul>
-			<li>Bachelor of Science in Computer Science, Security Track</li>
-			<li>GPA: 3.29/4.00</li>
-			<li>Relevant Coursework: Problem Solving and Object-Oriented Programming, Data Structures and Algorithms, Software Engineering, Software Testing, Operating Systems, Systems Programming, Computer Security, Cryptography, and Information Systems.</li>
-		</ul>
-	</div>
-</section>
-<section class="skills mb-4">
-	<h4>Technical Skills</h4>
-	<ul>
-		<li><strong>Programming Languages:</strong> Python, JavaScript, Java, C, C++, C#, Apache Velocity, Apache Spark, HTML, CSS</li>
-		<li><strong>Cloud and Infrastructure:</strong> AWS (CloudFormation, EC2, ALB, Route 53, API Gateway, Lambda, S3, CloudFront, EFS), Terraform, Docker</li>
-		<li><strong>Databases:</strong> MongoDB (NoSQL), SAP ASE (Sybase), PostgreSQL</li>
-		<li><strong>DevOps and Tools:</strong> Git, GitHub, SQL (DBeaver), Swagger, Postman, iTerm2, Vim, Visual Studio Code, Cursor, SSH, FFmpeg, LogRocket, Sentry</li>
-		<li><strong>Operating Systems:</strong> macOS, Linux, Windows</li>
-		<li><strong>Collaboration and Communication:</strong> Slack, Google Meet, Zoom, Figma, Microsoft Teams, Discord, Google Workspace (Docs, Sheets, Drive)</li>
-		<li><strong>AI and LLM Engineering:</strong> Context management and retrieval strategies (RAG), LLM API integration (OpenAI, Anthropic), Vector database (Atlas Vector Search), LangChain</li>
-	</ul>
-</section>
+<script>
+// Single Page Application with Smooth Scrolling
+class SmoothScrollSPA {
+  constructor() {
+    this.currentSection = 'home';
+    this.isScrolling = false;
+    this.init();
+  }
+
+  init() {
+    // Set up navigation
+    document.querySelectorAll('[data-section]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = e.target.getAttribute('data-section');
+        this.scrollToSection(section);
+      });
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', (e) => {
+      const section = e.state?.section || 'home';
+      this.scrollToSection(section, false);
+    });
+
+    // Handle scroll events for active nav highlighting
+    window.addEventListener('scroll', () => {
+      if (!this.isScrolling) {
+        this.updateActiveNavOnScroll();
+      }
+    });
+
+    // Initialize fractal rendering when works section is visible
+    this.initializeIntersectionObserver();
+  }
+
+  scrollToSection(section, updateHistory = true) {
+    if (section === this.currentSection) return;
+    
+    const targetSection = document.getElementById(section);
+    if (!targetSection) return;
+
+    this.isScrolling = true;
+    
+    // Update active nav link
+    this.updateActiveNav(section);
+    
+    // Smooth scroll to section
+    targetSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    
+    // Update URL
+    if (updateHistory) {
+      window.history.pushState({ section }, '', `#${section}`);
+    }
+    
+    // Update page title
+    document.title = this.getSectionTitle(section);
+    
+    this.currentSection = section;
+    
+    // Reset scrolling flag after animation
+    setTimeout(() => {
+      this.isScrolling = false;
+    }, 1000);
+  }
+
+  updateActiveNav(section) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('data-section') === section) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  updateActiveNavOnScroll() {
+    const sections = document.querySelectorAll('.section');
+    const scrollPosition = window.scrollY + 100; // Offset for navbar
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        if (sectionId !== this.currentSection) {
+          this.currentSection = sectionId;
+          this.updateActiveNav(sectionId);
+        }
+      }
+    });
+  }
+
+  initializeIntersectionObserver() {
+    const worksSection = document.getElementById('works');
+    if (!worksSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Initialize fractal rendering when works section becomes visible
+          setTimeout(() => {
+            this.initializeWorksPage();
+          }, 500);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(worksSection);
+  }
+
+  initializeWorksPage() {
+    // Initialize fractal rendering
+    if (typeof FractalRenderer !== 'undefined') {
+      const renderer = new FractalRenderer();
+      const mandelbrotBtn = document.getElementById('renderMandelbrot');
+      const juliaBtn = document.getElementById('renderJulia');
+      const mandelbrotCanvas = document.getElementById('myCanvas');
+      const juliaCanvas = document.getElementById('juliaCanvas');
+      const mandelbrotLoader = document.getElementById('mandelbrotLoader');
+      const juliaLoader = document.getElementById('juliaLoader');
+
+      if (mandelbrotBtn && mandelbrotCanvas) {
+        mandelbrotBtn.addEventListener('click', async () => {
+          mandelbrotLoader.style.display = 'block';
+          mandelbrotBtn.disabled = true;
+          mandelbrotBtn.textContent = 'Rendering...';
+          
+          await renderer.renderMandelbrot(mandelbrotCanvas, () => {});
+          
+          mandelbrotLoader.style.display = 'none';
+          mandelbrotBtn.disabled = false;
+          mandelbrotBtn.textContent = 'Re-render Mandelbrot Set';
+        });
+      }
+
+      if (juliaBtn && juliaCanvas) {
+        juliaBtn.addEventListener('click', async () => {
+          juliaLoader.style.display = 'block';
+          juliaBtn.disabled = true;
+          juliaBtn.textContent = 'Rendering...';
+          
+          await renderer.renderJulia(juliaCanvas, () => {});
+          
+          juliaLoader.style.display = 'none';
+          juliaBtn.disabled = false;
+          juliaBtn.textContent = 'Re-render Julia Set';
+        });
+      }
+
+      // Auto-render on page load
+      setTimeout(async () => {
+        if (mandelbrotCanvas && juliaCanvas) {
+          await renderer.renderMandelbrot(mandelbrotCanvas, () => {});
+          await renderer.renderJulia(juliaCanvas, () => {});
+        }
+      }, 100);
+    }
+  }
+
+  getSectionTitle(section) {
+    const titles = {
+      'home': 'Elijah Hauber Software Engineer',
+      'about': 'About Elijah Hauber',
+      'works': 'Elijah Hauber\'s Works',
+      'blog': 'Elijah Hauber\'s Blog',
+      'space': 'Space (Experimental)'
+    };
+    return titles[section] || 'Elijah Hauber';
+  }
+}
+
+// Initialize SPA when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  new SmoothScrollSPA();
+});
+
+// Add styles for smooth scrolling and sections
+const style = document.createElement('style');
+style.textContent = `
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .section {
+    min-height: 100vh;
+    padding-top: 80px; /* Account for fixed navbar */
+    padding-bottom: 2rem;
+  }
+  
+  .navbar {
+    background-color: rgba(251, 220, 117, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .nav-link.active {
+    color: #6c757d !important;
+    font-weight: bold;
+  }
+  
+  .nav-link {
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: #6c757d !important;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  #renderMandelbrot:hover, #renderJulia:hover {
+    background: #2980b9 !important;
+    transform: translateY(-1px);
+  }
+  
+  #renderMandelbrot:disabled, #renderJulia:disabled {
+    background: #95a5a6 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+  }
+`;
+document.head.appendChild(style);
+</script>
+
+<!-- Include fractal renderer script -->
+<script>
+// Optimized rendering with requestAnimationFrame and chunked processing
+class FractalRenderer {
+  constructor() {
+    this.isRendering = false;
+  }
+
+  async renderMandelbrot(canvas, callback) {
+    if (this.isRendering) return;
+    this.isRendering = true;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    const magnificationFactor = 200;
+    const panX = 2;
+    const panY = 1.5;
+    const iterations = 100;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+    
+    // Process in chunks to prevent UI blocking
+    const chunkSize = 10000; // pixels per chunk
+    let pixelCount = 0;
+    const totalPixels = width * height;
+    
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const belongsToSet = this.checkIfBelongsToMandelbrotSet(
+          x / magnificationFactor - panX,
+          y / magnificationFactor - panY,
+          iterations
+        );
+        
+        if (belongsToSet === 0) {
+          ctx.fillStyle = '#fbdc75';
+          ctx.fillRect(x, y, 1, 1);
+        } else {
+          ctx.fillStyle = `hsl(261, 80%, ${Math.abs(belongsToSet - 100)}%)`;
+          ctx.fillRect(x, y, 1, 1);
+        }
+        
+        pixelCount++;
+        
+        // Yield control every chunk
+        if (pixelCount % chunkSize === 0) {
+          await new Promise(resolve => {
+            requestAnimationFrame(() => {
+              callback(pixelCount / totalPixels);
+              resolve();
+            });
+          });
+        }
+      }
+    }
+    
+    this.isRendering = false;
+    callback(1); // Complete
+  }
+
+  async renderJulia(canvas, callback) {
+    if (this.isRendering) return;
+    this.isRendering = true;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    const magnification = 200;
+    const panX = 1.5;
+    const panY = 1.5;
+    const cRe = -0.7;
+    const cIm = 0.27015;
+    const iterations = 100;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
+    
+    // Process in chunks
+    const chunkSize = 10000;
+    let pixelCount = 0;
+    const totalPixels = width * height;
+    
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        const zx = x / magnification - panX;
+        const zy = y / magnification - panY;
+        const belongsToSet = this.checkIfBelongsToJuliaSet(zx, zy, cRe, cIm, iterations);
+        
+        ctx.fillStyle = this.getJuliaColor(x, y, belongsToSet, width, height);
+        ctx.fillRect(x, y, 1, 1);
+        
+        pixelCount++;
+        
+        // Yield control every chunk
+        if (pixelCount % chunkSize === 0) {
+          await new Promise(resolve => {
+            requestAnimationFrame(() => {
+              callback(pixelCount / totalPixels);
+              resolve();
+            });
+          });
+        }
+      }
+    }
+    
+    this.isRendering = false;
+    callback(1); // Complete
+  }
+
+  checkIfBelongsToMandelbrotSet(x, y, iterations) {
+    let realComponentOfResult = x;
+    let imaginaryComponentOfResult = y;
+
+    for (let i = 0; i < iterations; i++) {
+      const tempRealComponent = realComponentOfResult * realComponentOfResult
+        - imaginaryComponentOfResult * imaginaryComponentOfResult + x;
+      const tempImaginaryComponent = 2 * realComponentOfResult * imaginaryComponentOfResult + y;
+
+      realComponentOfResult = tempRealComponent;
+      imaginaryComponentOfResult = tempImaginaryComponent;
+      
+      if (realComponentOfResult * imaginaryComponentOfResult > 99999) {
+        return (i / iterations * 100);
+      }
+    }
+    return 0;
+  }
+
+  checkIfBelongsToJuliaSet(x, y, cRe, cIm, iterations) {
+    let zx = x;
+    let zy = y;
+    for (let i = 0; i < iterations; i++) {
+      const xtemp = zx * zx - zy * zy + cRe;
+      zy = 2 * zx * zy + cIm;
+      zx = xtemp;
+      if (zx * zx + zy * zy > 16) return (i / iterations * 100);
+    }
+    return 0;
+  }
+
+  getDistanceFromCenter(x, y, width, height) {
+    const dx = (x - width / 2) / (width / 2);
+    const dy = (y - height / 2) / (height / 2);
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  getJuliaColor(x, y, belongsToSet, width, height) {
+    const insideColor = [251, 220, 117];
+    const maxAlpha = 0.95;
+    const fadeStart = 0.92;
+    const fadeEnd = 1.0;
+    const dist = this.getDistanceFromCenter(x, y, width, height);
+    
+    if (belongsToSet === 0) {
+      let alpha = maxAlpha;
+      if (dist > fadeStart) {
+        alpha *= 1 - Math.min((dist - fadeStart) / (fadeEnd - fadeStart), 1);
+      }
+      return `rgba(${insideColor[0]}, ${insideColor[1]}, ${insideColor[2]}, ${alpha})`;
+    } else {
+      const norm = Math.log(1 + belongsToSet) / Math.log(101);
+      const hue = (200 + 120 * norm + 60 * Math.sin((x - y) / 90)) % 360;
+      const light = 55 + 35 * Math.sin(norm * Math.PI * 2);
+      let alpha = 0.45 + 0.45 * Math.pow(norm, 0.7);
+      
+      if (dist > fadeStart) {
+        alpha *= 1 - Math.min((dist - fadeStart) / (fadeEnd - fadeStart), 1);
+      }
+      if (alpha < 0) alpha = 0;
+      return `hsla(${hue}, 85%, ${light}%, ${alpha})`;
+    }
+  }
+}
+</script>
