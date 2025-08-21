@@ -472,24 +472,20 @@ class SmoothScrollSPA {
     // Handle scroll events for active nav highlighting and navbar hide/show
     let lastScrollTop = 0;
     window.addEventListener('scroll', () => {
-      if (!this.isScrolling) {
-        this.updateActiveNavOnScroll();
-      }
+      this.updateActiveNavOnScroll();
       
-      // Handle navbar hide/show
+      // Simple navbar hide/show
       const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const navbar = document.querySelector('.navbar');
       
-      // Always show navbar when scrolling up, regardless of position
       if (currentScrollTop < lastScrollTop) {
+        // Scrolling up - show navbar
         navbar.classList.remove('navbar-hidden');
-      } 
-      // Hide navbar when scrolling down and not at the top
-      else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+      } else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+        // Scrolling down and not at top - hide navbar
         navbar.classList.add('navbar-hidden');
-      }
-      // Always show navbar at the top
-      else if (currentScrollTop <= 100) {
+      } else if (currentScrollTop <= 100) {
+        // At top - show navbar
         navbar.classList.remove('navbar-hidden');
       }
       
@@ -500,37 +496,29 @@ class SmoothScrollSPA {
     this.initializeIntersectionObserver();
   }
 
-  scrollToSection(section, updateHistory = true) {
-    if (section === this.currentSection) return;
-    
+  scrollToSection(section) {
     const targetSection = document.getElementById(section);
     if (!targetSection) return;
 
-    this.isScrolling = true;
-    
     // Update active nav link
     this.updateActiveNav(section);
     
-    // Smooth scroll to section
-    targetSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    // Hide navbar when clicking nav link
+    const navbar = document.querySelector('.navbar');
+    navbar.classList.add('navbar-hidden');
     
-    // Update URL
-    if (updateHistory) {
-      window.history.pushState({ section }, '', `#${section}`);
+    // Simple scroll to section
+    if (section === 'home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      targetSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
-    
-    // Update page title
-    document.title = this.getSectionTitle(section);
-    
-    this.currentSection = section;
-    
-    // Reset scrolling flag after animation
-    setTimeout(() => {
-      this.isScrolling = false;
-    }, 1000);
   }
 
   updateActiveNav(section) {
