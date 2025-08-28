@@ -28,16 +28,30 @@ p {
     margin: 0.15rem 0;
 }
 
-/* Links */
-a, a:visited {
+/* Links needs not to ensure that buttons are not affected */
+a:not(.btn), a:visited:not(.btn) {
     text-decoration: none;
     margin: 0.15rem 0;
     color: #8a8a8a;
     transition: color 0.2s ease;
 }
 
-a:hover, a:focus {
-    color: #0066cc;
+/*  Not needed since :not(.btn) is used
+.planet-card .btn-primary,
+.planet-card .btn-primary:visited,
+.planet-card .btn-primary:active {
+    color: #fff !important;
+} */
+
+
+/* Contact links gradient hover effect */
+.contact-info a:hover,
+.contact-info a:focus {
+    background: linear-gradient(45deg, #fbdc75, #8a2be2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 2s ease-in-out infinite;
 }
 
 /* Lists */
@@ -48,6 +62,57 @@ ul {
 
 ul.posts li {
     list-style: none;
+}
+
+/* Social links horizontal layout */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding-left: 0;
+    margin: 0.75rem 0;
+}
+
+.social-links li {
+    display: flex;
+    align-items: center;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #8a8a8a;
+    transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+    background: linear-gradient(45deg, #fbdc75, #8a2be2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background: linear-gradient(45deg, #fbdc75, #8a2be2);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    50% {
+        background: linear-gradient(45deg, #8a2be2, #fbdc75);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.social-links img {
+    flex-shrink: 0;
 }
 
 /* Layout */
@@ -135,7 +200,6 @@ nav ul li:last-child, footer ul li:last-child {
 }
 
 .arrow-up {
-    margin: auto;
     width: 1.5rem;
     height: 1.5rem;
     background-image: url("/assets/arrow-alt-circle-up.svg");
@@ -145,7 +209,6 @@ nav ul li:last-child, footer ul li:last-child {
 }
 
 .arrow-down {
-    margin: auto;
     width: 1.5rem;
     height: 1.5rem;
     background-image: url("/assets/arrow-alt-circle-down.svg");
@@ -204,7 +267,6 @@ footer {
     .planet-card {
         width: 100% !important;
         max-width: 300px;
-        margin: 0 auto;
     }
 }
 
@@ -272,4 +334,78 @@ main .container .mt-3 {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Planet card alignment and centering */
+#planetsContainer {
+  display: block;
+  text-align: left;
+  margin-bottom: 2rem; /* Ensure gap between cards and footer */
+}
+
+.planet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0;
+  max-width: 18rem;
+  width: 100%;
+  height: auto;
+  min-height: 600px; /* Ensure consistent minimum height */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem; /* Space between cards if multiple are shown */
+}
+
+.planet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.planet-card .card-body {
+  width: 100%;
+  text-align: left;
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+.planet-card .card-img-top {
+  width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover;
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.planet-card .card-text {
+  flex: 1; /* Take remaining space in card body */
+  display: flex;
+  flex-direction: column;
+}
+
+.planet-card .card-text ul {
+  flex: 1; /* Take remaining space */
+  margin-bottom: 1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .planet-card {
+    min-height: 500px; /* Smaller minimum height on mobile */
+    max-width: 100%;
+  }
+  
+  .planet-card .card-img-top {
+    height: 150px; /* Smaller image height on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .planet-card {
+    min-height: 450px; /* Even smaller on very small screens */
+  }
+  
+  .planet-card .card-img-top {
+    height: 120px;
+  }
 }

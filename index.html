@@ -44,7 +44,23 @@ title: Elijah Hauber Software Engineer
           <div class="contact-info mb-3">
             <p><strong>Email:</strong> <a href="mailto:ethauber@outlook.com">ethauber@outlook.com</a></p>
             <p><strong>Location:</strong> IN, USA</p>
-            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ethauber" target="_blank">Elijah Hauber</a></p>
+            <ul class="social-links">
+              <li>
+                <a href="https://www.linkedin.com/in/ethauber">
+                  <img src="/assets/linkedin-tile.svg" alt="LinkedIn" style="width: 20px; height: 20px;"> linkedin.com/in/ethauber
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/ethauber">
+                  <img src="/assets/github-icon.svg" alt="GitHub" style="width: 20px; height: 20px;"> github.com/ethauber
+                </a>
+              </li>
+              <li>
+                <a href="https://medium.com/@ethauber">
+                  <img src="/assets/medium-tile.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
+                </a>
+              </li>
+            </ul>
           </div>
           <section class="summary mb-4">
             <h4>Professional Summary</h4>
@@ -212,7 +228,9 @@ title: Elijah Hauber Software Engineer
           </ul>
           <div class="medium-profile mt-4">
             <h4>More Posts</h4>
-            <p>You can also find additional posts on my <a href="https://medium.com/@ethauber" target="_blank">Medium profile</a>.</p>
+            <p>You can also find additional posts on my medium profile. <a href="https://medium.com/@ethauber">
+              <img src="/assets/medium-tile.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
+            </a></p>
           </div>
             </div>
           </div>
@@ -226,7 +244,7 @@ title: Elijah Hauber Software Engineer
         <div class="row">
           <div class="col-12">
             <h1>Space</h1>
-          <div style="text-align: center; margin: 20px 0;">
+          <div style="margin: 20px 0;">
             <span class="d-flex justify-content-center arrow-up" style="cursor: pointer;" title="Previous Planet"></span>
             <div style="margin: 10px 0;">
               <span id="planetCounter">Planet 1 of 8</span>
@@ -234,7 +252,7 @@ title: Elijah Hauber Software Engineer
             <span class="d-flex justify-content-center arrow-down" style="cursor: pointer;" title="Next Planet"></span>
           </div>
           
-          <div id="mercury" class="planet-card h-100" style="width: 18rem;">
+          <div id="mercury" class="planet-card">
             <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury" target="_blank" rel="noopener">
               <img src="/assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="NASA Mercury" loading="lazy">
             </a>
@@ -242,13 +260,12 @@ title: Elijah Hauber Software Engineer
               <h5 class="card-title">Mercury</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
-                  <a href="https://www.google.com/maps/space/mercury/@0,0,11727608m/data=!3m1!1e3" target="_blank" rel="noopener"
-                    class="btn btn-primary btn-sm">Mercury in Space via Google</a>
+                  <a href="https://www.google.com/maps/space/mercury" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Mercury in Space via Google</a>
                 </div>
                 <ul>
                   <li>Distance from Sun: 35.98 million mi</li>
                   <li>Orbital period: 88 days</li>
-                  <li>Mass: 3.285 × 10^23 kg (0.055 M⊕)</li>
+                  <li>Mass: 3.285 x 10^23 kg (0.055 M⊕)</li>
                   <li>Surface area: 28.88 million mi²</li>
                   <li>Length of day: 58d 15h 30m</li>
                 </ul>
@@ -260,7 +277,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="venus" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="venus" class="planet-card" style="display: none;">
             <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html" target="_blank" rel="noopener">
               <img src="/assets/venusglobe.jpg" class="card-img-top" alt="NASA Venus" loading="lazy">
             </a>
@@ -285,7 +302,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="earth" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="earth" class="planet-card" style="display: none;">
             <a href="https://www.nasa.gov/topics/earth/images/index.html" target="_blank" rel="noopener">
               <img src="/assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="NASA Earth" loading="lazy">
             </a>
@@ -293,8 +310,7 @@ title: Elijah Hauber Software Engineer
               <h5 class="card-title">Earth</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
-                  <a href="https://www.google.com/maps/@0,-87.6285003,22963938m/data=!3m1!1e3" target="_blank" rel="noopener"
-                    class="btn btn-primary btn-sm">Earth in Space via Google</a>
+                  <a href="https://www.google.com/maps/space/earth" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Earth in Space via Google</a>
                 </div>
                 <ul>
                   <li>Age: 4.543 billion years</li>
@@ -311,7 +327,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="mars" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="mars" class="planet-card" style="display: none;">
             <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html" target="_blank" rel="noopener">
               <img src="/assets/marsglobe1.jpg" class="card-img-top" alt="NASA Mars" loading="lazy">
             </a>
@@ -325,7 +341,7 @@ title: Elijah Hauber Software Engineer
                   <li>Distance from Sun: 141.6 million mi</li>
                   <li>Orbital period: 687 days</li>
                   <li>Length of day: 1d 0h 37m</li>
-                  <li>Surface pressure: 0.636 (0.4–0.87) kPa; 0.00628 atm</li>
+                  <li>Surface pressure: 0.636 (0.4-0.87) kPa; 0.00628 atm</li>
                 </ul>
                 <div style="margin-top: 10px;">
                   <a href="https://solarsystem.nasa.gov/planets/mars/overview/" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On Mars</a>
@@ -335,7 +351,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="jupiter" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="jupiter" class="planet-card" style="display: none;">
             <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="_blank" rel="noopener">
               <img src="/assets/jupiterglobe.jpg" class="card-img-top" alt="NASA Jupiter" loading="lazy">
             </a>
@@ -362,7 +378,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="saturn" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="saturn" class="planet-card" style="display: none;">
             <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="_blank" rel="noopener">
               <img src="/assets/saturngloberesize.png" class="card-img-top" alt="NASA Saturn" loading="lazy">
             </a>
@@ -387,7 +403,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="uranus" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="uranus" class="planet-card" style="display: none;">
             <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="_blank" rel="noopener">
               <img src="/assets/uranusglobe.jpg" class="card-img-top" alt="NASA Uranus" loading="lazy">
             </a>
@@ -413,7 +429,7 @@ title: Elijah Hauber Software Engineer
             </div>
           </div>
           
-          <div id="neptune" class="planet-card h-100" style="display: none; width: 18rem;">
+          <div id="neptune" class="planet-card" style="display: none;">
             <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="_blank" rel="noopener">
               <img src="/assets/neptuneglobe.jpg" class="card-img-top" alt="NASA Neptune" loading="lazy">
             </a>
@@ -763,7 +779,6 @@ style.textContent = `
   /* Planet Navigator Styles */
   .planet-card {
     transition: opacity 0.3s ease-in-out;
-    margin: 0 auto;
   }
   
   .arrow-up, .arrow-down {
