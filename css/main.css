@@ -9,6 +9,97 @@ body {
     padding: 0;
 }
 
+a.global:not(.badge):not(.btn),
+.global a:not(.badge):not(.btn) {
+    text-decoration: none;
+    margin: 0.15rem 0;
+    color: #8a8a8a;
+    transition: color 0.2s ease;
+}
+
+/* Social links horizontal layout */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding-left: 0;
+    margin: 0.75rem 0;
+}
+
+li.global:not(.badge):not(.btn),
+.global li:not(.badge):not(.btn),
+.social-links li {
+    display: flex;
+    align-items: center;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #8a8a8a;
+    transition: color 0.2s ease;
+}
+
+a.global:hover:not(.badge):not(.btn),
+.global a:hover:not(.badge):not(.btn),
+.social-links a:hover {
+    background: linear-gradient(45deg, #fbdc75, #8a2be2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 2s ease-in-out infinite;
+}
+
+img.global:not(.badge):not(.btn),
+.global img:not(.badge):not(.btn),
+.social-links img {
+    flex-shrink: 0;
+}
+
+/* Animations */
+@keyframes gradientShift {
+    0%, 100% {
+        background: linear-gradient(45deg, #fbdc75, #8a2be2);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    50% {
+        background: linear-gradient(45deg, #8a2be2, #fbdc75);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+.glowText {
+    text-decoration: underline;
+    animation: glow 4s ease-in-out infinite alternate;
+    animation-delay: 2s;
+}
+
+/* Lists */
+ul {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+ul.posts li {
+    list-style: none;
+}
+
 /* Typography */
 h1 {
     font-size: clamp(2rem, 5vw, 3rem);
@@ -26,93 +117,6 @@ p {
     line-height: 1.4em;
     color: #333;
     margin: 0.15rem 0;
-}
-
-/* Links needs not to ensure that buttons are not affected */
-a:not(.btn), a:visited:not(.btn) {
-    text-decoration: none;
-    margin: 0.15rem 0;
-    color: #8a8a8a;
-    transition: color 0.2s ease;
-}
-
-/*  Not needed since :not(.btn) is used
-.planet-card .btn-primary,
-.planet-card .btn-primary:visited,
-.planet-card .btn-primary:active {
-    color: #fff !important;
-} */
-
-
-/* Contact links gradient hover effect */
-.contact-info a:hover,
-.contact-info a:focus {
-    background: linear-gradient(45deg, #fbdc75, #8a2be2);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 2s ease-in-out infinite;
-}
-
-/* Lists */
-ul {
-    margin: 0.75rem 0;
-    padding-left: 1.5rem;
-}
-
-ul.posts li {
-    list-style: none;
-}
-
-/* Social links horizontal layout */
-.social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    list-style: none;
-    padding-left: 0;
-    margin: 0.75rem 0;
-}
-
-.social-links li {
-    display: flex;
-    align-items: center;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    color: #8a8a8a;
-    transition: color 0.2s ease;
-}
-
-.social-links a:hover {
-    background: linear-gradient(45deg, #fbdc75, #8a2be2);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 2s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-    0%, 100% {
-        background: linear-gradient(45deg, #fbdc75, #8a2be2);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    50% {
-        background: linear-gradient(45deg, #8a2be2, #fbdc75);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-}
-
-.social-links img {
-    flex-shrink: 0;
 }
 
 /* Layout */
@@ -230,22 +234,6 @@ footer {
 .post p a, .post p {
     text-align: left;
     font-size: 0.85rem;
-}
-
-/* Animations */
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-    }
-    to {
-        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-    }
-}
-
-.glowText {
-    text-decoration: underline;
-    animation: glow 4s ease-in-out infinite alternate;
-    animation-delay: 2s;
 }
 
 /* Responsive design */
