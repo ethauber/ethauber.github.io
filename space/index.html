@@ -5,20 +5,20 @@ title: Space
 <link rel="stylesheet" href="../css/bootOverrides.css">
 <div id="planetsContainer" class="container" style="z-index: 0; position: relative;">
   <h1>Space</h1>
-  <div style="text-align: center; margin: 20px 0;">
-    <span class="d-flex justify-content-center arrow-up" style="cursor: pointer;" title="Previous Planet"></span>
+  <div style="margin: 20px 0;">
+    <span class="arrow-up" style="cursor: pointer; display: inline-block;" title="Previous Planet"></span>
     <div style="margin: 10px 0;">
       <span id="planetCounter">Planet 1 of 8</span>
     </div>
-    <span class="d-flex justify-content-center arrow-down" style="cursor: pointer;" title="Next Planet"></span>
+    <span class="arrow-down" style="cursor: pointer; display: inline-block;" title="Next Planet"></span>
   </div>
   
-  <div id="mercury" class="planet-card h-100" style="width: 18rem; top: 10px; left: 10px;">
+  <div id="mercury" class="planet-card" style="width: 18rem;">
     <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury" target="_blank" rel="noopener">
       <img src="../assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="NASA Mercury" loading="lazy">
     </a>
     <div class="card-body" style="background-color: lightgrey;">
-      <h5 class="card-title">Mercury</h5>
+      <h5 class="planet-title">Mercury</h5>
       <div class="card-text">
         <div style="margin-bottom: 10px;">
           <a href="https://www.google.com/maps/space/mercury/@0,0,11727608m/data=!3m1!1e3" target="_blank" rel="noopener"
@@ -39,7 +39,7 @@ title: Space
     </div>
   </div>
   
-  <div id="venus" class="planet-card h-100" style="display: none; width: 18rem; top: 40px; left: 10px;">
+  <div id="venus" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html" target="_blank" rel="noopener">
       <img src="../assets/venusglobe.jpg" class="card-img-top" alt="NASA Venus" loading="lazy">
     </a>
@@ -64,7 +64,7 @@ title: Space
     </div>
   </div>
   
-  <div id="earth" class="planet-card h-100" style="display: none; width: 18rem; top: 70px; left: 10px;">
+  <div id="earth" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://www.nasa.gov/topics/earth/images/index.html" target="_blank" rel="noopener">
       <img src="../assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="NASA Earth" loading="lazy">
     </a>
@@ -90,7 +90,7 @@ title: Space
     </div>
   </div>
   
-  <div id="mars" class="planet-card h-100" style="display: none; width: 18rem; top: 100px; left: 10px;">
+  <div id="mars" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html" target="_blank" rel="noopener">
       <img src="../assets/marsglobe1.jpg" class="card-img-top" alt="NASA Mars" loading="lazy">
     </a>
@@ -114,7 +114,7 @@ title: Space
     </div>
   </div>
   
-  <div id="jupiter" class="planet-card h-100" style="display: none; width: 18rem; top: 130px; left: 10px;">
+  <div id="jupiter" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="_blank" rel="noopener">
       <img src="../assets/jupiterglobe.jpg" class="card-img-top" alt="NASA Jupiter" loading="lazy">
     </a>
@@ -141,7 +141,7 @@ title: Space
     </div>
   </div>
   
-  <div id="saturn" class="planet-card h-100" style="display: none; width: 18rem; top: 160px; left: 10px;">
+  <div id="saturn" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="_blank" rel="noopener">
       <img src="../assets/saturngloberesize.png" class="card-img-top" alt="NASA Saturn" loading="lazy">
     </a>
@@ -166,7 +166,7 @@ title: Space
     </div>
   </div>
   
-  <div id="uranus" class="planet-card h-100" style="display: none; width: 18rem; top: 190px; left: 10px;">
+  <div id="uranus" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="_blank" rel="noopener">
       <img src="../assets/uranusglobe.jpg" class="card-img-top" alt="NASA Uranus" loading="lazy">
     </a>
@@ -192,7 +192,7 @@ title: Space
     </div>
   </div>
   
-  <div id="neptune" class="planet-card h-100" style="display: none; width: 18rem; top: 220px; left: 10px;">
+  <div id="neptune" class="planet-card" style="display: none; width: 18rem;">
     <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="_blank" rel="noopener">
       <img src="../assets/neptuneglobe.jpg" class="card-img-top" alt="NASA Neptune" loading="lazy">
     </a>
@@ -222,6 +222,16 @@ title: Space
 <style>
   .planet-card {
     transition: opacity 0.3s ease-in-out;
+    margin: 0;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    background-color: #fff;
+  }
+  
+  .planet-title {
+    margin-bottom: .75rem;
+    font-size: 1.25rem;
+    font-weight: 500;
   }
   
   .arrow-up, .arrow-down {
