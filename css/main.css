@@ -397,3 +397,20 @@ main .container .mt-3 {
     height: 120px;
   }
 }
+
+.space-breadcrumb-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;     /* centers vertically with arrows */
+    gap: 0.5rem;             /* clean spacing between items */
+    margin: 0.5rem 0;        /* less top/bottom whitespace */
+}
+
+.space-breadcrumb-row .badge {
+    padding: 0.25rem 0.5rem; /* trims bottom padding */
+    margin: 0;               /* remove stray spacing */
+    line-height: 1.2;        /* fixes text sitting too high */
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
