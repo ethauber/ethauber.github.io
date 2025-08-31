@@ -325,6 +325,27 @@ main .container .mt-3 {
   to { opacity: 1; }
 }
 
+/* Professional gradient text effect for the name */
+h2.display-5 {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 595;
+  letter-spacing: 0.314159265359px;
+  text-shadow: 1.6180px 3.14159265359px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+h2.display-5:hover {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateY(-0.6931px);
+  text-shadow: 1.6180px 3.14159265359px rgba(0,0,0,0.12);
+}
+
 /* Planet card alignment and centering */
 #planetsContainer {
   display: block;
