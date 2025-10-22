@@ -1,4 +1,6 @@
 name: Elijah Hauber
+title: Elijah Hauber
+
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
 
@@ -13,12 +15,21 @@ compress_html:
 # Plugins for performance
 plugins:
   - jekyll-sitemap
-  - jekyll-compress-images
-  - jekyll-minifier
+  - jekyll-seo-tag
+
+# These are not allowed on GitHub Pages by default
+# https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll
+# https://pages.github.com/versions.json
+#   - jekyll-compress-images
+#   - jekyll-minifier
+
+# jekyll-minifier:
+#   exclude:
+#     - assets/**/*.svg
 
 # Image optimization
-compress_images:
-  images_path: "assets/**/*.{gif,png,jpg,jpeg,svg}"
+# compress_images:
+#   images_path: "assets/**/*.{gif,png,jpg,jpeg,svg}"
 
 # Sass configuration for CSS optimization
 sass:
@@ -32,3 +43,4 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - _compress_images_cache.yml
