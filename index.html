@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Elijah Hauber Software Engineer
+classes: landing-page
 ---
 
 <div id="app">
@@ -589,6 +590,29 @@ title: Elijah Hauber Software Engineer
       </div>
     </section>
 
+    <!-- Blog Section -->
+    <section id="blog" class="section global">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>Elijah Hauber's Blog</h1>
+          <ul class="posts">
+            {% for post in site.posts %}
+              <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+            {% endfor %}
+          </ul>
+          <div class="medium-profile mt-4">
+            <h4>More Posts</h4>
+            <p>You can also find additional posts on my medium profile. <a href="https://medium.com/@ethauber">
+              <img src="/assets/icons/medium.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
+            </a></p>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Works Section -->
     <section id="works" class="section">
       <div class="container">
@@ -642,30 +666,7 @@ title: Elijah Hauber Software Engineer
       </div>
     </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="section global">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h1>Elijah Hauber's Blog</h1>
-          <ul class="posts">
-            {% for post in site.posts %}
-              <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-            {% endfor %}
-          </ul>
-          <div class="medium-profile mt-4">
-            <h4>More Posts</h4>
-            <p>You can also find additional posts on my medium profile. <a href="https://medium.com/@ethauber">
-              <img src="/assets/icons/medium.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
-            </a></p>
-          </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Space Section -->
+    <!-- Space Station -->
     <section id="space" class="section">
       <div class="container">
         <div class="row">
