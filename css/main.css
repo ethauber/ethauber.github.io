@@ -115,9 +115,16 @@ h3, h4, h5 {
 }
 
 p {
-    line-height: 1.4em;
+    /* line-height: 1.4em; */
     color: #333;
     margin: 0.15rem 0;
+}
+
+/* Landing page type scale (scoped so posts are unaffected) */
+.landing-page p,
+.landing-page li,
+.landing-page blockquote {
+    line-height: 1.4rem;
 }
 
 /* Layout */
@@ -232,10 +239,39 @@ footer {
 }
 
 /* Post styles */
-.post p a, .post p {
-    text-align: left;
-    font-size: 0.85rem;
+.post-meta {
+    color: #666;
+    margin: 0 1rem;
 }
+
+.post {
+    margin: 1rem;
+}
+
+.post h1 {
+    margin-bottom: .25rem;
+}
+
+/* Explicit smaller post type scale (wins by cascade order) */
+/* .post p a, .post p {
+    animation-duration: 0s;
+} */
+.post li {
+    font-size: 0.95rem;
+}
+.post blockquote {
+    font-size: 0.95rem;
+}
+
+.post blockquote, blockquote {
+  margin: 1rem 1.25rem;
+  padding: .75rem 1rem;
+  border-left: 4px solid #ddd;
+  background: #fff;
+  color: #555;
+  font-style: italic;        /* optional */
+}
+.post blockquote > :last-child { margin-bottom: 0; }  /* tidy inner p spacing */
 
 /* Responsive design */
 @media (max-width: 768px) {
