@@ -23,7 +23,7 @@ IF you prefer to continue expanding more THEN search "metaphysics branch of phil
 ---
 
 ## Why care?
-Knowing what universals are and being able to identify them allows us to see patterns that we would not realize. Naming universals helps us communicate, reflect on, and decide how to respond to the universal we encounter. For example, if I notice a universal in my life like **retrovive** (defined below), I can choose to act on it by restoring or reliving lost functions rather rather than no action because it is not yet realized. This realization can lead to personal growth, improved decision-making, and to comprehend/fathom our experiences.
+Knowing what universals are and being able to identify them allows us to see patterns that we would not realize. Naming universals helps us communicate, reflect on, and decide how to respond to the universal we encounter. For example, if I notice a universal in my life like **retrovive** (defined below), I can choose to act on it by restoring or reliving lost functions rather than no action because it is not yet realized. This realization can lead to personal growth, improved decision-making, and to comprehend/fathom our experiences.
 
 ---
 
