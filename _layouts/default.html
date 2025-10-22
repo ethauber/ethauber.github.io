@@ -35,7 +35,7 @@
   <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column{% if page.classes %} {{ page.classes }}{% endif %}">
     {{ content }}
     <footer class="footer mt-auto">
       <div class="container">
