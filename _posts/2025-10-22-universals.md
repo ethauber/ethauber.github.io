@@ -81,7 +81,7 @@ Other close, almost as succinct descriptive pairings are "attention decay" and "
 ---
 
 ## Changelog
-- 2025-10-22: Initial published version with definition, rationale, method, and three examples.
+- 2025-10-22: Initial published version with definition, motivation, near-miss words, signals to notice, and signals to notice.
 {: .text-muted .small}
 
 ---
