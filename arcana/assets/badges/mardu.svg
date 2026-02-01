@@ -23,7 +23,7 @@
   <text x="50%" y="50" text-anchor="middle" class="title">MARDU</text>
   
   <!-- Central Emoji Icon -->
-  <text x="50%" y="140" text-anchor="middle" dominant-baseline="middle" class="emoji">🥁</text>
+  <text x="50%" y="140" text-anchor="middle" dominant-baseline="middle" class="emoji">🦅</text>
   
   <!-- Description Text (Multi-line) -->
   <g transform="translate(0, 190)">

@@ -112,7 +112,7 @@ const QUIZ_DATA = {
           "id": "DIMIR",
           "name": "Dimir",
           "colors": ["Blue", "Black"],
-          "emoji": "🕵️",
+          "emoji": "🕸️",
           "description": "I am Dimir aligned. I value Secrecy, Manipulation, and Control. At my best, I am the mastermind who achieves goals through subtlety and intelligence rather than brute force. At my worst, I am paranoid, isolated, and see others only as pawns in my game. I am the shadow in the library. I oppose the openness and raw honesty of Green and Red, preferring to operate in the unseen corners of the mind."
         },
         {
@@ -140,14 +140,14 @@ const QUIZ_DATA = {
           "id": "ORZHOV",
           "name": "Orzhov",
           "colors": ["White", "Black"],
-          "emoji": "🏦",
+          "emoji": "⚖️",
           "description": "I am Orzhov aligned. I value Hierarchy, Stability, and Wealth. At my best, I provide structure and security for those loyal to me, building legacies that last for generations. At my worst, I am corrupt, exploitative, and enforce a rigid caste system where the powerful prey on the weak. I am the golden vault and the binding contract. I oppose the unpredictability of Red and the wildness of Green."
         },
         {
           "id": "IZZET",
           "name": "Izzet",
           "colors": ["Blue", "Red"],
-          "emoji": "⚡",
+          "emoji": "🧪",
           "description": "I am Izzet aligned. I value Creativity, Innovation, and Passion. At my best, I am a genius inventor who pushes the boundaries of what is possible. At my worst, I am reckless, unfocused, and dangerous, creating disasters as often as miracles. I am the lightning storm and the eureka moment. I oppose the stagnation of Green and the rigid morality of White, believing that progress requires breaking a few rules."
         },
         {
@@ -185,14 +185,14 @@ const QUIZ_DATA = {
             "id": "ESPER",
             "name": "Esper",
             "colors": ["White", "Blue", "Black"],
-            "emoji": "⚙️",
+            "emoji": "🦾",
             "description": "I am Esper aligned. I value Perfection, Progress, and Control. I combine White's structure, Blue's knowledge, and Black's ambition. At my best, I create flawless systems where destiny is engineered, not left to chance. At my worst, I am cold, emotionless, and see living things as mere components to be upgraded. I am the clockwork mechanism. I lack the emotion of Red and the instinct of Green."
           },
           {
             "id": "GRIXIS",
             "name": "Grixis",
             "colors": ["Blue", "Black", "Red"],
-            "emoji": "⚰️",
+            "emoji": "🧟",
             "description": "I am Grixis aligned. I value Independence, cunning, and Ruthlessness. I combine Blue's planning, Black's ambition, and Red's passion. At my best, I am a survivor who refuses to be constrained by morality or tradition. At my worst, I am a tyrant who enjoys the suffering of others. I am the necropolis. I lack the community of White and the acceptance of Green."
           },
           {
@@ -206,7 +206,7 @@ const QUIZ_DATA = {
             "id": "NAYA",
             "name": "Naya",
             "colors": ["Red", "Green", "White"],
-            "emoji": "🏞️",
+            "emoji": "🦁",
             "description": "I am Naya aligned. I value Life, Spirituality, and Community. I combine Red's passion, Green's nature, and White's unity. At my best, I celebrate existence with unbridled joy and protect my flock with ferocious devotion. At my worst, I am simplistic and xenophobic, rejecting anything civilized or complex. I am the lush valley. I lack the deceit of Blue and the selfishness of Black."
           }
         ],
@@ -229,21 +229,21 @@ const QUIZ_DATA = {
             "id": "MARDU",
             "name": "Mardu",
             "colors": ["White", "Black", "Red"],
-            "emoji": "🥁",
+            "emoji": "🦅",
             "description": "I am Mardu aligned. I value Glory, Speed, and Conquest. I combine White's organization, Black's ambition, and Red's aggression. At my best, I am a fearless commander who inspires absolute loyalty and achieves impossible victories. At my worst, I am a warmonger who creates conflict just to prove my strength. I am the war drum. I oppose the passivity of Green and the hesitation of Blue."
           },
           {
             "id": "SULTAI",
             "name": "Sultai",
             "colors": ["Blue", "Black", "Green"],
-            "emoji": "👑",
+            "emoji": "🐍",
             "description": "I am Sultai aligned. I value Power, Resourcefulness, and Evolution. I combine Blue's knowledge, Black's ruthlessness, and Green's growth. At my best, I am the apex of adaptability, using every tool available to thrive. At my worst, I am a decadent tyrant who treats the world as my personal garden to be pruned. I am the opulent palace in the jungle. I oppose the morality of White and the emotion of Red."
           },
           {
             "id": "TEMUR",
             "name": "Temur",
             "colors": ["Blue", "Red", "Green"],
-            "emoji": "❄️",
+            "emoji": "🐻",
             "description": "I am Temur aligned. I value Potential, Savagery, and Observation. I combine Blue's curiosity, Red's freedom, and Green's instinct. At my best, I am the shaman who understands the deep, elemental truths of the universe. At my worst, I am wild and incomprehensible, rejecting civilization for the raw truth of the wild. I am the frozen lake. I oppose the hierarchy of White and the parasitism of Black."
           }
         ]
@@ -253,7 +253,7 @@ const QUIZ_DATA = {
           "id": "NO_GREEN",
           "name": "Artifice",
           "colors": ["White", "Blue", "Black", "Red"],
-          "emoji": "🏙️",
+          "emoji": "🤖",
           "description": "I am the union of Artifice. I represent civilization without limit. I combine order, knowledge, ambition, and emotion, but I lack the grounding of Green. At my best, I create technological wonders and complex societies. At my worst, I destroy the environment and lose touch with what it means to be alive. I am the sprawling metropolis."
         },
         {
@@ -267,7 +267,7 @@ const QUIZ_DATA = {
           "id": "NO_BLUE",
           "name": "Aggression",
           "colors": ["White", "Black", "Red", "Green"],
-          "emoji": "🚩",
+          "emoji": "🩸",
           "description": "I am the union of Aggression. I represent action without reflection. I combine order, ambition, emotion, and instinct, but I lack the foresight of Blue. At my best, I am decisive, bold, and unstoppable. At my worst, I am thoughtless and reactionary, charging into danger without a plan. I am the crusade."
         },
         {
@@ -281,7 +281,7 @@ const QUIZ_DATA = {
           "id": "NO_RED",
           "name": "Growth",
           "colors": ["White", "Blue", "Black", "Green"],
-          "emoji": "🌍",
+          "emoji": "🌱",
           "description": "I am the union of Growth. I represent progress without soul. I combine order, knowledge, ambition, and instinct, but I lack the heart of Red. At my best, I am the engine of destiny, moving inexorably forward. At my worst, I am cold, mechanical, and joyless, optimizing life until it is no longer worth living. I am the engineered ecosystem."
         }
       ],
@@ -290,7 +290,7 @@ const QUIZ_DATA = {
           "id": "WUBRG",
           "name": "Five Color",
           "colors": ["White", "Blue", "Black", "Red", "Green"],
-          "emoji": "💎",
+          "emoji": "🌈",
           "description": "I am Five Color aligned. I represent Wholeness and Omniscience. I combine the strengths and weaknesses of every philosophy. At my best, I have the perspective to see every side of an argument and the adaptability to face any challenge. At my worst, I am paralyzed by infinite choice and identity diffusion, belonging everywhere and nowhere. I am the prism of light."
         }
       ]
