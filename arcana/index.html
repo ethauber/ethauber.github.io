@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG Color Identity Quiz</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <div id="quiz-container">
+            <h1 id="question">Loading...</h1>
+            <div id="answers">
+                <!-- Buttons will be inserted here -->
+            </div>
+        </div>
+
+        <div id="result-container" class="hidden">
+            <h2>Your Color Identity</h2>
+            <div id="result-title"></div>
+            <p id="result-desc"></p>
+            <button id="restart-btn">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/quizData.js"></script>
+    <script src="js/quizEngine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
