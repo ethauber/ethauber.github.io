@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Elements for result
   const resultTitle = document.getElementById('result-title');
   const resultDesc = document.getElementById('result-desc');
+  const scoreBreakdown = document.getElementById('score-breakdown');
   const restartButton = document.getElementById('restart-btn');
 
   function startQuiz() {
@@ -50,13 +51,55 @@ document.addEventListener('DOMContentLoaded', () => {
     quizContainer.classList.add('hidden');
     resultContainer.classList.remove('hidden');
 
-    const result = engine.getResult();
-    resultTitle.textContent = result.color;
-    resultDesc.textContent = result.description;
+    const results = engine.getResult();
+    const winner = results[0];
+
+    // Main Result
+    resultTitle.textContent = winner.color;
+    resultDesc.textContent = winner.description;
 
     // Set color-specific class for styling
     resultContainer.className = 'container'; // Reset classes
-    resultContainer.classList.add(`color-${result.color.toLowerCase()}`);
+    resultContainer.classList.add(`color-${winner.color.toLowerCase()}`);
+
+    // Generate Breakdown
+    renderBreakdown(results, winner.score);
+  }
+
+  function renderBreakdown(results, maxScore) {
+    scoreBreakdown.innerHTML = '<h3>Color Resonance</h3>';
+
+    // Ensure we don't divide by zero if maxScore is 0
+    const calcMax = maxScore > 0 ? maxScore : 1;
+
+    results.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'score-row';
+
+      const label = document.createElement('span');
+      label.className = 'score-label';
+      label.textContent = item.color;
+
+      const barContainer = document.createElement('div');
+      barContainer.className = 'score-bar-container';
+
+      const bar = document.createElement('div');
+      bar.className = `score-bar bg-${item.color.toLowerCase()}`;
+
+      // Calculate width percentage relative to the winner's score
+      const widthPct = (item.score / calcMax) * 100;
+      bar.style.width = `${Math.max(widthPct, 1)}%`; // Min 1% visibility
+
+      const value = document.createElement('span');
+      value.className = 'score-value';
+      value.textContent = item.score;
+
+      barContainer.appendChild(bar);
+      row.appendChild(label);
+      row.appendChild(barContainer);
+      row.appendChild(value);
+      scoreBreakdown.appendChild(row);
+    });
   }
 
   restartButton.addEventListener('click', startQuiz);

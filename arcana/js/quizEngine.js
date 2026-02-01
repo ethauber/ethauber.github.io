@@ -23,28 +23,31 @@ class QuizEngine {
   }
 
   /**
-   * Determines the highest scoring color.
+   * Determines the results with full scoring details.
+   * Sorts colors by score descending.
    * Tie-breaking is deterministic based on the order: White, Blue, Black, Red, Green.
-   * @returns {Object} An object containing the color name and description.
+   * @returns {Array} An array of objects { color, score, description } sorted by score.
    */
   getResult() {
-    let maxScore = -1;
-    let winningColor = null;
-
-    // Order matters for deterministic tie-breaking
+    // Order matters for deterministic tie-breaking (if scores are equal, earlier index wins)
     const colorOrder = ["White", "Blue", "Black", "Red", "Green"];
 
-    for (const color of colorOrder) {
-      if (this.scores[color] > maxScore) {
-        maxScore = this.scores[color];
-        winningColor = color;
+    const sortedDetails = colorOrder.map((color, index) => ({
+      color: color,
+      score: this.scores[color],
+      description: this.data.results.single[color],
+      originalIndex: index
+    })).sort((a, b) => {
+      // Primary sort: Score (Descending)
+      if (b.score !== a.score) {
+        return b.score - a.score;
       }
-    }
+      // Secondary sort: Original Index (Ascending) for deterministic ties
+      return a.originalIndex - b.originalIndex;
+    });
 
-    return {
-      color: winningColor,
-      description: this.data.results.single[winningColor]
-    };
+    // Remove the temporary 'originalIndex' before returning
+    return sortedDetails.map(({ color, score, description }) => ({ color, score, description }));
   }
 
   reset() {

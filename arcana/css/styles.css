@@ -114,3 +114,54 @@ h2 {
 
 .color-green { border-color: var(--accent-green); }
 .color-green #result-title { color: var(--accent-green); }
+
+/* Score Breakdown Styling */
+#score-breakdown {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+#score-breakdown h3 {
+  font-size: 1.1rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.score-label {
+  width: 60px;
+  font-weight: bold;
+}
+
+.score-bar-container {
+  flex-grow: 1;
+  background-color: #333;
+  height: 12px;
+  border-radius: 6px;
+  margin: 0 1rem;
+  overflow: hidden;
+}
+
+.score-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-out;
+}
+
+.score-value {
+  width: 25px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.bg-white { background-color: var(--accent-white); }
+.bg-blue { background-color: var(--accent-blue); }
+.bg-black { background-color: var(--accent-black); }
+.bg-red { background-color: var(--accent-red); }
+.bg-green { background-color: var(--accent-green); }
