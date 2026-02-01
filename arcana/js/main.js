@@ -78,6 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
     resultTitle.textContent = bestIdentity.name || bestIdentity.id;
     resultDesc.textContent = bestIdentity.description;
 
+    const resultEmoji = document.getElementById('result-emoji');
+    if (resultEmoji) { // Check if element exists
+        if (bestIdentity.emoji) {
+            resultEmoji.textContent = bestIdentity.emoji;
+        } else {
+            resultEmoji.textContent = ''; // Clear emoji if none present
+        }
+    }
+
     // Styling
     resultContainer.className = 'container';
     if (bestIdentity.colors && bestIdentity.colors.length > 0) {
@@ -151,9 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Construct badge URL relative to current location
       const badgeUrl = new URL(`assets/badges/${identity.id.toLowerCase()}.svg`, baseUrl).href;
 
-      const flavor = `${identity.name} aligned. ${identity.description.split('.')[0]}.`;
-
-      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]\n${flavor}`;
+      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]`;
       shareBBCode.value = bbcode;
   }
 
