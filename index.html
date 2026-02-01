@@ -596,11 +596,30 @@ classes: landing-page
         <div class="row">
           <div class="col-12">
             <h1>Elijah Hauber's Blog</h1>
-          <ul class="posts">
-            {% for post in site.posts %}
-              <li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-            {% endfor %}
-          </ul>
+            <table class="posts">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in site.posts %}
+                  <tr>
+                    <td>
+                      <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%b %-d, %Y" }}
+                      </time>
+                    </td>
+                    <td>
+                      <a href="{{ post.url | relative_url }}" title="{{ post.title | strip_html | escape }}">
+                        {{ post.title }}
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           <div class="medium-profile mt-4">
             <h4>More Posts</h4>
             <p>You can also find additional posts on my medium profile. <a href="https://medium.com/@ethauber">
