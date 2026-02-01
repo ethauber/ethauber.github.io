@@ -78,6 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resultTitle.textContent = bestIdentity.name || bestIdentity.id;
     resultDesc.textContent = bestIdentity.description;
 
+    const resultEmoji = document.getElementById('result-emoji');
+    if (resultEmoji && bestIdentity.emoji) {
+        resultEmoji.textContent = bestIdentity.emoji;
+    }
+
     // Styling
     resultContainer.className = 'container';
     if (bestIdentity.colors && bestIdentity.colors.length > 0) {
@@ -151,16 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Construct badge URL relative to current location
       const badgeUrl = new URL(`assets/badges/${identity.id.toLowerCase()}.svg`, baseUrl).href;
 
-      // Extract key sentences for the flavor text
-      // We want the identity declaration (first sentence) and the "At my best..." sentence.
-      const descSentences = identity.description.split('. ');
-      const identityDecl = descSentences[0] + '.';
-      const atMyBest = descSentences.find(s => s.startsWith('At my best')) || descSentences[1]; // Fallback if not found
-
-      // Ensure the "At my best" sentence ends with a period if it was split off
-      const flavorText = `${identityDecl} ${atMyBest}${atMyBest.endsWith('.') ? '' : '.'}`;
-
-      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]\n${flavorText}`;
+      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]`;
       shareBBCode.value = bbcode;
   }
 

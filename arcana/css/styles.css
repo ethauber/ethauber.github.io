@@ -83,6 +83,12 @@ h2 {
   letter-spacing: 2px;
 }
 
+#result-emoji {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
 #restart-btn {
   margin-top: 2rem;
   padding: 0.8rem 2rem;
