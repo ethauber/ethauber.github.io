@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
         restartButton.textContent = "Take Quiz Again";
         generateShareData(bestIdentity);
     }
+    // Focus management for accessibility
+    resultTitle.focus();
   }
 
   function renderBreakdown(scores, maxScore) {
