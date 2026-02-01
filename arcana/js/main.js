@@ -79,8 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
     resultDesc.textContent = bestIdentity.description;
 
     const resultEmoji = document.getElementById('result-emoji');
-    if (resultEmoji && bestIdentity.emoji) {
-        resultEmoji.textContent = bestIdentity.emoji;
+    if (resultEmoji) { // Check if element exists
+        if (bestIdentity.emoji) {
+            resultEmoji.textContent = bestIdentity.emoji;
+        } else {
+            resultEmoji.textContent = ''; // Clear emoji if none present
+        }
     }
 
     // Styling

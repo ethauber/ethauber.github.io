@@ -89,6 +89,10 @@ h2 {
   line-height: 1;
 }
 
+#result-emoji:empty {
+    display: none;
+}
+
 #restart-btn {
   margin-top: 2rem;
   padding: 0.8rem 2rem;

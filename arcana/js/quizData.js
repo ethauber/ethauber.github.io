@@ -193,7 +193,7 @@ const QUIZ_DATA = {
             "name": "Grixis",
             "colors": ["Blue", "Black", "Red"],
             "emoji": "🧟",
-            "description": "I am Grixis aligned. I value Independence, cunning, and Ruthlessness. I combine Blue's planning, Black's ambition, and Red's passion. At my best, I am a survivor who refuses to be constrained by morality or tradition. At my worst, I am a tyrant who enjoys the suffering of others. I am the necropolis. I lack the community of White and the acceptance of Green."
+            "description": "I am Grixis aligned. I value Independence, Cunning, and Ruthlessness. I combine Blue's planning, Black's ambition, and Red's passion. At my best, I am a survivor who refuses to be constrained by morality or tradition. At my worst, I am a tyrant who enjoys the suffering of others. I am the necropolis. I lack the community of White and the acceptance of Green."
           },
           {
             "id": "JUND",
