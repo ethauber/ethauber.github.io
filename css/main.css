@@ -295,7 +295,6 @@ table.posts tbody tr:hover td {
 }
 
 /* If your header has the accent bg, let it define the same var */
-.masthead{ --accent: #f0d35e; }
 
 /* 2) Subtle tagline style */
 .tagline-subtle{
