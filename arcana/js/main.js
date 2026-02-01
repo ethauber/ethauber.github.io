@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultContainer = document.getElementById('result-container');
   const questionElement = document.getElementById('question');
   const answersElement = document.getElementById('answers');
+  const progressElement = document.getElementById('progress');
 
   // Elements for result
   const resultTitle = document.getElementById('result-title');
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showQuestion() {
     const questionData = questions[currentQuestionIndex];
+    progressElement.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
     questionElement.textContent = questionData.prompt;
     answersElement.innerHTML = '';
 
