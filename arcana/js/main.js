@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     questionData.answers.forEach(answer => {
       const button = document.createElement('button');
+      button.type = 'button';
       button.textContent = answer.text;
       button.classList.add('answer-btn');
       button.addEventListener('click', () => selectAnswer(answer.weights));
