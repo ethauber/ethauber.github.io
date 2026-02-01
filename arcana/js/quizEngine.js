@@ -8,6 +8,21 @@ class QuizEngine {
       Red: 0,
       Green: 0
     };
+    // Flatten all identities into a single array for easier processing
+    this.allIdentities = this._flattenIdentities(data.results.colors);
+  }
+
+  _flattenIdentities(colorsData) {
+    let identities = [];
+    identities = identities.concat(colorsData.single);
+    identities = identities.concat(colorsData.twoColor);
+    identities = identities.concat(colorsData.threeColor.shards);
+    identities = identities.concat(colorsData.threeColor.wedges);
+    identities = identities.concat(colorsData.fourColor);
+    identities = identities.concat(colorsData.fiveColor);
+
+    // Add a 'rank' for deterministic tie-breaking based on original order
+    return identities.map((identity, index) => ({ ...identity, originalRank: index }));
   }
 
   /**
@@ -23,31 +38,62 @@ class QuizEngine {
   }
 
   /**
-   * Determines the results with full scoring details.
-   * Sorts colors by score descending.
-   * Tie-breaking is deterministic based on the order: White, Blue, Black, Red, Green.
-   * @returns {Array} An array of objects { color, score, description } sorted by score.
+   * Determines the best-fitting multi-color identity based on accumulated scores.
+   * Uses a match score calculation: (sum of scores in identity) - (sum of scores NOT in identity).
+   * @returns {Object} An object containing the best-fitting identity and the raw color scores.
    */
   getResult() {
-    // Order matters for deterministic tie-breaking (if scores are equal, earlier index wins)
-    const colorOrder = ["White", "Blue", "Black", "Red", "Green"];
+    const baseColors = ["White", "Blue", "Black", "Red", "Green"];
+    let bestMatch = null;
+    let highestMatchScore = -Infinity;
 
-    const sortedDetails = colorOrder.map((color, index) => ({
-      color: color,
-      score: this.scores[color],
-      description: this.data.results.single[color],
-      originalIndex: index
-    })).sort((a, b) => {
-      // Primary sort: Score (Descending)
-      if (b.score !== a.score) {
-        return b.score - a.score;
+    this.allIdentities.forEach(identity => {
+      let scoreInIdentity = 0;
+      let scoreNotInIdentity = 0;
+
+      baseColors.forEach(color => {
+        if (identity.colors.includes(color)) {
+          scoreInIdentity += this.scores[color];
+        } else {
+          scoreNotInIdentity += this.scores[color];
+        }
+      });
+
+      const currentMatchScore = scoreInIdentity - scoreNotInIdentity;
+
+      // Select the best match:
+      // 1. Higher match score wins.
+      // 2. If match scores are equal, prefer identities with fewer colors (simpler identity).
+      // 3. If still tied, use the original order of definition (originalRank) for determinism.
+      if (currentMatchScore > highestMatchScore) {
+        highestMatchScore = currentMatchScore;
+        bestMatch = identity;
+      } else if (currentMatchScore === highestMatchScore) {
+        if (identity.colors.length < bestMatch.colors.length) {
+          bestMatch = identity;
+        } else if (identity.colors.length === bestMatch.colors.length) {
+          if (identity.originalRank < bestMatch.originalRank) {
+            bestMatch = identity;
+          }
+        }
       }
-      // Secondary sort: Original Index (Ascending) for deterministic ties
-      return a.originalIndex - b.originalIndex;
     });
 
-    // Remove the temporary 'originalIndex' before returning
-    return sortedDetails.map(({ color, score, description }) => ({ color, score, description }));
+    // Also prepare the individual color scores for display
+    const sortedColorScores = baseColors.map((color, index) => ({
+      color: color,
+      score: this.scores[color],
+      originalIndex: index // for deterministic sorting if main.js sorts them
+    })).sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.originalIndex - b.originalIndex;
+    }).map(({ color, score }) => ({ color, score })); // remove temp originalIndex
+
+
+    return {
+      identity: bestMatch,
+      colorScores: sortedColorScores
+    };
   }
 
   reset() {

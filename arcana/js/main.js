@@ -51,28 +51,36 @@ document.addEventListener('DOMContentLoaded', () => {
     quizContainer.classList.add('hidden');
     resultContainer.classList.remove('hidden');
 
-    const results = engine.getResult();
-    const winner = results[0];
+    const result = engine.getResult(); // Now returns { identity, colorScores }
+    const bestIdentity = result.identity;
+    const individualColorScores = result.colorScores;
 
-    // Main Result
-    resultTitle.textContent = winner.color;
-    resultDesc.textContent = winner.description;
+    // Main Result Display
+    resultTitle.textContent = bestIdentity.name || bestIdentity.id; // Use name if available, else id
+    resultDesc.textContent = bestIdentity.description;
 
-    // Set color-specific class for styling
+    // Set color-specific class for styling based on the first color of the identity
     resultContainer.className = 'container'; // Reset classes
-    resultContainer.classList.add(`color-${winner.color.toLowerCase()}`);
+    if (bestIdentity.colors && bestIdentity.colors.length > 0) {
+      resultContainer.classList.add(`color-${bestIdentity.colors[0].toLowerCase()}`);
+    } else {
+      // Fallback or default styling if no colors are defined for some reason
+      resultContainer.classList.add('color-default');
+    }
 
-    // Generate Breakdown
-    renderBreakdown(results, winner.score);
+    // Generate Breakdown using individual color scores
+    // Find the max score among individual colors for percentage calculation
+    const maxIndividualScore = individualColorScores.reduce((max, item) => Math.max(max, item.score), 0);
+    renderBreakdown(individualColorScores, maxIndividualScore);
   }
 
-  function renderBreakdown(results, maxScore) {
+  function renderBreakdown(scores, maxScore) {
     scoreBreakdown.innerHTML = '<h3>Color Resonance</h3>';
 
     // Ensure we don't divide by zero if maxScore is 0
     const calcMax = maxScore > 0 ? maxScore : 1;
 
-    results.forEach(item => {
+    scores.forEach(item => {
       const row = document.createElement('div');
       row.className = 'score-row';
 
@@ -86,9 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const bar = document.createElement('div');
       bar.className = `score-bar bg-${item.color.toLowerCase()}`;
 
-      // Calculate width percentage relative to the winner's score
+      // Calculate width percentage relative to the highest individual score
       const widthPct = (item.score / calcMax) * 100;
-      bar.style.width = `${Math.max(widthPct, 1)}%`; // Min 1% visibility
+      bar.style.width = `${Math.max(widthPct, 1)}%`; // Min 1% visibility for very low scores
 
       const value = document.createElement('span');
       value.className = 'score-value';
