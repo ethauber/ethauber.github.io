@@ -151,9 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Construct badge URL relative to current location
       const badgeUrl = new URL(`assets/badges/${identity.id.toLowerCase()}.svg`, baseUrl).href;
 
-      const flavor = `${identity.name} aligned. ${identity.description.split('.')[0]}.`;
+      // Extract key sentences for the flavor text
+      // We want the identity declaration (first sentence) and the "At my best..." sentence.
+      const descSentences = identity.description.split('. ');
+      const identityDecl = descSentences[0] + '.';
+      const atMyBest = descSentences.find(s => s.startsWith('At my best')) || descSentences[1]; // Fallback if not found
 
-      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]\n${flavor}`;
+      // Ensure the "At my best" sentence ends with a period if it was split off
+      const flavorText = `${identityDecl} ${atMyBest}${atMyBest.endsWith('.') ? '' : '.'}`;
+
+      const bbcode = `[url=${shareUrl}]\n[img]${badgeUrl}[/img]\n[/url]\n${flavorText}`;
       shareBBCode.value = bbcode;
   }
 
