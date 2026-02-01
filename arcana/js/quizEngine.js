@@ -31,7 +31,7 @@ class QuizEngine {
    */
   processAnswer(weights) {
     for (const [color, value] of Object.entries(weights)) {
-      if (this.scores.hasOwnProperty(color)) {
+      if (Object.hasOwn(this.scores, color)) {
         this.scores[color] += value;
       }
     }
