@@ -109,18 +109,18 @@ const QUIZ_DATA = {
       ],
       "threeColor": {
         "shards": [
-          { "id": "BANT", "colors": ["White", "Blue", "Green"], "description": "Order, harmony, and moral balance." },
-          { "id": "ESPER", "colors": ["White", "Blue", "Black"], "description": "Perfection, control, and engineered progress." },
-          { "id": "GRIXIS", "colors": ["Blue", "Black", "Red"], "description": "Power, knowledge, and emotional freedom." },
-          { "id": "JUND", "colors": ["Black", "Red", "Green"], "description": "Survival, dominance, and instinct." },
-          { "id": "NAYA", "colors": ["Red", "Green", "White"], "description": "Life, passion, and communal strength." }
+          { "id": "BANT", "name": "Bant", "colors": ["White", "Blue", "Green"], "description": "Order, harmony, and moral balance." },
+          { "id": "ESPER", "name": "Esper", "colors": ["White", "Blue", "Black"], "description": "Perfection, control, and engineered progress." },
+          { "id": "GRIXIS", "name": "Grixis", "colors": ["Blue", "Black", "Red"], "description": "Power, knowledge, and emotional freedom." },
+          { "id": "JUND", "name": "Jund", "colors": ["Black", "Red", "Green"], "description": "Survival, dominance, and instinct." },
+          { "id": "NAYA", "name": "Naya", "colors": ["Red", "Green", "White"], "description": "Life, passion, and communal strength." }
         ],
         "wedges": [
-          { "id": "ABZAN", "colors": ["White", "Black", "Green"], "description": "Endurance, tradition, and resilience." },
-          { "id": "JESKAI", "colors": ["White", "Blue", "Red"], "description": "Discipline, insight, and expression." },
-          { "id": "MARDU", "colors": ["White", "Black", "Red"], "description": "Action, loyalty, and conquest." },
-          { "id": "SULTAI", "colors": ["Blue", "Black", "Green"], "description": "Patience, growth, and domination." },
-          { "id": "TEMUR", "colors": ["Blue", "Red", "Green"], "description": "Instinct, curiosity, and raw potential." }
+          { "id": "ABZAN", "name": "Abzan", "colors": ["White", "Black", "Green"], "description": "Endurance, tradition, and resilience." },
+          { "id": "JESKAI", "name": "Jeskai", "colors": ["White", "Blue", "Red"], "description": "Discipline, insight, and expression." },
+          { "id": "MARDU", "name": "Mardu", "colors": ["White", "Black", "Red"], "description": "Action, loyalty, and conquest." },
+          { "id": "SULTAI", "name": "Sultai", "colors": ["Blue", "Black", "Green"], "description": "Patience, growth, and domination." },
+          { "id": "TEMUR", "name": "Temur", "colors": ["Blue", "Red", "Green"], "description": "Instinct, curiosity, and raw potential." }
         ]
       },
       "fourColor": [
