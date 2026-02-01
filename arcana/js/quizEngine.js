@@ -104,6 +104,11 @@ class QuizEngine {
     };
   }
 
+  getIdentityById(id) {
+    if (!id) return null;
+    return this.allIdentities.find(identity => identity.id === id.toUpperCase());
+  }
+
   reset() {
     this.scores = {
       White: 0,
