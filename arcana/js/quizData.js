@@ -69,13 +69,13 @@ const QUIZ_DATA = {
           "name": "White",
           "colors": ["White"],
           "emoji": "☀️",
-          "description": "My color is White. I value Peace, Order, and Community. At my best, I am the shield that protects the weak and the structure that upholds society. I believe in the good of the many over the few. However, at my worst, I can be authoritarian, inflexible, and intolerant of dissent. I struggle to accept that individuality is not a threat. Like marble, I am strong and enduring, but can be cold and unyielding. I stand against the chaos of Red and the selfishness of Black."
+          "description": "My color is White. I value Peace, Order, and Community. At my best, I am the light that guides the weak and the structure that upholds society. I believe in the good of the many over the few. However, at my worst, I can be authoritarian, inflexible, and intolerant of dissent. I struggle to accept that individuality is not a threat. Like the dawn, I bring clarity and purpose, but can be blinding and unyielding. I stand against the chaos of Red and the selfishness of Black."
         },
         {
           "id": "BLUE",
           "name": "Blue",
           "colors": ["Blue"],
-          "emoji": "💡",
+          "emoji": "💧",
           "description": "My color is Blue. I value Knowledge, Logic, and Improvement. At my best, I am the innovator who solves impossible problems and the scholar who seeks objective truth. I believe that anything can be improved with enough study. However, at my worst, I can be manipulative, paralyzed by over-analysis, and emotionally detached. I struggle to accept that not everything needs to be perfect. Like water, I am adaptable and deep, but can be formless and overwhelming. I conflict with the impulsiveness of Red and the stagnation of Green."
         },
         {
@@ -236,7 +236,7 @@ const QUIZ_DATA = {
             "id": "SULTAI",
             "name": "Sultai",
             "colors": ["Blue", "Black", "Green"],
-            "emoji": "🐍",
+            "emoji": "👑",
             "description": "I am Sultai aligned. I value Power, Resourcefulness, and Evolution. I combine Blue's knowledge, Black's ruthlessness, and Green's growth. At my best, I am the apex of adaptability, using every tool available to thrive. At my worst, I am a decadent tyrant who treats the world as my personal garden to be pruned. I am the opulent palace in the jungle. I oppose the morality of White and the emotion of Red."
           },
           {
