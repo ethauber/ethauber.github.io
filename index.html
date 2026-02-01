@@ -599,8 +599,8 @@ classes: landing-page
             <table class="posts">
               <thead>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Title</th>
                 </tr>
               </thead>
               <tbody>
@@ -976,7 +976,7 @@ class SmoothScrollSPA {
 
     // Update active nav link
     this.updateActiveNav(section);
-    
+
     // Hide navbar when clicking nav link
     const navbar = document.querySelector('.navbar');
     navbar.classList.add('navbar-hidden');
@@ -1390,7 +1390,7 @@ class FractalRenderer {
 
       realComponentOfResult = tempRealComponent;
       imaginaryComponentOfResult = tempImaginaryComponent;
-      
+
       if (realComponentOfResult * imaginaryComponentOfResult > 99999) {
         return (i / iterations * 100);
       }
