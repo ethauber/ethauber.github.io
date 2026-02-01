@@ -1,0 +1,48 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG Color Identity Quiz</title>
+    <link rel="stylesheet" href="css/styles.css?v={{ site.time | date: '%s' }}">
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <div id="quiz-container">
+            <div id="progress" aria-live="polite"></div>
+            <h1 id="question" aria-live="polite">Loading...</h1>
+            <div id="answers">
+                <!-- Buttons will be inserted here -->
+            </div>
+        </div>
+
+        <div id="result-container" class="hidden">
+            <h2>Your Color Identity</h2>
+            <div id="result-title" tabindex="-1"></div>
+            <p id="result-desc"></p>
+
+            <div id="score-breakdown">
+                <!-- Scores injected here -->
+            </div>
+
+            <div id="share-section">
+                <h3>Share Your Result</h3>
+                <p>Copy the bbcode below to share it online:</p>
+                <textarea id="share-bbcode" readonly></textarea>
+                <button id="copy-btn">Copy BBCode</button>
+            </div>
+
+            <button id="restart-btn">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/quizData.js?v={{ site.time | date: '%s' }}"></script>
+    <script src="js/quizEngine.js?v={{ site.time | date: '%s' }}"></script>
+    <script src="js/main.js?v={{ site.time | date: '%s' }}"></script>
+</body>
+</html>
