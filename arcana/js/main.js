@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Elements for result
   const resultTitle = document.getElementById('result-title');
+  const resultBadge = document.getElementById('result-badge');
   const resultDesc = document.getElementById('result-desc');
   const scoreBreakdown = document.getElementById('score-breakdown');
   const restartButton = document.getElementById('restart-btn');
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentQuestionIndex = 0;
     quizContainer.classList.remove('hidden');
     resultContainer.classList.add('hidden');
+    // Untap badge on reset
+    if (resultBadge) resultBadge.classList.remove('tapped');
 
     // Clear URL params if starting new quiz
     if (window.history.pushState) {
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showQuestion();
   }
+
 
   function showQuestion() {
     const questionData = questions[currentQuestionIndex];
@@ -77,6 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Main Result Display
     resultTitle.textContent = bestIdentity.name || bestIdentity.id;
     resultDesc.textContent = bestIdentity.description;
+
+    // Badge Logic
+    if (resultBadge) {
+        resultBadge.src = `assets/badges/${bestIdentity.id.toLowerCase()}.svg`;
+        resultBadge.alt = bestIdentity.name + " Badge";
+        resultBadge.classList.remove('hidden');
+    }
 
     const resultEmoji = document.getElementById('result-emoji');
     if (resultEmoji) { // Check if element exists
@@ -186,6 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
           copyBtn.textContent = originalText;
       }, 2000);
   });
+
+  if (resultBadge) {
+      resultBadge.addEventListener('click', () => {
+          resultBadge.classList.toggle('tapped');
+      });
+  }
 
   restartButton.addEventListener('click', startQuiz);
 
