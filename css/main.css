@@ -568,3 +568,19 @@ h2.display-5:hover {
     vertical-align: middle;
     font-size: 0.9rem;
 }
+
+/* Konami Code Easter Egg Animation */
+.barrel-roll {
+    -webkit-animation: barrelRoll 2s ease 1 normal;
+    animation: barrelRoll 2s ease 1 normal;
+}
+
+@-webkit-keyframes barrelRoll {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes barrelRoll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
