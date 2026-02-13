@@ -42,3 +42,44 @@ function activateKonami() {
         body.classList.remove('barrel-roll');
     }, 2000); // Matches the 2s animation duration
 }
+
+/**
+ * Easter Egg 2: Console Signature
+ * A fun message for developers who check the console.
+ */
+console.log(
+    "%c🚀 Hello there, Explorer! 🌌",
+    "color: #8a2be2; font-size: 20px; font-weight: bold; background: #f0f0f0; padding: 10px; border-radius: 5px;"
+);
+console.log(
+    "%cIf you're looking for the source code, you're already in the right place (Github). Feel free to look around!",
+    "color: #333; font-size: 12px;"
+);
+console.log(
+    "%cTry entering the Konami Code (↑ ↑ ↓ ↓ ← → ← → B A) for a spin!",
+    "color: #e67e22; font-style: italic;"
+);
+
+
+/**
+ * Easter Egg 3: Tab Title Marquee
+ * Changes the document title when the user switches tabs.
+ */
+const originalTitle = document.title;
+const funTitles = [
+    "Miss you already! 🚀", 
+    "Drifting in space... 🛸", 
+    "Come back to Earth! 🌍",
+    "System: Offline 🌑"
+];
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // Pick a random fun title
+        const randomTitle = funTitles[Math.floor(Math.random() * funTitles.length)];
+        document.title = randomTitle;
+    } else {
+        // Restore original title
+        document.title = originalTitle;
+    }
+});
