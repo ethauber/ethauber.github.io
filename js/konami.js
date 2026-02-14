@@ -129,10 +129,6 @@ function cycleHaloEffect() {
         case 4:
             triggerShieldRecharge();
             break;
-        default:
-             console.error(`Unexpected haloRotationIndex value: ${haloRotationIndex}`);
-             isHaloActive = false;
-             break;
     }
 
     haloRotationIndex++;
@@ -205,11 +201,11 @@ function triggerSandtrap() {
             this.startTime = undefined;
 
             // Icosahedron Vertices
-            const t = (1 + Math.sqrt(5)) / 2;
+            const goldenRatio = (1 + Math.sqrt(5)) / 2;
             this.vertices = [
-                [-1,  t,  0], [ 1,  t,  0], [-1, -t,  0], [ 1, -t,  0],
-                [ 0, -1,  t], [ 0,  1,  t], [ 0, -1, -t], [ 0,  1, -t],
-                [ t,  0, -1], [ t,  0,  1], [-t,  0, -1], [-t,  0,  1]
+                [-1,  goldenRatio,  0], [ 1,  goldenRatio,  0], [-1, -goldenRatio,  0], [ 1, -goldenRatio,  0],
+                [ 0, -1,  goldenRatio], [ 0,  1,  goldenRatio], [ 0, -1, -goldenRatio], [ 0,  1, -goldenRatio],
+                [ goldenRatio,  0, -1], [ goldenRatio,  0,  1], [-goldenRatio,  0, -1], [-goldenRatio,  0,  1]
             ].map(v => ({x: v[0], y: v[1], z: v[2]}));
 
             // Normalize

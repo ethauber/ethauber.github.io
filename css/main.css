@@ -469,7 +469,7 @@ h2.display-5:hover {
 }
 
 .certification-link:hover {
-  transform: translateY(-2px) translateX(0.25rem);
+  transform: translate(0.25rem, -2px);
   text-decoration: none;
   color: inherit;
 }
