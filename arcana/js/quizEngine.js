@@ -39,7 +39,7 @@ class QuizEngine {
 
   /**
    * Determines the best-fitting color identity based on a significance threshold.
-   * A color is included in the identity ONLY if its score is >= 50% of the maximum score achieved.
+   * A color is included in the identity ONLY if its score is >= 67% of the maximum score achieved.
    * This ensures that low-scoring "splash" colors do not force a multi-color result.
    * @returns {Object} An object containing the best-fitting identity and the raw color scores.
    */
@@ -54,10 +54,10 @@ class QuizEngine {
       }
     });
 
-    // 2. Determine Active Colors (Threshold: 50% of Max)
+    // 2. Determine Active Colors (Threshold: 67% of Max)
     // If maxScore is 0 (unlikely), prevent everything from being active unless we want that.
     // Assuming if maxScore is 0, we treat it as no color or handle gracefully.
-    const threshold = maxScore > 0 ? maxScore * 0.5 : 0.1;
+    const threshold = maxScore > 0 ? maxScore * 0.67 : 0.1;
 
     const activeColors = baseColors.filter(color => this.scores[color] >= threshold);
 
