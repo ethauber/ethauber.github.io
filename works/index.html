@@ -48,12 +48,12 @@ title: Elijah Hauber's Works
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
 		}
-		
+
 		#renderMandelbrot:hover, #renderJulia:hover {
 			background: #2980b9 !important;
 			transform: translateY(-1px);
 		}
-		
+
 		#renderMandelbrot:disabled, #renderJulia:disabled {
 			background: #95a5a6 !important;
 			cursor: not-allowed !important;
@@ -71,24 +71,24 @@ title: Elijah Hauber's Works
 		async renderMandelbrot(canvas, callback) {
 			if (this.isRendering) return;
 			this.isRendering = true;
-			
+
 			const ctx = canvas.getContext('2d');
 			const width = canvas.width;
 			const height = canvas.height;
-			
+
 			const magnificationFactor = 200;
 			const panX = 2;
 			const panY = 1.5;
 			const iterations = 100;
-			
+
 			// Clear canvas
 			ctx.clearRect(0, 0, width, height);
-			
+
 			// Process in chunks to prevent UI blocking
 			const chunkSize = 10000; // pixels per chunk
 			let pixelCount = 0;
 			const totalPixels = width * height;
-			
+
 			for (let x = 0; x < width; x++) {
 				for (let y = 0; y < height; y++) {
 					const belongsToSet = this.checkIfBelongsToMandelbrotSet(
@@ -96,7 +96,7 @@ title: Elijah Hauber's Works
 						y / magnificationFactor - panY,
 						iterations
 					);
-					
+
 					if (belongsToSet === 0) {
 						ctx.fillStyle = '#fbdc75';
 						ctx.fillRect(x, y, 1, 1);
@@ -104,9 +104,9 @@ title: Elijah Hauber's Works
 						ctx.fillStyle = `hsl(261, 80%, ${Math.abs(belongsToSet - 100)}%)`;
 						ctx.fillRect(x, y, 1, 1);
 					}
-					
+
 					pixelCount++;
-					
+
 					// Yield control every chunk
 					if (pixelCount % chunkSize === 0) {
 						await new Promise(resolve => {
@@ -118,7 +118,7 @@ title: Elijah Hauber's Works
 					}
 				}
 			}
-			
+
 			this.isRendering = false;
 			callback(1); // Complete
 		}
@@ -126,37 +126,37 @@ title: Elijah Hauber's Works
 		async renderJulia(canvas, callback) {
 			if (this.isRendering) return;
 			this.isRendering = true;
-			
+
 			const ctx = canvas.getContext('2d');
 			const width = canvas.width;
 			const height = canvas.height;
-			
+
 			const magnification = 200;
 			const panX = 1.5;
 			const panY = 1.5;
 			const cRe = -0.7;
 			const cIm = 0.27015;
 			const iterations = 100;
-			
+
 			// Clear canvas
 			ctx.clearRect(0, 0, width, height);
-			
+
 			// Process in chunks
 			const chunkSize = 10000;
 			let pixelCount = 0;
 			const totalPixels = width * height;
-			
+
 			for (let x = 0; x < width; x++) {
 				for (let y = 0; y < height; y++) {
 					const zx = x / magnification - panX;
 					const zy = y / magnification - panY;
 					const belongsToSet = this.checkIfBelongsToJuliaSet(zx, zy, cRe, cIm, iterations);
-					
+
 					ctx.fillStyle = this.getJuliaColor(x, y, belongsToSet, width, height);
 					ctx.fillRect(x, y, 1, 1);
-					
+
 					pixelCount++;
-					
+
 					// Yield control every chunk
 					if (pixelCount % chunkSize === 0) {
 						await new Promise(resolve => {
@@ -168,7 +168,7 @@ title: Elijah Hauber's Works
 					}
 				}
 			}
-			
+
 			this.isRendering = false;
 			callback(1); // Complete
 		}
@@ -184,7 +184,7 @@ title: Elijah Hauber's Works
 
 				realComponentOfResult = tempRealComponent;
 				imaginaryComponentOfResult = tempImaginaryComponent;
-				
+
 				if (realComponentOfResult * imaginaryComponentOfResult > 99999) {
 					return (i / iterations * 100);
 				}
@@ -216,7 +216,7 @@ title: Elijah Hauber's Works
 			const fadeStart = 0.92;
 			const fadeEnd = 1.0;
 			const dist = this.getDistanceFromCenter(x, y, width, height);
-			
+
 			if (belongsToSet === 0) {
 				let alpha = maxAlpha;
 				if (dist > fadeStart) {
@@ -228,7 +228,7 @@ title: Elijah Hauber's Works
 				const hue = (200 + 120 * norm + 60 * Math.sin((x - y) / 90)) % 360;
 				const light = 55 + 35 * Math.sin(norm * Math.PI * 2);
 				let alpha = 0.45 + 0.45 * Math.pow(norm, 0.7);
-				
+
 				if (dist > fadeStart) {
 					alpha *= 1 - Math.min((dist - fadeStart) / (fadeEnd - fadeStart), 1);
 				}
@@ -255,11 +255,11 @@ title: Elijah Hauber's Works
 			mandelbrotLoader.style.display = 'block';
 			mandelbrotBtn.disabled = true;
 			mandelbrotBtn.textContent = 'Rendering...';
-			
+
 			await renderer.renderMandelbrot(mandelbrotCanvas, (progress) => {
 				// Could show progress here if needed
 			});
-			
+
 			mandelbrotLoader.style.display = 'none';
 			mandelbrotBtn.disabled = false;
 			mandelbrotBtn.textContent = 'Re-render Mandelbrot Set';
@@ -270,11 +270,11 @@ title: Elijah Hauber's Works
 			juliaLoader.style.display = 'block';
 			juliaBtn.disabled = true;
 			juliaBtn.textContent = 'Rendering...';
-			
+
 			await renderer.renderJulia(juliaCanvas, (progress) => {
 				// Could show progress here if needed
 			});
-			
+
 			juliaLoader.style.display = 'none';
 			juliaBtn.disabled = false;
 			juliaBtn.textContent = 'Re-render Julia Set';

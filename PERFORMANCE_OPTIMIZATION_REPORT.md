@@ -39,7 +39,7 @@ This report documents the comprehensive performance optimizations implemented ac
 
 **Mandelbrot/Julia Set Rendering:**
 - **Before:** Blocking synchronous rendering (freezes UI)
-- **After:** 
+- **After:**
   - Chunked processing with `requestAnimationFrame`
   - User-initiated rendering (lazy loading)
   - Loading indicators and progress feedback
@@ -206,7 +206,7 @@ const LazyComponent = React.lazy(() => import('./LazyComponent'));
 The implemented optimizations provide significant performance improvements across all key metrics. The website now loads faster, provides better user experience, and follows modern web performance best practices. The optimizations are particularly effective for:
 
 1. **Mobile users** with slower connections
-2. **Users with limited bandwidth** 
+2. **Users with limited bandwidth**
 3. **International users** accessing from distant servers
 4. **Users with older devices** or browsers
 
