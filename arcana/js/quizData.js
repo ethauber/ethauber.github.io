@@ -54,12 +54,67 @@ const QUIZ_DATA = {
         { text: "Boredom and constraints", weights: { White: 0, Blue: 0, Black: 0, Red: 3, Green: 0 } },
         { text: "The unnatural and the artificial", weights: { White: 0, Blue: 0, Black: 0, Red: 0, Green: 3 } }
       ]
+    },
+    {
+      id: "Q6",
+      prompt: "How do you prefer to solve a complex problem?",
+      answers: [
+        { text: "Organize a team and assign roles based on strengths", weights: { White: 3, Blue: 1, Black: 0, Red: 0, Green: 0 } },
+        { text: "Analyze all variables and simulate outcomes", weights: { White: 0, Blue: 3, Black: 0, Red: 1, Green: 0 } },
+        { text: "Find the most efficient shortcut, even if risky", weights: { White: 0, Blue: 1, Black: 3, Red: 0, Green: 0 } },
+        { text: "Dive in and figure it out as I go", weights: { White: 0, Blue: 0, Black: 0, Red: 3, Green: 1 } },
+        { text: "Wait and see if it resolves itself naturally", weights: { White: 0, Blue: 0, Black: 0, Red: 0, Green: 3 } }
+      ]
+    },
+    {
+      id: "Q7",
+      prompt: "If you could change one thing about the world, what would it be?",
+      answers: [
+        { text: "Eliminate violence and inequality", weights: { White: 3, Blue: 0, Black: 0, Red: 0, Green: 1 } },
+        { text: "Eliminate stupidity and ignorance", weights: { White: 0, Blue: 3, Black: 0, Red: 0, Green: 0 } },
+        { text: "Eliminate restrictions on personal power", weights: { White: 0, Blue: 0, Black: 3, Red: 0, Green: 0 } },
+        { text: "Eliminate boredom and apathy", weights: { White: 0, Blue: 0, Black: 0, Red: 3, Green: 0 } },
+        { text: "Eliminate pollution and artificiality", weights: { White: 1, Blue: 0, Black: 0, Red: 0, Green: 3 } }
+      ]
+    },
+    {
+      id: "Q8",
+      prompt: "What is your greatest strength?",
+      answers: [
+        { text: "My loyalty and reliability", weights: { White: 3, Blue: 0, Black: 0, Red: 0, Green: 1 } },
+        { text: "My intelligence and curiosity", weights: { White: 0, Blue: 3, Black: 0, Red: 1, Green: 0 } },
+        { text: "My ambition and drive", weights: { White: 0, Blue: 0, Black: 3, Red: 0, Green: 0 } },
+        { text: "My passion and creativity", weights: { White: 0, Blue: 0, Black: 0, Red: 3, Green: 0 } },
+        { text: "My wisdom and acceptance", weights: { White: 0, Blue: 0, Black: 0, Red: 0, Green: 3 } }
+      ]
+    },
+    {
+      id: "Q9",
+      prompt: "How do you view rules and laws?",
+      answers: [
+        { text: "They are essential for protection and order", weights: { White: 3, Blue: 1, Black: 0, Red: 0, Green: 0 } },
+        { text: "They are useful guidelines but should be improved", weights: { White: 1, Blue: 3, Black: 0, Red: 0, Green: 0 } },
+        { text: "They are tools for the weak to control the strong", weights: { White: 0, Blue: 0, Black: 3, Red: 1, Green: 0 } },
+        { text: "They are chains that must be broken", weights: { White: 0, Blue: 0, Black: 1, Red: 3, Green: 0 } },
+        { text: "They are irrelevant compared to the laws of nature", weights: { White: 0, Blue: 0, Black: 0, Red: 1, Green: 3 } }
+      ]
+    },
+    {
+      id: "Q10",
+      prompt: "Pick a methodology for success:",
+      answers: [
+        { text: "Collaboration", weights: { White: 3, Blue: 0, Black: 0, Red: 0, Green: 1 } },
+        { text: "Iteration", weights: { White: 0, Blue: 3, Black: 1, Red: 0, Green: 0 } },
+        { text: "Exploitation", weights: { White: 0, Blue: 1, Black: 3, Red: 0, Green: 0 } },
+        { text: "Improvisation", weights: { White: 0, Blue: 0, Black: 0, Red: 3, Green: 0 } },
+        { text: "Adaptation", weights: { White: 0, Blue: 0, Black: 0, Red: 0, Green: 3 } }
+      ]
     }
   ],
   results: {
     "meta": {
       "domain": "Magic The Gathering Color Pie",
-      "version": "1.0",
+      "version": "1.1",
       "coverage": "All single, dual, triple, quadruple, and five-color identities"
     },
     "colors": {

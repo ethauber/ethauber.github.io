@@ -1,9 +1,9 @@
 // The secret Konami Code sequence
 const konamiCode = [
-    "ArrowUp", "ArrowUp", 
-    "ArrowDown", "ArrowDown", 
-    "ArrowLeft", "ArrowRight", 
-    "ArrowLeft", "ArrowRight", 
+    "ArrowUp", "ArrowUp",
+    "ArrowDown", "ArrowDown",
+    "ArrowLeft", "ArrowRight",
+    "ArrowLeft", "ArrowRight",
     "b", "a"
 ];
 
@@ -33,7 +33,7 @@ document.addEventListener('keydown', function(e) {
 function activateKonami() {
     console.log("Konami Code Activated! Do a barrel roll!");
     const body = document.body;
-    
+
     // Add the class to trigger the animation
     body.classList.add('barrel-roll');
 
@@ -67,8 +67,8 @@ console.log(
  */
 const originalTitle = document.title;
 const funTitles = [
-    "Miss you already! 🚀", 
-    "Drifting in space... 🛸", 
+    "Miss you already! 🚀",
+    "Drifting in space... 🛸",
     "Come back to Earth! 🌍",
     "System: Offline 🌑"
 ];
