@@ -469,10 +469,9 @@ h2.display-5:hover {
 }
 
 .certification-link:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateX(0.25rem);
   text-decoration: none;
   color: inherit;
-  margin-left: 0.25rem;
 }
 
 .certification-details {
@@ -586,8 +585,8 @@ h2.display-5:hover {
     100% { transform: rotate(360deg); }
 }
 
-/* 
-   HALO EASTER EGG ANIMATIONS 
+/*
+   HALO EASTER EGG ANIMATIONS
    Inspired by: Halo 3 (Grunt Birthday), Reach (Armor Lock), Halo 2 (Super Bounce), Halo 1 (Shields)
 */
 
@@ -603,7 +602,7 @@ h2.display-5:hover {
     color: #32CD32; /* Lime green */
     text-shadow: 2px 2px 0 #000;
     pointer-events: none;
-    z-index: 10000;
+    z-index: 2000; /* Easter Eggs stay above normal UI (Bootstrap modals ~1050) */
     animation: gruntPop 1s ease-out forwards;
 }
 
@@ -617,7 +616,7 @@ h2.display-5:hover {
     position: fixed;
     width: 10px;
     height: 10px;
-    z-index: 9999;
+    z-index: 1999;
     pointer-events: none;
     animation: confettiExplosion 1.5s ease-out forwards;
 }
@@ -631,14 +630,30 @@ h2.display-5:hover {
 .halo-armor-lock {
     /* Freeze frame visual */
     filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 10px #00ffff);
-    /* Inverted blue tint feeling */
-    box-shadow: inset 0 0 100px #00ffff;
-    background-color: #e0ffff !important;
-    transition: all 0.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
     /* "Locked" state */
     overflow: hidden;
-    pointer-events: none;
+    /* pointer-events: none; - Removed to allow interaction per review */
     animation: armorLockShake 0.1s infinite;
+}
+
+/* Overlay for tint to avoid using !important on body background */
+.halo-armor-lock::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(224, 255, 255, 0.8); /* Cyan tint */
+    box-shadow: inset 0 0 100px #00ffff;
+    z-index: 2005;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.sandtrap-shake {
+    animation: armorLockShake 0.1s ease-in-out;
+    animation-iteration-count: 5; /* 0.5s duration approx */
 }
 
 @keyframes armorLockShake {
@@ -651,7 +666,7 @@ h2.display-5:hover {
 .halo-super-bounce {
     /* Simulating active camo + glitched physics */
     animation: superBounce 1.5s ease-in-out;
-    filter: blur(4px) opacity(0.6);
+    filter: blur(2px) opacity(0.8); /* Reduced blur for accessibility */
 }
 
 @keyframes superBounce {
@@ -668,7 +683,7 @@ h2.display-5:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10001;
+    z-index: 2001;
     background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.4) 50%, transparent 100%);
     background-size: 200% 100%;
     animation: shieldWipe 1.5s ease-out forwards;
@@ -688,7 +703,7 @@ h2.display-5:hover {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 10002;
+    z-index: 2002;
 }
 
 .davinci-egg-canvas {
@@ -734,7 +749,7 @@ h2.display-5:hover {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     font-size: 14px;
-    z-index: 10003;
+    z-index: 2003;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -749,4 +764,32 @@ h2.display-5:hover {
 
 .kill-guardian {
     color: #ffcc00; /* Gold for Guardians */
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .barrel-roll,
+    .halo-grunt-yay,
+    .halo-confetti,
+    .halo-armor-lock,
+    .halo-super-bounce,
+    .halo-shield-recharge::after,
+    .davinci-egg-canvas,
+    .guardian-beam,
+    .halo-kill-feed,
+    .sandtrap-shake {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .halo-armor-lock::after {
+        opacity: 0.5; /* Just show static tint */
+    }
+
+    /* Fallback visual cues */
+    .halo-grunt-yay {
+        opacity: 1;
+        display: block;
+    }
 }
