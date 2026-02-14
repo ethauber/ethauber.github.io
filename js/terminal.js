@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <pre>
   _____ _ _   _       _       
  | ____| (_) (_) __ _| |__    
- |  _| | | | | |/ _` | '_ \   
+ |  _| | | | | |/ _\` | '_ \\   
  | |___| | | | | (_| | | | |  
- |_____|_|_|_/ |\__,_|_| |_|  
+ |_____|_|_|_/ |\\__,_|_| |_|  
            |__/               
                     </pre>
                     <p>Elijah Hauber Interactive Terminal [Version 1.0.0]</p>
