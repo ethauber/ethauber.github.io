@@ -11,7 +11,7 @@
 
   <!-- Background -->
   <rect width="100%" height="100%" fill="#1F2937" rx="12" ry="12" />
-  
+
   <!-- Color Stripes at Top (Header) -->
   <g>
     <rect x="0.0" y="0" width="100.0" height="10" fill="#F9FAFB" />
@@ -19,13 +19,13 @@
     <rect x="200.0" y="0" width="100.0" height="10" fill="#9CA3AF" />
     <rect x="300.0" y="0" width="100.0" height="10" fill="#10B981" />
   </g>
-  
+
   <!-- Main Title -->
   <text x="50%" y="50" text-anchor="middle" class="title">GROWTH</text>
-  
+
   <!-- Central Emoji Icon -->
   <text x="50%" y="140" text-anchor="middle" dominant-baseline="middle" class="emoji">🌱</text>
-  
+
   <!-- Description Text (Multi-line) -->
   <g transform="translate(0, 190)">
     <text x="50%" y="0" text-anchor="middle" class="desc">At my best, I am the engine of destiny, moving</text>
@@ -34,7 +34,7 @@
 
   <!-- Footer -->
   <text x="50%" y="265" text-anchor="middle" class="footer">CLICK TO TAKE THE QUIZ</text>
-  
+
   <!-- Border -->
   <rect x="0" y="0" width="400" height="280" fill="none" stroke="#374151" stroke-width="4" rx="12" ry="12" />
 </svg>
