@@ -60,9 +60,9 @@ function analyzeResourceLoading() {
   resources.forEach(resource => {
     const duration = resource.responseEnd - resource.startTime;
     const size = resource.transferSize || 0;
-    
+
     resourceStats.totalSize += size;
-    
+
     // Flag slow resources (>1s)
     if (duration > 1000) {
       resourceStats.slowResources.push({
@@ -71,7 +71,7 @@ function analyzeResourceLoading() {
         type: resource.initiatorType
       });
     }
-    
+
     // Flag large resources (>100KB)
     if (size > 100000) {
       resourceStats.largeResources.push({
@@ -110,7 +110,7 @@ function analyzeNavigationTiming() {
       'DOM Processing': navigation.domComplete - navigation.domLoading,
       'Load Complete': navigation.loadEventEnd - navigation.navigationStart
     };
-    
+
     console.log('Navigation Timing:', timing);
     return timing;
   }
@@ -120,25 +120,25 @@ function analyzeNavigationTiming() {
 function calculatePerformanceScore() {
   const navigation = performance.getEntriesByType('navigation')[0];
   if (!navigation) return null;
-  
+
   const loadTime = navigation.loadEventEnd - navigation.navigationStart;
   const domContentLoaded = navigation.domContentLoadedEventEnd - navigation.navigationStart;
-  
+
   let score = 100;
-  
+
   // Deduct points for slow metrics
   if (loadTime > 3000) score -= 20;
   if (loadTime > 5000) score -= 30;
   if (domContentLoaded > 1500) score -= 15;
   if (domContentLoaded > 2500) score -= 25;
-  
+
   return Math.max(0, score);
 }
 
 // Main performance monitoring function
 function runPerformanceCheck() {
   console.log('=== Performance Check Started ===');
-  
+
   // Wait for page to fully load
   if (document.readyState === 'complete') {
     executeChecks();
@@ -150,15 +150,15 @@ function runPerformanceCheck() {
 function executeChecks() {
   setTimeout(() => {
     console.log('Page Load Time:', performance.now().toFixed(2), 'ms');
-    
+
     trackCoreWebVitals();
     analyzeResourceLoading();
     trackMemoryUsage();
     analyzeNavigationTiming();
-    
+
     const score = calculatePerformanceScore();
     console.log('Performance Score:', score + '/100');
-    
+
     console.log('=== Performance Check Complete ===');
   }, 1000);
 }

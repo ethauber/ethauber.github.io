@@ -469,7 +469,7 @@ h2.display-5:hover {
 }
 
 .certification-link:hover {
-  transform: translateY(-2px);
+  transform: translate(0.25rem, -2px);
   text-decoration: none;
   color: inherit;
 }
@@ -583,4 +583,213 @@ h2.display-5:hover {
 @keyframes barrelRoll {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/*
+   HALO EASTER EGG ANIMATIONS
+   Inspired by: Halo 3 (Grunt Birthday), Reach (Armor Lock), Halo 2 (Super Bounce), Halo 1 (Shields)
+*/
+
+/* STAGE 1: GRUNT BIRTHDAY PARTY */
+.halo-grunt-yay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #32CD32; /* Lime green */
+    text-shadow: 2px 2px 0 #000;
+    pointer-events: none;
+    z-index: 2000; /* Easter Eggs stay above normal UI (Bootstrap modals ~1050) */
+    animation: gruntPop 1s ease-out forwards;
+}
+
+@keyframes gruntPop {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -150%) scale(1); opacity: 0; }
+}
+
+.halo-confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 1999;
+    pointer-events: none;
+    animation: confettiExplosion 1.5s ease-out forwards;
+}
+
+@keyframes confettiExplosion {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(720deg); opacity: 0; }
+}
+
+/* STAGE 2: ARMOR LOCK (Reach) */
+.halo-armor-lock {
+    /* Freeze frame visual */
+    filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 10px #00ffff);
+    /* "Locked" state */
+    overflow: hidden;
+    /* pointer-events: none; - Removed to allow interaction per review */
+    animation: armorLockShake 0.1s infinite;
+}
+
+/* Overlay for tint to avoid using !important on body background */
+.halo-armor-lock::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(224, 255, 255, 0.8); /* Cyan tint */
+    box-shadow: inset 0 0 100px #00ffff;
+    z-index: 2005;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.sandtrap-shake {
+    animation: armorLockShake 0.1s ease-in-out;
+    animation-iteration-count: 5; /* 0.5s duration approx */
+}
+
+@keyframes armorLockShake {
+    0% { transform: translate(1px, 1px) scale(0.995); }
+    50% { transform: translate(-1px, -1px) scale(0.995); }
+    100% { transform: translate(1px, -1px) scale(0.995); }
+}
+
+/* STAGE 3: SUPER BOUNCE (Halo 2 Glitches) */
+.halo-super-bounce {
+    /* Simulating active camo + glitched physics */
+    animation: superBounce 1.5s ease-in-out;
+    filter: blur(2px) opacity(0.8); /* Reduced blur for accessibility */
+}
+
+@keyframes superBounce {
+    0% { transform: translateY(0); }
+    40% { transform: translateY(-30vh) scale(0.9); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* STAGE 4: SHIELD RECHARGE (Halo 1) */
+.halo-shield-recharge::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2001;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.4) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shieldWipe 1.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes shieldWipe {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* SANDTRAP EASTER EGG */
+#sandtrap-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2002;
+}
+
+.davinci-egg-canvas {
+    position: absolute;
+    top: 50px;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    filter: drop-shadow(0 0 10px rgba(100, 100, 255, 0.4));
+    animation: eggAppear 1s ease-out forwards;
+}
+
+@keyframes eggAppear {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.guardian-beam {
+    position: absolute;
+    top: 50%; /* Center of canvas */
+    left: 50%;
+    width: 6px; /* Slightly wider beam */
+    height: 0;
+    background: linear-gradient(to bottom, rgba(255, 69, 0, 0.8), rgba(255, 69, 0, 0.4), transparent);
+    transform: translateX(-50%);
+    box-shadow: 0 0 25px 8px rgba(255, 69, 0, 0.6); /* Softer, wider glow */
+    mix-blend-mode: screen; /* Blend with background for more sci-fi look */
+    animation: fireBeam 0.2s linear forwards;
+}
+
+@keyframes fireBeam {
+    to { height: 150vh; } /* Shoot off screen */
+}
+
+.halo-kill-feed {
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 2003;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 3px solid #ff4500;
+    animation: feedSlideIn 0.3s ease-out;
+}
+
+@keyframes feedSlideIn {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.kill-guardian {
+    color: #ffcc00; /* Gold for Guardians */
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .barrel-roll,
+    .halo-grunt-yay,
+    .halo-confetti,
+    .halo-armor-lock,
+    .halo-super-bounce,
+    .halo-shield-recharge::after,
+    .davinci-egg-canvas,
+    .guardian-beam,
+    .halo-kill-feed,
+    .sandtrap-shake {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .halo-armor-lock::after {
+        opacity: 0.5; /* Just show static tint */
+    }
+
+    /* Fallback visual cues */
+    .halo-grunt-yay {
+        opacity: 1;
+        display: block;
+    }
 }

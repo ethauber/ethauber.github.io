@@ -1,0 +1,11 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0  # pick a current tag
+    hooks:
+      - id: trailing-whitespace
+        # optional: keep Markdown hard line breaks
+        args: [--markdown-linebreak-ext=md]  # or '*' to treat everything as markdown
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-added-large-files
