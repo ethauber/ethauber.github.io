@@ -348,28 +348,36 @@ footer {
 }
 
 /* Post styles */
-.post-meta {
-    color: var(--ink-muted);
-    margin: 0 1rem;
+.post h1 {
+    text-align: center;
+    margin: 0 auto 0.5rem auto; /* Center and provide vertical spacing */
+    line-height: 1.2;
+}
+
+.post .post-meta {
+    text-align: center;
+    margin: 0 auto 2rem auto; /* Center and provide vertical spacing */
+    display: block;
 }
 
 .post {
-    margin: 1rem;
+    margin: 1rem auto; /* Center the post content */
+    max-width: 700px; /* Limit line length for readability */
+    line-height: 1.6; /* Improve line spacing */
 }
 
-.post h1 {
-    margin-bottom: .25rem;
+.post p {
+    margin-bottom: 1rem; /* Space between paragraphs */
 }
 
-/* Explicit smaller post type scale (wins by cascade order) */
-/* .post p a, .post p {
-    animation-duration: 0s;
-} */
 .post li {
-    font-size: 0.95rem;
+    font-size: 1rem; /* Slightly larger font for list items */
+    line-height: 1.5; /* Improve line spacing for list items */
+    margin-bottom: 0.5rem; /* Space between list items */
 }
 .post blockquote {
-    font-size: 0.95rem;
+    font-size: 1rem; /* Slightly larger font for blockquotes */
+    line-height: 1.5; /* Improve line spacing for blockquotes */
 }
 
 .post blockquote, blockquote {
