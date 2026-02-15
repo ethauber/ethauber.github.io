@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+      const theme = savedTheme ? savedTheme : (systemDark.matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <meta charset="utf-8">
   <title>{{ page.title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,6 +63,11 @@
               <img src="/assets/icons/medium.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
             </a>
           </li>
+          <li>
+            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" style="border: none; background: transparent;">
+              <span class="toggle-thumb" data-emoji="🌙"></span>
+            </button>
+          </li>
         </ul>
       </div>
     </footer>
@@ -75,6 +88,7 @@
 
     <!-- Konami Code Easter Egg -->
     <script src="/js/konami.js?v={{ site.time | date: '%s' }}"></script>
+    <script src="/js/theme-toggle.js"></script>
 </body>
 
 </html>

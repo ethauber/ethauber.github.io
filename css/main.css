@@ -1,20 +1,55 @@
 /* Performance-optimized main stylesheet */
+:root {
+    /* Light Mode (Default) */
+    --bg-color: #fafafa;
+    --text-color: #333;
+    --heading-color: #2b2b2b;
+    --accent-color: #fbdc75;
+    --link-color: #8a8a8a;
+    --nav-bg-color: #fbdc75;
+    --footer-bg-color: #d1d1d1;
+    --card-bg-color: #faf9f6;
+    --border-color: #d5d5d5;
+    --hover-bg-color: rgba(0,0,0,0.03);
+    --toggle-track-bg-light: #e0e0e0;
+    --toggle-thumb-bg-light: #ffffff;
+    --ink: #2b2b2b;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --heading-color: #f0f0f0;
+    --accent-color: #d4b04c;
+    --link-color: #b0b0b0;
+    --nav-bg-color: #1f1f1f;
+    --footer-bg-color: #1a1a1a;
+    --card-bg-color: #1e1e1e;
+    --border-color: #333;
+    --hover-bg-color: rgba(255,255,255,0.05);
+    --toggle-track-bg-dark: #333;
+    --toggle-thumb-bg-dark: #555;
+    --ink: #f0f0f0;
+}
+
 /* Base styles */
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    background-color: #fafafa; /* Very light warm gray background */
+    background-color: var(--bg-color); /* Variable background */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a.global:not(.badge):not(.btn),
 .global a:not(.badge):not(.btn) {
     text-decoration: none;
     margin: 0.15rem 0;
-    color: #8a8a8a;
+    color: var(--link-color);
     transition: color 0.2s ease;
 }
 
@@ -40,7 +75,7 @@ li.global:not(.badge):not(.btn),
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-    color: #8a8a8a;
+    color: var(--link-color);
     transition: color 0.2s ease;
 }
 
@@ -63,13 +98,13 @@ img.global:not(.badge):not(.btn),
 /* Animations */
 @keyframes gradientShift {
     0%, 100% {
-        background: linear-gradient(45deg, #fbdc75, #8a2be2);
+        background: linear-gradient(45deg, var(--accent-color), #8a2be2);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     50% {
-        background: linear-gradient(45deg, #8a2be2, #fbdc75);
+        background: linear-gradient(45deg, #8a2be2, var(--accent-color));
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -116,7 +151,7 @@ h3, h4, h5 {
 
 p {
     /* line-height: 1.4em; */
-    color: #333;
+    color: var(--text-color);
     margin: 0.15rem 0;
 }
 
@@ -175,12 +210,13 @@ p {
 
 /* Navigation */
 nav {
-    background-color: #fbdc75;
+    background-color: var(--nav-bg-color);
     display: flex;
     justify-content: center;
     font-weight: bold;
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
 nav ul, footer ul {
@@ -200,6 +236,71 @@ nav ul li:last-child, footer ul li:last-child {
     margin-right: 0;
 }
 
+/* Toggle Button */
+.theme-toggle-btn {
+    background-color: var(--toggle-track-bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 999px; /* Oval shape */
+    width: 60px; /* Wider for oval */
+    height: 38px; /* Slightly less than width to maintain aspect ratio with thumb */
+    display: flex;
+    align-items: center;
+    position: relative; /* For absolute positioning of thumb */
+    overflow: hidden; /* Hide overflow of emoji when sliding */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    text-decoration: none !important;
+    padding: 0; /* Remove default padding */
+}
+
+.theme-toggle-btn .toggle-thumb {
+    width: 30px; /* Size of the circular thumb */
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--toggle-thumb-bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: 1.2rem; /* Emoji size */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    position: absolute;
+    left: 3px; /* Initial position for light mode */
+    top: 3px; /* Center vertically */
+}
+
+/* Dark mode states for toggle button */
+[data-theme="dark"] .theme-toggle-btn {
+    background-color: var(--toggle-track-bg-dark);
+}
+
+[data-theme="dark"] .theme-toggle-btn .toggle-thumb {
+    transform: translateX(22px); /* Move thumb to the right */
+    background-color: var(--toggle-thumb-bg-dark);
+}
+
+/* Hover effects for toggle button */
+.theme-toggle-btn:hover {
+    box-shadow: 0 0 0 2px var(--accent-color); /* Subtle glow on hover */
+}
+
+/* Hover effects for thumb (optional, but good UX) */
+.theme-toggle-btn .toggle-thumb:hover {
+    box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+}
+
+/* Ensure emoji is centered within thumb */
+.theme-toggle-btn .toggle-thumb::before {
+    content: attr(data-emoji); /* Use data-emoji attribute for dynamic emoji */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+
 /* Navigation icons */
 .bars {
     display: inline-block;
@@ -212,35 +313,43 @@ nav ul li:last-child, footer ul li:last-child {
 }
 
 .arrow-up {
-    width: 1.5rem;
-    height: 1.5rem;
-    background-image: url("/assets/arrow-alt-circle-up.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--text-color);
+    -webkit-mask: url("/assets/arrow-alt-circle-up.svg") no-repeat center / contain;
+    mask: url("/assets/arrow-alt-circle-up.svg") no-repeat center / contain;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .arrow-down {
-    width: 1.5rem;
-    height: 1.5rem;
-    background-image: url("/assets/arrow-alt-circle-down.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--text-color);
+    -webkit-mask: url("/assets/arrow-alt-circle-down.svg") no-repeat center / contain;
+    mask: url("/assets/arrow-alt-circle-down.svg") no-repeat center / contain;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.arrow-up:hover, .arrow-down:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
 }
 
 /* Footer */
 footer {
     width: 100%;
-    background-color: #d1d1d1;
-    border-top: 1px solid #d5d5d5;
+    background-color: var(--footer-bg-color);
+    border-top: 1px solid var(--border-color);
     font-size: 0.8em;
     padding: 1rem 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Post styles */
 .post-meta {
-    color: #666;
+    color: var(--ink-muted);
     margin: 0 1rem;
 }
 
@@ -266,9 +375,9 @@ footer {
 .post blockquote, blockquote {
   margin: 1rem 1.25rem;
   padding: .75rem 1rem;
-  border-left: 4px solid #ddd;
-  background: #fff;
-  color: #555;
+  border-left: 4px solid var(--border-color);
+  background: var(--card-bg-color);
+  color: var(--text-color);
   font-style: italic;        /* optional */
 }
 .post blockquote > :last-child { margin-bottom: 0; }  /* tidy inner p spacing */
@@ -279,12 +388,12 @@ table.posts {
 }
 table.posts th, table.posts td {
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
   text-align: left;
   vertical-align: top;
 }
 table.posts tbody tr:hover td {
-  background: #fafafa;
+  background: var(--hover-bg-color);
 }
 
 /* 1) Theme variables with safe fallbacks */
