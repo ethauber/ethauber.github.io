@@ -589,19 +589,8 @@ main .container .mt-3 {
     color: var(--text-color) !important;
 }
 
-/* Neutralize common inline light backgrounds used in content */
-[data-theme="dark"] [style*="background:#faf9f6"],
-[data-theme="dark"] [style*="background: #faf9f6"],
-[data-theme="dark"] [style*="background-color:#faf9f6"],
-[data-theme="dark"] [style*="background-color: #faf9f6"],
-[data-theme="dark"] [style*="background:#fff"],
-[data-theme="dark"] [style*="background: #fff"],
-[data-theme="dark"] [style*="background-color:#fff"],
-[data-theme="dark"] [style*="background-color: #fff"],
-[data-theme="dark"] [style*="background:#f3f3f3"],
-[data-theme="dark"] [style*="background: #f3f3f3"],
-[data-theme="dark"] [style*="background-color:#f3f3f3"],
-[data-theme="dark"] [style*="background-color: #f3f3f3"] {
+/* Neutralize inline backgrounds used in content when in dark mode */
+[data-theme="dark"] [style*="background"] {
     background-color: var(--card-bg-color) !important;
     color: var(--text-color) !important;
 }
