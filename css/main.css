@@ -601,9 +601,9 @@ main .container .mt-3 {
 }
 
 /* Ensure badges, buttons and small UI elements in posts are visible */
-[data-theme="dark"] .badge,
-[data-theme="dark"] .btn,
-[data-theme="dark"] .card {
+[data-theme="dark"] .post-content .badge,
+[data-theme="dark"] .post-content .btn,
+[data-theme="dark"] .post-content .card {
     background-color: var(--card-bg-color) !important;
     color: var(--text-color) !important;
     border-color: var(--border-color) !important;
