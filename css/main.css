@@ -590,12 +590,18 @@ main .container .mt-3 {
 }
 
 /* Neutralize common inline light backgrounds used in content */
-[data-theme="dark"] [style*="#faf9f6"],
-[data-theme="dark"] [style*="#fff"],
-[data-theme="dark"] [style*="#f3f3f3"],
+[data-theme="dark"] [style*="background:#faf9f6"],
 [data-theme="dark"] [style*="background: #faf9f6"],
+[data-theme="dark"] [style*="background-color:#faf9f6"],
+[data-theme="dark"] [style*="background-color: #faf9f6"],
+[data-theme="dark"] [style*="background:#fff"],
 [data-theme="dark"] [style*="background: #fff"],
-[data-theme="dark"] [style*="background: #f3f3f3"] {
+[data-theme="dark"] [style*="background-color:#fff"],
+[data-theme="dark"] [style*="background-color: #fff"],
+[data-theme="dark"] [style*="background:#f3f3f3"],
+[data-theme="dark"] [style*="background: #f3f3f3"],
+[data-theme="dark"] [style*="background-color:#f3f3f3"],
+[data-theme="dark"] [style*="background-color: #f3f3f3"] {
     background-color: var(--card-bg-color) !important;
     color: var(--text-color) !important;
 }
