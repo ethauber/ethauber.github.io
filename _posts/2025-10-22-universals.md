@@ -30,7 +30,7 @@ Knowing what universals are and being able to identify them allows us to see pat
 ## Initial Universals
 #### 1) Retrovive
 
-**Definition|** Realizing the value of something only after it is gone and then choosing to rebuild or revive it as it was or in a new form. 
+**Definition|** Realizing the value of something only after it is gone and then choosing to rebuild or revive it as it was or in a new form.
 The thinking that went behind this was that I noticed my nostalgic feeling about college, relationships, and now decommissioned software I used to enjoy.
 But, instead of just ruminating on whatever it may be, I chose to re-alive it in some form or fashion.
 In the process of attempting to define this universal, I realized that it captures a common human experience of nostalgia and the desire to reclaim or recreate lost aspects of our lives.
@@ -39,7 +39,7 @@ The following list are words that I found but did not fully capture the universa
 
   * **Nostalgia** is defined as "affectionate and often sentimental feeling experienced when remembering past times, places, and experiences, especially those with happy personal associations." \| https://www.britannica.com/science/nostalgia
   * **Evanescence** is defined as "the condition of lasting for only a short time, then disappearing quickly and being forgotten." \| https://dictionary.cambridge.org/dictionary/english/evanescence
-  * **Fear of missing out (FOMO)** is defined as "a feeling of anxiety or insecurity over the possibility of missing out on something, as an event or an opportunity." \| https://www.dictionary.com/browse/fomo 
+  * **Fear of missing out (FOMO)** is defined as "a feeling of anxiety or insecurity over the possibility of missing out on something, as an event or an opportunity." \| https://www.dictionary.com/browse/fomo
   * **Anemoia** is defined as "Nostalgia for a time or a place one has never known." \| https://en.wiktionary.org/wiki/anemoia
   * **Saudade** is defined as "wistfulness, melancholy, nostalgia, yearning, longing; the feeling of missing something or someone" and originates from Portuguese. \| https://en.wiktionary.org/wiki/saudade
   * **Resurrection** is defined as "the act of causing something that had ended or been forgotten or lost to exist again, to be used again, etc." \| https://www.britannica.com/dictionary/resurrection

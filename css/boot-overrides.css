@@ -6,9 +6,10 @@
 
 /* Custom card background for better visual hierarchy */
 .card {
-    background-color: #faf9f6 !important; /* Very light warm cream that complements yellow navbar */
+    background-color: var(--card-bg-color) !important; /* Very light warm cream that complements yellow navbar */
     border: none !important; /* Remove border for cleaner look */
     box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important; /* Very subtle shadow for depth */
+    transition: background-color 0.3s ease;
 }
 
 /* Override border-0 class specifically for skill cards */

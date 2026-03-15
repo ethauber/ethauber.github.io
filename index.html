@@ -29,6 +29,11 @@ classes: landing-page
           <li class="nav-item">
             <a class="nav-link" href="#space" data-section="space">Space - Orion Spur/Arm <small>(we are here)</small></a>
           </li>
+          <li class="nav-item d-flex align-items-center ml-2">
+            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+              <span class="toggle-thumb" data-emoji="🌙"></span>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -714,7 +719,7 @@ classes: landing-page
             <a href="https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury" target="_blank" rel="noopener">
               <img src="/assets/439_MercurySubtleColors1200w.jpg" class="card-img-top" alt="NASA Mercury" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Mercury</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -739,7 +744,7 @@ classes: landing-page
             <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html" target="_blank" rel="noopener">
               <img src="/assets/venusglobe.jpg" class="card-img-top" alt="NASA Venus" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Venus</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -764,7 +769,7 @@ classes: landing-page
             <a href="https://www.nasa.gov/topics/earth/images/index.html" target="_blank" rel="noopener">
               <img src="/assets/westernhemisphere_geos_2019246_lrg.jpg" class="card-img-top" alt="NASA Earth" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Earth</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -789,7 +794,7 @@ classes: landing-page
             <a href="https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html" target="_blank" rel="noopener">
               <img src="/assets/marsglobe1.jpg" class="card-img-top" alt="NASA Mars" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Mars</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -813,7 +818,7 @@ classes: landing-page
             <a href="https://solarsystem.nasa.gov/planets/jupiter/overview/" target="_blank" rel="noopener">
               <img src="/assets/jupiterglobe.jpg" class="card-img-top" alt="NASA Jupiter" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Jupiter</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -840,7 +845,7 @@ classes: landing-page
             <a href="https://solarsystem.nasa.gov/planets/saturn/overview/" target="_blank" rel="noopener">
               <img src="/assets/saturngloberesize.png" class="card-img-top" alt="NASA Saturn" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Saturn</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -865,7 +870,7 @@ classes: landing-page
             <a href="https://solarsystem.nasa.gov/planets/uranus/overview/" target="_blank" rel="noopener">
               <img src="/assets/uranusglobe.jpg" class="card-img-top" alt="NASA Uranus" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Uranus</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -891,7 +896,7 @@ classes: landing-page
             <a href="https://solarsystem.nasa.gov/planets/neptune/overview/" target="_blank" rel="noopener">
               <img src="/assets/neptuneglobe.jpg" class="card-img-top" alt="NASA Neptune" loading="lazy">
             </a>
-            <div class="card-body" style="background-color: lightgrey;">
+            <div class="card-body">
               <h5 class="card-title">Neptune</h5>
               <div class="card-text">
                 <div style="margin-bottom: 10px;">
@@ -1191,9 +1196,9 @@ style.textContent = `
   }
 
   .navbar {
-    background-color: #fbdc75 !important;
+    background-color: var(--nav-bg-color) !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
   .navbar.navbar-hidden {
@@ -1245,22 +1250,6 @@ style.textContent = `
   /* Planet Navigator Styles */
   .planet-card {
     transition: opacity 0.3s ease-in-out;
-  }
-
-  .arrow-up, .arrow-down {
-    transition: transform 0.2s ease;
-    font-size: 2rem;
-    color: #666;
-  }
-
-  .arrow-up:hover, .arrow-down:hover {
-    transform: scale(1.1);
-    color: #333;
-  }
-
-  #planetCounter {
-    font-weight: bold;
-    color: #666;
   }
 `;
 document.head.appendChild(style);
