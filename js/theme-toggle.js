@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const toggles = Array.from(document.querySelectorAll('.theme-toggle-btn'));
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const systemDark = (typeof window.matchMedia === 'function')
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : { matches: false };
 
     function updateToggles(theme) {
         toggles.forEach(btn => {
