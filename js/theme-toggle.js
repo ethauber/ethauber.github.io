@@ -18,9 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function normalizeTheme(value) {
+        if (value === 'light' || value === 'dark') {
+            return value;
+        }
+        return null;
+    }
+
     function getSavedTheme() {
         try {
-            return window.localStorage.getItem('theme');
+            const stored = window.localStorage.getItem('theme');
+            return normalizeTheme(stored);
         } catch (e) {
             return null;
         }
@@ -35,16 +43,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setTheme(theme, persist = true) {
-        document.documentElement.setAttribute('data-theme', theme);
-        if (persist) {
-            persistTheme(theme);
+        const normalized = normalizeTheme(theme);
+        if (!normalized) {
+            return;
         }
-        updateToggles(theme);
+        document.documentElement.setAttribute('data-theme', normalized);
+        if (persist) {
+            persistTheme(normalized);
+        }
+        updateToggles(normalized);
     }
 
     // Prefer persisted theme, then existing attribute, then system preference
     const saved = getSavedTheme();
-    const initial = saved || document.documentElement.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
+    const attrTheme = normalizeTheme(document.documentElement.getAttribute('data-theme'));
+    const initial = saved || attrTheme || (systemDark.matches ? 'dark' : 'light');
     // Apply initial theme to document (don't overwrite storage unless saved exists)
     document.documentElement.setAttribute('data-theme', initial);
     updateToggles(initial);
