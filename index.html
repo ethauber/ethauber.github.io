@@ -613,11 +613,17 @@ classes: landing-page
                 {% for post in site.posts %}
                   <tr>
                     <td>
+                      {% if post.updated %}
                       <a href="{{ post.url | relative_url }}#changelog" title="{{ post.title | strip_html | escape }}">
-                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                        <time datetime="{{ post.updated | date_to_xmlschema }}">
                           {{ post.updated | date: "%b %-d, %Y" }}
                         </time>
                       </a>
+                      {% else %}
+                      <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%b %-d, %Y" }}
+                      </time>
+                      {% endif %}
                     </td>
                     <td>
                       <a href="{{ post.url | relative_url }}" title="{{ post.title | strip_html | escape }}">
