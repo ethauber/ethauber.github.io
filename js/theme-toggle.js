@@ -16,14 +16,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function getSavedTheme() {
+        try {
+            return window.localStorage.getItem('theme');
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function persistTheme(theme) {
+        try {
+            window.localStorage.setItem('theme', theme);
+        } catch (e) {
+            // Ignore storage errors; treat as non-persistent
+        }
+    }
+
     function setTheme(theme, persist = true) {
         document.documentElement.setAttribute('data-theme', theme);
-        if (persist) localStorage.setItem('theme', theme);
+        if (persist) {
+            persistTheme(theme);
+        }
         updateToggles(theme);
     }
 
     // Prefer persisted theme, then existing attribute, then system preference
-    const saved = localStorage.getItem('theme');
+    const saved = getSavedTheme();
     const initial = saved || document.documentElement.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
     // Apply initial theme to document (don't overwrite storage unless saved exists)
     document.documentElement.setAttribute('data-theme', initial);
@@ -40,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // System preference listener with compatibility for older browsers
     const onPrefChange = (e) => {
-        if (!localStorage.getItem('theme')) {
+        if (!getSavedTheme()) {
             setTheme(e.matches ? 'dark' : 'light', false);
         }
     };
