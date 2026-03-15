@@ -604,22 +604,30 @@ classes: landing-page
             <table class="posts">
               <thead>
                 <tr>
-                  <th scope="col">Date</th>
+                  <th scope="col">Updated</th>
                   <th scope="col">Title</th>
+                  <th scope="col">Published</th>
                 </tr>
               </thead>
               <tbody>
                 {% for post in site.posts %}
                   <tr>
                     <td>
-                      <time datetime="{{ post.date | date_to_xmlschema }}">
-                        {{ post.date | date: "%b %-d, %Y" }}
-                      </time>
+                      <a href="{{ post.url | relative_url }}#changelog" title="{{ post.title | strip_html | escape }}">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                          {{ post.updated | date: "%b %-d, %Y" }}
+                        </time>
+                      </a>
                     </td>
                     <td>
                       <a href="{{ post.url | relative_url }}" title="{{ post.title | strip_html | escape }}">
                         {{ post.title }}
                       </a>
+                    </td>
+                    <td>
+                      <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%b %-d, %Y" }}
+                      </time>
                     </td>
                   </tr>
                 {% endfor %}
