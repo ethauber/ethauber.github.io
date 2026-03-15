@@ -4,9 +4,26 @@
 <head>
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('theme');
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-      const theme = savedTheme ? savedTheme : (systemDark.matches ? 'dark' : 'light');
+      var savedTheme = null;
+      try {
+        if (typeof window !== 'undefined' && 'localStorage' in window && window.localStorage) {
+          savedTheme = window.localStorage.getItem('theme');
+        }
+      } catch (e) {
+        // Ignore storage access errors and fall back to system or default theme
+      }
+
+      var prefersDark = false;
+      try {
+        if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+          var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          prefersDark = !!(mediaQuery && mediaQuery.matches);
+        }
+      } catch (e) {
+        // Ignore matchMedia errors and fall back to default theme
+      }
+
+      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
@@ -64,7 +81,7 @@
             </a>
           </li>
           <li>
-            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" style="border: none; background: transparent;">
+            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" role="switch" aria-checked="false">
               <span class="toggle-thumb" data-emoji="🌙"></span>
             </button>
           </li>

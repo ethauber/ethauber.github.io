@@ -219,6 +219,18 @@ nav {
     transition: background-color 0.3s ease;
 }
 
+/* Dark-mode overrides for Bootstrap navbar (prevent dark-on-dark text) */
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .navbar .navbar-brand,
+[data-theme="dark"] .navbar .nav-link,
+[data-theme="dark"] .navbar-toggler {
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .navbar .nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
 nav ul, footer ul {
     margin: 0 auto;
     display: flex;
@@ -455,6 +467,12 @@ table.posts tbody tr:hover td {
   text-shadow: 0 1px 0 rgba(255,255,255,.35);
 }
 
+/* Tagline adjustments for dark mode to avoid bright white glow */
+[data-theme="dark"] .tagline-subtle{
+    color: var(--heading-color); /* uses dark theme heading color */
+    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+}
+
 /* Respect users who prefer less motion */
 @media (prefers-reduced-motion: reduce){
   .tagline-subtle::after{ transition: none; }
@@ -549,6 +567,43 @@ main .container .mt-3 {
   to { opacity: 1; }
 }
 
+/* Post content dark-mode compatibility fixes */
+[data-theme="dark"] article,
+[data-theme="dark"] .post,
+[data-theme="dark"] .post-content,
+[data-theme="dark"] .global {
+    color: var(--text-color) !important;
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] pre,
+[data-theme="dark"] code {
+    background-color: #111 !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] blockquote {
+    background: transparent !important;
+    border-left: 4px solid var(--accent-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Neutralize inline backgrounds used in content when in dark mode */
+[data-theme="dark"] [style*="background"] {
+    background-color: var(--card-bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Ensure badges, buttons and small UI elements in posts are visible */
+[data-theme="dark"] .post-content .badge,
+[data-theme="dark"] .post-content .btn,
+[data-theme="dark"] .post-content .card {
+    background-color: var(--card-bg-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
 /* Professional gradient text effect for the name */
 h2.display-5 {
   background: linear-gradient(135deg, #2c3e50, #34495e);
@@ -559,6 +614,14 @@ h2.display-5 {
   letter-spacing: 0.314159265359px;
   text-shadow: 1.6180px 3.14159265359px rgba(0,0,0,0.12);
   transition: all 0.3s ease;
+}
+
+/* Ensure prominent name gradient is visible in dark mode */
+[data-theme="dark"] h2.display-5 {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(220,220,220,0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
 h2.display-5:hover {
