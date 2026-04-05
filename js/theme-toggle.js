@@ -1,40 +1,91 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const toggles = document.querySelectorAll('.theme-toggle-btn');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const toggles = Array.from(document.querySelectorAll('.theme-toggle-btn'));
+    const systemDark = (typeof window.matchMedia === 'function')
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : { matches: false };
 
     function updateToggles(theme) {
         toggles.forEach(btn => {
             const thumb = btn.querySelector('.toggle-thumb');
+            const emoji = theme === 'dark' ? '☀️' : '🌙';
             if (thumb) {
-                // Update emoji based on theme
-                thumb.setAttribute('data-emoji', theme === 'dark' ? '☀️' : '🌙');
-                btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+                // Update data attribute (used by CSS)
+                thumb.setAttribute('data-emoji', emoji);
             }
+            btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            // Using role="switch" on the button, expose state with aria-checked only
+            btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
         });
     }
 
-    function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateToggles(theme);
+    function normalizeTheme(value) {
+        if (value === 'light' || value === 'dark') {
+            return value;
+        }
+        return null;
     }
 
-    // Initialize toggles state based on current attribute (set by inline script)
-    const currentTheme = document.documentElement.getAttribute('data-theme') || (systemDark.matches ? 'dark' : 'light');
-    updateToggles(currentTheme);
+    function getSavedTheme() {
+        try {
+            const stored = window.localStorage.getItem('theme');
+            return normalizeTheme(stored);
+        } catch (e) {
+            return null;
+        }
+    }
 
-    // Click handler
+    function persistTheme(theme) {
+        try {
+            window.localStorage.setItem('theme', theme);
+        } catch (e) {
+            // Ignore storage errors; treat as non-persistent
+        }
+    }
+
+    function setTheme(theme, persist = true) {
+        const normalized = normalizeTheme(theme);
+        if (!normalized) {
+            return;
+        }
+        document.documentElement.setAttribute('data-theme', normalized);
+        if (persist) {
+            persistTheme(normalized);
+        }
+        updateToggles(normalized);
+    }
+
+    // Prefer persisted theme, then existing attribute, then system preference
+    const saved = getSavedTheme();
+    const attrTheme = normalizeTheme(document.documentElement.getAttribute('data-theme'));
+    const initial = saved || attrTheme || (systemDark.matches ? 'dark' : 'light');
+    // Apply initial theme to document (don't overwrite storage unless saved exists)
+    document.documentElement.setAttribute('data-theme', initial);
+    updateToggles(initial);
+
+    // Click handler toggles and persists choice
     toggles.forEach(btn => {
         btn.addEventListener('click', () => {
-             const current = document.documentElement.getAttribute('data-theme');
-             setTheme(current === 'dark' ? 'light' : 'dark');
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next, true);
         });
     });
 
-    // System preference listener
-    systemDark.addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            setTheme(e.matches ? 'dark' : 'light');
+    // System preference listener with compatibility for older browsers
+    const onPrefChange = (e) => {
+        if (!getSavedTheme()) {
+            setTheme(e.matches ? 'dark' : 'light', false);
         }
-    });
+    };
+    // Helper: attach a listener to a MediaQueryList with backwards compatibility
+    function addMQLListener(mql, cb) {
+        if (!mql) return;
+        if (typeof mql.addEventListener === 'function') {
+            mql.addEventListener('change', cb);
+        } else if (typeof mql.addListener === 'function') {
+            mql.addListener(cb);
+        }
+    }
+
+    addMQLListener(systemDark, onPrefChange);
 });
