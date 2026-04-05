@@ -49,7 +49,7 @@ For detailed setup and usage, see [AGENTS.md](./AGENTS.md) and [CLAUDE.md](./CLA
 
 **Dolt Database Naming**: If you encounter an error like `invalid database name: "ethauber.github.io"` when running `bd list`, this is due to Dolt embedded databases not supporting dots in database names. The fix is to update `.beads/metadata.json`:
 
-change `"dolt_database": "ethauber.github.io"` to `"dolt_database": "ethauber_github_io"` (replace dots with underscores)
+- Change `"dolt_database": "ethauber.github.io"` to `"dolt_database": "ethauber_github_io"` (replace dots with underscores).
 
 This is typically resolved automatically, but can occur after certain operations or migrations.
 
