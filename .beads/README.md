@@ -59,10 +59,13 @@ Issues in Beads are:
 
 Try Beads in your own projects:
 
-```bash
-# Install Beads
-curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+First, install Beads by following the official installation instructions and prefer a method that verifies the downloaded artifact (for example, via checksum or signature verification):
 
+- [Beads installation documentation](https://github.com/steveyegge/beads/tree/main/docs)
+
+Then initialize it in your repo:
+
+```bash
 # Initialize in your repo
 bd init
 
