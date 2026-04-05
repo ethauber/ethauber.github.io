@@ -4,7 +4,21 @@ _site/
 .DS_Store
 _compress_images_cache.yml
 
-# Beads / Dolt files (added by bd init)
-.dolt/
-*.db
+# Beads CLI - Local State and Security
 .beads-credential-key
+.beads/bd.sock
+.beads/.exclusive-lock
+.beads/*.db
+.beads/*.sqlite
+.beads/redirect
+.worktrees/
+
+# Beads CLI - Runtime and Database Files (local only, not for VCS)
+.beads/.local_version
+.beads/dolt-server.*
+.beads/backup/
+.beads/dolt/
+.beads/embeddeddolt/
+.beads/interactions.jsonl
+*.prof
+*.out
