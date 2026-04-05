@@ -44,6 +44,15 @@ done
 ACTIVE_FILE="pr_active_context.md"
 SUMMARY_FILE="pr_active_summary.md"
 RESOLVED_FILE="pr_resolved_context.md"
+PR_META_FILE="pr_meta.json"
+THREADS_FILE="threads.json"
+THREADS_RAW_FILE="threads_raw.json"
+
+cleanup() {
+  rm -f "$PR_META_FILE" "$THREADS_FILE" "$THREADS_RAW_FILE"
+}
+
+trap cleanup EXIT INT TERM
 
 # ── Resolve PR ─────────────────────────────────────────────────────────
 echo "Resolving PR..."
@@ -64,7 +73,7 @@ echo "PR: $OWNER/$REPO#$PR_NUMBER"
 echo "Fetching PR metadata..."
 gh pr view "$PR_REF" \
   --json title,body,author,comments,reviews,state,baseRefName,headRefName \
-  > pr_meta.json
+  > "$PR_META_FILE"
 
 # ── Fetch review threads (paginated, with diff hunks) ─────────────────
 echo "Fetching review threads..."
@@ -99,7 +108,7 @@ query($owner: String!, $repo: String!, $pr: Int!, $cursor: String) {
 }
 '
 
-: > threads_raw.json
+: > "$THREADS_RAW_FILE"
 HAS_NEXT=true
 CURSOR=""
 PAGE=0
@@ -122,7 +131,7 @@ while [ "$HAS_NEXT" = "true" ]; do
 
   echo "$response" \
     | jq '.data.repository.pullRequest.reviewThreads.nodes' \
-    >> threads_raw.json
+    >> "$THREADS_RAW_FILE"
 
   HAS_NEXT=$(echo "$response" \
     | jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.hasNextPage')
@@ -133,18 +142,17 @@ while [ "$HAS_NEXT" = "true" ]; do
 done
 
 # Merge all pages into a single array (jq -s slurps multiple JSON values)
-jq -s 'add // []' threads_raw.json > threads.json
-rm -f threads_raw.json
+jq -s 'add // []' "$THREADS_RAW_FILE" > "$THREADS_FILE"
+rm -f "$THREADS_RAW_FILE"
 
-TOTAL_THREADS=$(jq 'length' threads.json)
+TOTAL_THREADS=$(jq 'length' "$THREADS_FILE")
 echo "  $TOTAL_THREADS total review threads"
 
 # ── Counts (granular) ──────────────────────────────────────────────────
-PR_STATE=$(jq -r '.state' pr_meta.json)
-UNRESOLVED_CURRENT=$(jq  '[.[] | select(.isResolved == false and .isOutdated != true)] | length' threads.json)
-UNRESOLVED_OUTDATED=$(jq '[.[] | select(.isResolved == false and .isOutdated == true)] | length' threads.json)
+UNRESOLVED_CURRENT=$(jq  '[.[] | select(.isResolved == false and .isOutdated != true)] | length' "$THREADS_FILE")
+UNRESOLVED_OUTDATED=$(jq '[.[] | select(.isResolved == false and .isOutdated == true)] | length' "$THREADS_FILE")
 UNRESOLVED=$((UNRESOLVED_CURRENT + UNRESOLVED_OUTDATED))
-RESOLVED=$(jq '[.[] | select(.isResolved == true)] | length' threads.json)
+RESOLVED=$(jq '[.[] | select(.isResolved == true)] | length' "$THREADS_FILE")
 
 echo "  $UNRESOLVED_CURRENT unresolved (current)"
 echo "  $UNRESOLVED_OUTDATED unresolved (outdated — code has changed, may not apply)"
@@ -177,9 +185,9 @@ $JQ_LINE_REF
          \"**\" + (.value.author.login // \"unknown\") + \":**\\n\"
          + .value.body + \"\\n\"
          + if .key == 0 and ((.value.diffHunk // \"\") | length) > 0
-           then \"\\n<details><summary>Diff context</summary>\\n\\n\`\`\`diff\\n\"
+           then \"\\n<details><summary>Diff context</summary>\\n\\n\`\`\`\`diff\\n\"
                 + .value.diffHunk
-                + \"\\n\`\`\`\\n\\n</details>\\n\"
+                + \"\\n\`\`\`\`\\n\\n</details>\\n\"
            else \"\" end
        )
      | join(\"\\n\"))
@@ -207,18 +215,18 @@ echo "Writing $ACTIVE_FILE ..."
 ## Description
 
 \(.body // "_No description._")
-"' pr_meta.json
+"' "$PR_META_FILE"
   echo ""
 
   # ── PR-level issue comments (skip bots) ──
   PR_COMMENTS=$(jq '[
     .comments[]?
     | select(
-        (.author.login | test("\\[bot\\]$")) or
+        ((.author.login // "") | test("\\[bot\\]$")) or
         .author.login == "copilot-pull-request-reviewer" or
         .author.login == "github-actions"
       | not)
-  ]' pr_meta.json)
+  ]' "$PR_META_FILE")
 
   if [ "$(echo "$PR_COMMENTS" | jq 'length')" -gt 0 ]; then
     echo "## PR Comments"
@@ -230,7 +238,7 @@ echo "Writing $ACTIVE_FILE ..."
   # ── Actionable reviews: CHANGES_REQUESTED only ──
   # COMMENTED reviews are skipped because their bodies are bot-generated
   # summaries that duplicate (and overlap with) the inline thread content.
-  ACTIONABLE=$(jq '[.reviews[]? | select(.state == "CHANGES_REQUESTED")]' pr_meta.json)
+  ACTIONABLE=$(jq '[.reviews[]? | select(.state == "CHANGES_REQUESTED")]' "$PR_META_FILE")
 
   if [ "$(echo "$ACTIONABLE" | jq 'length')" -gt 0 ]; then
     echo "## Reviews Requesting Changes"
@@ -251,7 +259,7 @@ echo "Writing $ACTIVE_FILE ..."
       [.[] | select(.isResolved == false and .isOutdated != true)]
       | to_entries[]
       | .value | $JQ_RENDER_THREAD
-    " threads.json
+    " "$THREADS_FILE"
   else
     echo "_No unresolved threads on current code._"
     echo ""
@@ -270,7 +278,7 @@ echo "Writing $ACTIVE_FILE ..."
       [.[] | select(.isResolved == false and .isOutdated == true)]
       | to_entries[]
       | .value | $JQ_RENDER_THREAD
-    " threads.json
+    " "$THREADS_FILE"
   else
     echo "_No unresolved outdated threads._"
     echo ""
@@ -280,9 +288,9 @@ echo "Writing $ACTIVE_FILE ..."
   if [ "$INCLUDE_DIFF" = true ]; then
     echo "## Diff"
     echo ""
-    echo '```diff'
+    echo '````diff'
     gh pr diff "$PR_REF"
-    echo '```'
+    echo '````'
   fi
 
   # ── Structured JSON (unresolved only) ──
@@ -291,8 +299,8 @@ echo "Writing $ACTIVE_FILE ..."
   echo ""
   echo '```json'
   jq -n \
-    --slurpfile meta pr_meta.json \
-    --slurpfile threads threads.json \
+    --slurpfile meta "$PR_META_FILE" \
+    --slurpfile threads "$THREADS_FILE" \
     '{
       meta: {
         title:  $meta[0].title,
@@ -335,7 +343,7 @@ echo "Writing $SUMMARY_FILE ..."
 {
   echo "# PR Feedback Summary"
   echo ""
-  jq -r '"**\(.title)** by \(.author.login) — \(.state)**"' pr_meta.json
+  jq -r '"**\(.title)** by \(.author.login) — \(.state)"' "$PR_META_FILE"
   echo ""
 
   echo "## Unresolved — Current ($UNRESOLVED_CURRENT)"
@@ -348,7 +356,7 @@ echo "Writing $SUMMARY_FILE ..."
       [.[] | select(.isResolved == false and .isOutdated != true)]
       | to_entries[]
       | .value | $JQ_RENDER_COMPACT
-    " threads.json
+    " "$THREADS_FILE"
   else
     echo "_None._"
     echo ""
@@ -364,7 +372,7 @@ echo "Writing $SUMMARY_FILE ..."
       [.[] | select(.isResolved == false and .isOutdated == true)]
       | to_entries[]
       | .value | $JQ_RENDER_COMPACT
-    " threads.json
+    " "$THREADS_FILE"
   else
     echo "_None._"
     echo ""
@@ -383,7 +391,7 @@ echo "Writing $RESOLVED_FILE ..."
   echo ""
 
   # ── Approved + dismissed reviews ──
-  CLOSED_REVIEWS=$(jq '[.reviews[]? | select(.state == "APPROVED" or .state == "DISMISSED")]' pr_meta.json)
+  CLOSED_REVIEWS=$(jq '[.reviews[]? | select(.state == "APPROVED" or .state == "DISMISSED")]' "$PR_META_FILE")
 
   if [ "$(echo "$CLOSED_REVIEWS" | jq 'length')" -gt 0 ]; then
     echo "## Closed Reviews"
@@ -402,16 +410,13 @@ echo "Writing $RESOLVED_FILE ..."
       [.[] | select(.isResolved == true)]
       | to_entries[]
       | .value | $JQ_RENDER_THREAD
-    " threads.json
+    " "$THREADS_FILE"
   else
     echo "_No resolved threads._"
     echo ""
   fi
 
 } >> "$RESOLVED_FILE"
-
-# ── Cleanup temp files ────────────────────────────────────────────────
-rm -f pr_meta.json threads.json
 
 echo ""
 echo "Done."
