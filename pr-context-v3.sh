@@ -28,8 +28,32 @@ usage() {
   exit 1
 }
 
+preflight_check() {
+  local missing=0
+  local tool
+
+  for tool in gh jq sed awk; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+      echo "Error: Required tool '$tool' is not installed or not in PATH." >&2
+      missing=1
+    fi
+  done
+
+  if [ "$missing" -ne 0 ]; then
+    echo "Please install the missing dependencies and rerun the script." >&2
+    exit 1
+  fi
+
+  if ! gh auth status >/dev/null 2>&1; then
+    echo "Error: GitHub CLI is not authenticated or lacks required access." >&2
+    echo "Run 'gh auth login' and ensure the selected account can access the target PR." >&2
+    exit 1
+  fi
+}
+
 if [ -z "${1:-}" ]; then usage; fi
 
+preflight_check
 PR_REF="$1"
 shift
 INCLUDE_DIFF=true
