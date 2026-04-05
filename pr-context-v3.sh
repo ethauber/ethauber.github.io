@@ -16,10 +16,16 @@ set -euo pipefail
 
 # ── Usage ──────────────────────────────────────────────────────────────
 usage() {
-  echo "Usage: $0 <pr-number-or-url> [--no-diff]"
+  echo "Usage: $0 <pr-number-or-url> [--repo owner/repo] [--no-diff]"
+  echo ""
+  echo "Arguments:"
+  echo "  <pr-number-or-url>   PR number (requires --repo or a checked-out repo)"
+  echo "                       or a full GitHub PR URL (e.g. https://github.com/org/repo/pull/42)"
   echo ""
   echo "Options:"
-  echo "  --no-diff   Omit the full diff from the active context file"
+  echo "  --repo owner/repo   Target repository (required when passing a bare PR number"
+  echo "                      outside a checked-out clone of the repo)"
+  echo "  --no-diff           Omit the full diff from the active context file"
   echo ""
   echo "Generates three markdown files from a GitHub PR's review feedback:"
   echo "  pr_active_context.md   — unresolved threads + actionable reviews (full)"
@@ -57,11 +63,26 @@ preflight_check
 PR_REF="$1"
 shift
 INCLUDE_DIFF=true
+REPO_FLAG=()
 
-for arg in "$@"; do
-  case "$arg" in
-    --no-diff) INCLUDE_DIFF=false ;;
-    *) echo "Unknown option: $arg"; usage ;;
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-diff)
+      INCLUDE_DIFF=false
+      shift ;;
+    --repo)
+      if [ -z "${2:-}" ]; then
+        echo "Error: --repo requires a value (e.g. --repo owner/repo)." >&2
+        usage
+      fi
+      REPO_FLAG=(--repo "$2")
+      shift 2 ;;
+    --repo=*)
+      REPO_FLAG=(--repo "${1#--repo=}")
+      shift ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage ;;
   esac
 done
 
@@ -81,7 +102,7 @@ trap cleanup EXIT INT TERM
 
 # ── Resolve PR ─────────────────────────────────────────────────────────
 echo "Resolving PR..."
-PR_URL=$(gh pr view "$PR_REF" --json url -q .url)
+PR_URL=$(gh pr view "$PR_REF" "${REPO_FLAG[@]+"${REPO_FLAG[@]}"}" --json url -q .url)
 
 if [ -z "$PR_URL" ]; then
   echo "Error: Failed to resolve PR '$PR_REF'."
@@ -96,7 +117,7 @@ echo "PR: $OWNER/$REPO#$PR_NUMBER"
 
 # ── Fetch PR metadata ─────────────────────────────────────────────────
 echo "Fetching PR metadata..."
-gh pr view "$PR_REF" \
+gh pr view "$PR_REF" "${REPO_FLAG[@]+"${REPO_FLAG[@]}"}" \
   --json title,body,author,comments,reviews,state,baseRefName,headRefName \
   > "$PR_META_FILE"
 
@@ -382,7 +403,7 @@ echo "Writing $ACTIVE_FILE ..."
     echo "## Diff"
     echo ""
     echo '````diff'
-    gh pr diff "$PR_REF"
+    gh pr diff "$PR_REF" "${REPO_FLAG[@]+"${REPO_FLAG[@]}"}"
     echo '````'
   fi
 
