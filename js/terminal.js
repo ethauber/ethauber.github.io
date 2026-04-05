@@ -96,7 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function printCommand(cmd) {
         const line = document.createElement('div');
         line.className = 'terminal-line';
-        line.innerHTML = `<span class="terminal-prompt">visitor@ethauber.io:~$</span> ${cmd}`;
+        const prompt = document.createElement('span');
+        prompt.className = 'terminal-prompt';
+        prompt.textContent = 'visitor@ethauber.io:~$';
+        line.appendChild(prompt);
+        line.appendChild(document.createTextNode(` ${cmd}`));
         history.appendChild(line);
     }
 
