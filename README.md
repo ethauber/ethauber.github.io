@@ -27,7 +27,7 @@ bundle init
 bundle install
 ```
 
-To run locall after everything is installed
+To run locally after everything is installed
 `bundle exec jekyll serve --livereload`
 
 ## Issue Tracking with Beads
