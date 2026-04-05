@@ -44,12 +44,13 @@ done
 ACTIVE_FILE="pr_active_context.md"
 SUMMARY_FILE="pr_active_summary.md"
 RESOLVED_FILE="pr_resolved_context.md"
-PR_META_FILE="pr_meta.json"
-THREADS_FILE="threads.json"
-THREADS_RAW_FILE="threads_raw.json"
+TMP_DIR="$(mktemp -d)"
+PR_META_FILE="$TMP_DIR/pr_meta.json"
+THREADS_FILE="$TMP_DIR/threads.json"
+THREADS_RAW_FILE="$TMP_DIR/threads_raw.json"
 
 cleanup() {
-  rm -f "$PR_META_FILE" "$THREADS_FILE" "$THREADS_RAW_FILE"
+  rm -rf "$TMP_DIR"
 }
 
 trap cleanup EXIT INT TERM
