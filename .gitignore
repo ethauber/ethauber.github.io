@@ -3,3 +3,14 @@ _site/
 .vscode
 .DS_Store
 _compress_images_cache.yml
+
+# Beads CLI - Local State and Security
+.beads-credential-key
+.beads/bd.sock
+.beads/.exclusive-lock
+.beads/*.db
+.beads/*.sqlite
+.beads/redirect
+.worktrees/
+*.prof
+*.out
