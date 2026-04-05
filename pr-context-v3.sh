@@ -68,7 +68,7 @@ done
 ACTIVE_FILE="pr_active_context.md"
 SUMMARY_FILE="pr_active_summary.md"
 RESOLVED_FILE="pr_resolved_context.md"
-TMP_DIR="$(mktemp -d)"
+TMP_DIR="$(mktemp -d 2>/dev/null || mktemp -d -t pr-context)"
 PR_META_FILE="$TMP_DIR/pr_meta.json"
 THREADS_FILE="$TMP_DIR/threads.json"
 THREADS_RAW_FILE="$TMP_DIR/threads_raw.json"
