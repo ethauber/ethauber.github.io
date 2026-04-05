@@ -110,12 +110,14 @@ query($owner: String!, $repo: String!, $pr: Int!, $cursor: String) {
       reviewThreads(first: 100, after: $cursor) {
         pageInfo { hasNextPage endCursor }
         nodes {
+          id
           isResolved
           isOutdated
           path
           line
           startLine
           comments(first: 100) {
+            pageInfo { hasNextPage endCursor }
             nodes {
               author { login }
               body
@@ -126,6 +128,27 @@ query($owner: String!, $repo: String!, $pr: Int!, $cursor: String) {
               createdAt
             }
           }
+        }
+      }
+    }
+  }
+}
+'
+
+COMMENTS_QUERY='
+query($threadId: ID!, $cursor: String) {
+  node(id: $threadId) {
+    ... on PullRequestReviewThread {
+      comments(first: 100, after: $cursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          author { login }
+          body
+          path
+          line
+          startLine
+          diffHunk
+          createdAt
         }
       }
     }
@@ -169,6 +192,49 @@ done
 # Merge all pages into a single array (jq -s slurps multiple JSON values)
 jq -s 'add // []' "$THREADS_RAW_FILE" > "$THREADS_FILE"
 rm -f "$THREADS_RAW_FILE"
+
+# ── Paginate comments within each thread (if > 100 comments) ──────────
+TRUNCATED_COUNT=$(jq '[.[] | select(.comments.pageInfo.hasNextPage == true)] | length' "$THREADS_FILE")
+if [ "$TRUNCATED_COUNT" -gt 0 ]; then
+  echo "  $TRUNCATED_COUNT thread(s) have >100 comments; fetching remaining pages..."
+
+  PATCHED_THREADS_FILE="$TMP_DIR/threads_patched.json"
+  cp "$THREADS_FILE" "$PATCHED_THREADS_FILE"
+
+  # Iterate over indices of threads that still have more comment pages
+  THREAD_INDICES=$(jq -r 'to_entries[] | select(.value.comments.pageInfo.hasNextPage == true) | .key' "$THREADS_FILE")
+
+  for IDX in $THREAD_INDICES; do
+    THREAD_ID=$(jq -r ".[$IDX].id" "$THREADS_FILE")
+    COMMENT_CURSOR=$(jq -r ".[$IDX].comments.pageInfo.endCursor" "$THREADS_FILE")
+    CPAGE=1
+
+    echo "    thread $THREAD_ID: fetching extra comment page(s)..."
+
+    while [ "$COMMENT_CURSOR" != "null" ] && [ -n "$COMMENT_CURSOR" ]; do
+      CPAGE=$((CPAGE + 1))
+      cresponse=$(gh api graphql \
+        -f query="$COMMENTS_QUERY" \
+        -f threadId="$THREAD_ID" \
+        -f cursor="$COMMENT_CURSOR")
+
+      NEW_NODES=$(echo "$cresponse" | jq '.data.node.comments.nodes')
+      COMMENT_HAS_NEXT=$(echo "$cresponse" | jq -r '.data.node.comments.pageInfo.hasNextPage')
+      COMMENT_CURSOR=$(echo "$cresponse" | jq -r '.data.node.comments.pageInfo.endCursor')
+
+      # Append new nodes to the thread's comments.nodes in the patched file
+      jq --argjson idx "$IDX" --argjson newNodes "$NEW_NODES" \
+        '.[$idx].comments.nodes += $newNodes' \
+        "$PATCHED_THREADS_FILE" > "$TMP_DIR/threads_tmp.json"
+      mv "$TMP_DIR/threads_tmp.json" "$PATCHED_THREADS_FILE"
+
+      echo "      comment page $CPAGE fetched (hasNextPage=$COMMENT_HAS_NEXT)"
+      [ "$COMMENT_HAS_NEXT" = "true" ] || break
+    done
+  done
+
+  mv "$PATCHED_THREADS_FILE" "$THREADS_FILE"
+fi
 
 TOTAL_THREADS=$(jq 'length' "$THREADS_FILE")
 echo "  $TOTAL_THREADS total review threads"
