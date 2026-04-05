@@ -183,8 +183,11 @@ echo "  $UNRESOLVED_CURRENT unresolved (current)"
 echo "  $UNRESOLVED_OUTDATED unresolved (outdated — code has changed, may not apply)"
 echo "  $RESOLVED resolved"
 
-# ── Helper: strip HTML tags from piped input ───────────────────────────
-strip_html() { sed 's/<[^>]*>//g'; }
+# ── Helper: strip common HTML wrapper tags from piped input ────────────
+# Avoid removing arbitrary angle-bracket content such as List<T> or a < b.
+strip_html() {
+  sed -E 's#</?(p|div|span|code|pre|blockquote|ul|ol|li|br)([[:space:]][^>]*)?>##gI'
+}
 
 # ── JQ: format a line reference from thread-level path/line/startLine ──
 JQ_LINE_REF='
