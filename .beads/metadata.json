@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "ethauber_github_io",
+  "project_id": "cb2eb2f0-997c-4d41-92d5-359c72465c65"
+}

@@ -30,6 +30,28 @@ bundle install
 To run locall after everything is installed
 `bundle exec jekyll serve --livereload`
 
+## Issue Tracking with Beads
+
+This repository uses **[Beads (bd)](https://beads.software/)** for issue tracking and workflow management. Beads provides a git-native, lightweight alternative to traditional issue trackers.
+
+### Quick Commands
+```bash
+bd ready           # Find available work
+bd show <id>       # View issue details
+bd update <id> --claim  # Claim an issue
+bd close <id>      # Complete an issue
+bd prime           # See full workflow context
+```
+
+For detailed setup and usage, see [AGENTS.md](./AGENTS.md) and [CLAUDE.md](./CLAUDE.md).
+
+### Known Gotchas
+
+**Dolt Database Naming**: If you encounter an error like `invalid database name: "ethauber.github.io"` when running `bd list`, this is due to Dolt embedded databases not supporting dots in database names. The fix is to update `.beads/metadata.json`:
+
+change `"dolt_database": "ethauber.github.io"` to `"dolt_database": "ethauber_github_io"` (replace dots with underscores)
+
+This is typically resolved automatically, but can occur after certain operations or migrations.
 
 ## Welcome to GitHub Pages
 
