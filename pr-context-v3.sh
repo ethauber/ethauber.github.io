@@ -313,10 +313,12 @@ echo "Writing $ACTIVE_FILE ..."
   PR_COMMENTS=$(jq '[
     .comments[]?
     | select(
-        ((.author.login // "") | test("\\[bot\\]$")) or
-        .author.login == "copilot-pull-request-reviewer" or
-        .author.login == "github-actions"
-      | not)
+        (
+          ((.author.login // "") | test("\\[bot\\]$")) or
+          .author.login == "copilot-pull-request-reviewer" or
+          .author.login == "github-actions"
+        ) | not
+      )
   ]' "$PR_META_FILE")
 
   if [ "$(echo "$PR_COMMENTS" | jq 'length')" -gt 0 ]; then
