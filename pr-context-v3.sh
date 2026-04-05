@@ -144,9 +144,6 @@ query($threadId: ID!, $cursor: String) {
         nodes {
           author { login }
           body
-          path
-          line
-          startLine
           diffHunk
           createdAt
         }
