@@ -1,0 +1,94 @@
+/* Retro Terminal Styles */
+#terminal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.95);
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 9999;
+    padding: 2rem;
+    display: none; /* Hidden by default */
+    overflow-y: auto;
+    font-size: 1.1rem;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+#terminal-overlay.open {
+    display: block;
+    animation: terminalFadeIn 0.2s ease-out;
+}
+
+@keyframes terminalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.terminal-line {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.terminal-prompt {
+    color: #0f0;
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: inherit;
+    flex-grow: 1;
+    outline: none;
+    caret-color: #0f0;
+}
+
+.command-output {
+    color: #ccc;
+    white-space: pre-wrap;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.command-error {
+    color: #ff5555;
+    margin-left: 1rem;
+}
+
+.terminal-link {
+    color: #55ffff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Scanline effect */
+#terminal-overlay::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
