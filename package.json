@@ -1,0 +1,8 @@
+{
+  "name": "ethauber-github-io",
+  "private": true,
+  "description": "Interactive experiments for Elijah Hauber's GitHub Pages site",
+  "dependencies": {
+    "three": "^0.180.0"
+  }
+}
