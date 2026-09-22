@@ -1,0 +1,38 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A tiny interactive solar system sketch by Elijah Hauber.">
+  <title>Orbit Sketch | Elijah Hauber</title>
+  <link rel="stylesheet" href="/css/main.css?v={{ site.time | date: '%s' }}">
+  <link rel="stylesheet" href="/three-orbit/three-orbit.css?v={{ site.time | date: '%s' }}">
+</head>
+<body class="orbit-page">
+  <main class="orbit-shell">
+    <a class="orbit-back global" href="/">← Back to Elijah Hauber</a>
+    <section class="orbit-card" aria-labelledby="orbit-title">
+      <div class="orbit-copy">
+        <p class="orbit-kicker">Space / Orion Spur</p>
+        <h1 id="orbit-title">A little orbit sketch</h1>
+        <p>Drag to look around. Click the planets to give them a little nudge.</p>
+        <button id="orbit-reset" class="orbit-button" type="button">Reset the view</button>
+        <p id="orbit-status" class="orbit-status" aria-live="polite">The tiny system is drifting.</p>
+      </div>
+      <div id="orbit-stage" class="orbit-stage" aria-label="Interactive 3D miniature solar system"></div>
+    </section>
+  </main>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="/three-orbit/three-orbit.js"></script>
+</body>
+</html>
