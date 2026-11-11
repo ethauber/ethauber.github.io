@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Inject Terminal HTML
     const terminalHTML = `
-        <div id="terminal-overlay">
+        <div id="terminal-overlay" role="dialog" aria-modal="true" aria-label="Interactive terminal">
             <div class="terminal-content">
                 <div class="terminal-header">
                     <pre>
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="terminal-history"></div>
                 <div class="terminal-input-line">
                     <span class="terminal-prompt">visitor@ethauber.io:~$</span>
-                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+                    <input type="text" id="terminal-input" aria-label="Terminal command" autocomplete="off" spellcheck="false">
                 </div>
             </div>
         </div>
@@ -29,12 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('terminal-input');
     const history = document.getElementById('terminal-history');
     let isOpen = false;
+    let previousOverflow = '';
+    let previousFocus = null;
+
+    function isEditable(el) {
+        return el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
+    }
 
     // Toggle Terminal
     document.addEventListener('keydown', (e) => {
         if (e.key === '`' || e.key === '~') {
-            // Prevent default only if we are not typing in a normal input
-            // But for this global toggle, we usually want to prevent ` from being typed if it opens the terminal
+            // Let ` and ~ be typed normally in other inputs on the page
+            if (isEditable(e.target) && e.target !== input) return;
             if (!isOpen) {
                 e.preventDefault();
                 openTerminal();
@@ -51,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openTerminal() {
+        previousFocus = document.activeElement;
+        previousOverflow = document.body.style.overflow;
         overlay.classList.add('open');
         input.focus();
         isOpen = true;
@@ -60,8 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeTerminal() {
         overlay.classList.remove('open');
         isOpen = false;
-        document.body.style.overflow = ''; // Unlock scroll
+        document.body.style.overflow = previousOverflow; // Unlock scroll
         input.value = '';
+        if (previousFocus && typeof previousFocus.focus === 'function') {
+            previousFocus.focus();
+        }
     }
 
     // Handle Input
@@ -73,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             input.value = '';
             // Scroll to bottom
-            const content = document.querySelector('.terminal-content');
             // Timeout to allow DOM update
             setTimeout(() => {
                 overlay.scrollTop = overlay.scrollHeight;
@@ -81,15 +91,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Click anywhere to focus input
-    overlay.addEventListener('click', () => {
+    // Click anywhere to focus input; links marked data-close-terminal close it
+    overlay.addEventListener('click', (e) => {
+        if (e.target.closest('[data-close-terminal]')) {
+            closeTerminal();
+            return;
+        }
         input.focus();
     });
 
+    // Trusted, static markup only - use printText for anything user-supplied
     function print(text, className = 'command-output') {
         const line = document.createElement('div');
         line.className = className;
         line.innerHTML = text; // Allow HTML for links
+        history.appendChild(line);
+    }
+
+    function printText(text, className = 'command-output') {
+        const line = document.createElement('div');
+        line.className = className;
+        line.textContent = text;
         history.appendChild(line);
     }
 
@@ -131,14 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         contact: () => {
             print("Email: <a href='mailto:ethauber@outlook.com' class='terminal-link'>ethauber@outlook.com</a>");
-            print("LinkedIn: <a href='https://www.linkedin.com/in/ethauber' class='terminal-link' target='_blank'>linkedin.com/in/ethauber</a>");
-            print("GitHub: <a href='https://github.com/ethauber' class='terminal-link' target='_blank'>github.com/ethauber</a>");
+            print("LinkedIn: <a href='https://www.linkedin.com/in/ethauber' class='terminal-link' target='_blank' rel='noopener noreferrer'>linkedin.com/in/ethauber</a>");
+            print("GitHub: <a href='https://github.com/ethauber' class='terminal-link' target='_blank' rel='noopener noreferrer'>github.com/ethauber</a>");
         },
         projects: () => {
             print("Checking ./works directory...");
-            print("- <a href='#works' class='terminal-link' onclick='document.querySelector(\"#terminal-overlay\").classList.remove(\"open\");'>Pong</a> (Game)");
-            print("- <a href='#works' class='terminal-link' onclick='document.querySelector(\"#terminal-overlay\").classList.remove(\"open\");'>Flappy Flyer</a> (Game)");
-            print("- <a href='#works' class='terminal-link' onclick='document.querySelector(\"#terminal-overlay\").classList.remove(\"open\");'>Mandelbrot/Julia Sets</a> (Math/Art)");
+            print("- <a href='#works' class='terminal-link' data-close-terminal>Pong</a> (Game)");
+            print("- <a href='#works' class='terminal-link' data-close-terminal>Flappy Flyer</a> (Game)");
+            print("- <a href='#works' class='terminal-link' data-close-terminal>Mandelbrot/Julia Sets</a> (Math/Art)");
             print("- <a href='/arcana' class='terminal-link'>Arcana Quiz</a> (App)");
         },
         clear: () => {
@@ -170,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (file === 'contact.md') commands.contact();
             else if (file === 'skills.json') commands.skills();
             else if (file === '_secrets/' || file === '_secrets') print("Access Denied: Biometric scan required.", "command-error");
-            else print(`cat: ${file}: No such file or directory`, "command-error");
+            else printText(`cat: ${file}: No such file or directory`, "command-error");
         }
     };
 
@@ -183,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (commands[cmd]) {
             commands[cmd](args);
         } else {
-            print(`Command not found: ${cmd}. Type 'help' for list.`, "command-error");
+            printText(`Command not found: ${cmd}. Type 'help' for list.`, "command-error");
         }
     }
 });
