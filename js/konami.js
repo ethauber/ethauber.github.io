@@ -57,6 +57,8 @@ document.addEventListener('keydown', function(e) {
 function activateKonami() {
     console.log("Konami Code Activated! Do a barrel roll!");
     const body = document.body;
+
+    // Add the class to trigger the animation
     body.classList.add('barrel-roll');
     setTimeout(() => {
         body.classList.remove('barrel-roll');
