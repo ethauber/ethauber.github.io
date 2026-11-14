@@ -1,6 +1,10 @@
 // Planet navigator for /space/. Shows one planet card at a time.
 // Arrow keys only act while focus is inside the navigator, so they never
 // hijack normal page scrolling.
+//
+// Other scripts talk to the navigator through two events on its root:
+//   planet:select  (listened for)  detail: { id }         show that planet
+//   planet:change  (dispatched)    detail: { id, index }  a planet was shown
 (function () {
   'use strict';
 
@@ -21,8 +25,14 @@
     }
   }
 
-  async function go(step) {
-    if (animating || cards.length < 2) return;
+  function announce() {
+    root.dispatchEvent(new CustomEvent('planet:change', {
+      detail: { id: cards[index].id, index: index }
+    }));
+  }
+
+  async function show(target) {
+    if (animating || target === index || target < 0 || target >= cards.length) return;
     animating = true;
 
     const current = cards[index];
@@ -31,7 +41,7 @@
     current.hidden = true;
     current.classList.remove('is-fading');
 
-    index = (index + step + cards.length) % cards.length;
+    index = target;
     const next = cards[index];
     next.classList.add('is-fading');
     next.hidden = false;
@@ -40,6 +50,11 @@
 
     updateCounter();
     animating = false;
+    announce();
+  }
+
+  function go(step) {
+    show((index + step + cards.length) % cards.length);
   }
 
   root.querySelector('[data-planet-prev]').addEventListener('click', () => go(-1));
@@ -53,6 +68,11 @@
       event.preventDefault();
       go(1);
     }
+  });
+
+  root.addEventListener('planet:select', event => {
+    const id = event.detail && event.detail.id;
+    show(cards.findIndex(card => card.id === id));
   });
 
   updateCounter();
