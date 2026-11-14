@@ -72,7 +72,20 @@ pip install pre-commit && pre-commit install
 `.github/workflows/links.yml` checks outbound links every Monday, since those
 break without any change to this repo.
 
-Dependabot opens monthly PRs for GitHub Actions and gems.
+Dependabot opens monthly PRs for GitHub Actions and gems. Updates are grouped
+per ecosystem in `.github/dependabot.yml`, so expect at most two PRs a month:
+one for actions and one for gems. Two things a green PR does not prove:
+
+- `upload-pages-artifact` and `deploy-pages` only run on a deploy, so a bump to
+  either is first exercised on the push to `main` (or with the `deploy` label).
+- CI builds with `actions/jekyll-build-pages`, which uses its own gems, so
+  `Gemfile.lock` changes only affect local builds. Run
+  `bundle exec jekyll build` locally before merging a gem PR.
+
+If ungrouped PRs ever pile up, combine them on one branch: cherry-pick each PR
+head (`git fetch origin pull/N/head:pr-N`), resolve `Gemfile.lock` conflicts
+with `bundle update <gem>` rather than by hand, open one PR, then close the
+originals with a pointer to it.
 
 ## Issue Tracking with Beads
 

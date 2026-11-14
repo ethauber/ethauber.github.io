@@ -1,10 +1,17 @@
 version: 2
 updates:
+  # One PR per ecosystem per month instead of one PR per dependency.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
   - package-ecosystem: bundler
     directory: /
     schedule:
       interval: monthly
+    groups:
+      gems:
+        patterns: ["*"]
