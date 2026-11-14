@@ -124,7 +124,8 @@
       };
     });
     const hits = planets.map(planet => planet.hit);
-    const systemRadius = planets.reduce((max, planet) => Math.max(max, planet.distance), 0) + 1.5;
+    // Outermost orbit, plus room for the planet on it and its name label.
+    const systemRadius = planets.reduce((max, planet) => Math.max(max, planet.distance), 0) + 2;
 
     // Ring that faces the camera and marks the selected planet.
     // The orbit circle lies flat (XZ), so stand a copy upright (XY) for it.
@@ -141,7 +142,6 @@
     // ----- State
     let azimuth = DEFAULT_AZIMUTH;
     let polar = DEFAULT_POLAR;
-    let cameraDistance = 40;
     let selected = -1;
     let hovered = -1;
     let playing = !reducedMotion;
@@ -160,7 +160,10 @@
       });
     }
 
+    // The distance is refitted every time, so the whole system stays in view
+    // at any stage shape and however far the camera has been tilted.
     function placeCamera() {
+      const cameraDistance = scale.fitDistance(systemRadius, FOV, camera.aspect, polar);
       camera.position.set(
         cameraDistance * Math.sin(polar) * Math.sin(azimuth),
         cameraDistance * Math.cos(polar),
@@ -176,8 +179,6 @@
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      // Pull the camera back far enough that the outermost orbit fits.
-      cameraDistance = scale.fitDistance(systemRadius, FOV, camera.aspect, DEFAULT_POLAR);
       dirty = true;
     }
 

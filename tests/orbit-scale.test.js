@@ -66,6 +66,43 @@ test('a narrower viewport pulls the camera further back', () => {
   assert.ok(narrow > wide);
 });
 
+// How far the edge of the disc reaches toward the edge of the view, as a
+// fraction: 1 touches it, more than 1 is cut off. Mirrors the camera set-up
+// in orbit.js (camera `distance` from the centre, looking at it).
+function reach(radius, fov, aspect, polar, distance) {
+  const vertical = Math.tan(fov * Math.PI / 360);
+  const horizontal = vertical * aspect;
+  let worst = 0;
+  for (let step = 0; step < 720; step++) {
+    const angle = step / 720 * Math.PI * 2;
+    const toward = radius * Math.cos(angle);
+    const sideways = radius * Math.sin(angle);
+    const depth = distance - toward * Math.sin(polar);
+    assert.ok(depth > 0, 'edge of the disc is behind the camera');
+    worst = Math.max(
+      worst,
+      Math.abs(sideways) / depth / horizontal,
+      Math.abs(toward * Math.cos(polar)) / depth / vertical
+    );
+  }
+  return worst;
+}
+
+test('the fitted camera shows the whole disc, snugly, at any shape and tilt', () => {
+  // Includes 720x320, the wide and short stage that used to clip the orbits.
+  const shapes = [720 / 320, 715 / 520, 358 / 320, 9 / 16, 3];
+  const tilts = [0.15, 0.5, 1.0, 1.45];   // MIN_POLAR to MAX_POLAR in orbit.js
+  for (const aspect of shapes) {
+    for (const polar of tilts) {
+      const distance = scale.fitDistance(20, 45, aspect, polar);
+      const used = reach(20, 45, aspect, polar, distance);
+      const where = `aspect ${aspect.toFixed(2)}, polar ${polar}`;
+      assert.ok(used <= 1 + 1e-9, `clipped at ${where}: ${used}`);
+      assert.ok(used > 0.99, `too far away at ${where}: ${used}`);
+    }
+  }
+});
+
 test('clamp keeps a value inside its range', () => {
   assert.equal(scale.clamp(5, 0, 1), 1);
   assert.equal(scale.clamp(-5, 0, 1), 0);

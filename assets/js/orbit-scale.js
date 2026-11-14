@@ -41,14 +41,24 @@
     return EARTH_SPEED * Math.sqrt(EARTH_PERIOD_DAYS / positive(periodDays, EARTH_PERIOD_DAYS));
   }
 
-  // Camera distance at which a flat disc of `systemRadius`, seen from `polar`
-  // radians off straight overhead, fits a viewport of the given shape.
+  // Closest camera distance at which a flat disc of `systemRadius`, centred on
+  // the look-at point and seen from `polar` radians off straight overhead,
+  // sits wholly inside a perspective viewport of the given shape.
+  //
+  // With the camera `d` away, a point on the disc's edge that is `u` toward
+  // the camera and `w` to the side has depth d - u*sin(polar), and lands at
+  // screen height -u*cos(polar) and screen offset w. Requiring both to stay
+  // inside the view for every edge point gives the two limits below: the
+  // near edge is what runs off the bottom, and a point a little nearer than
+  // the widest one is what runs off the sides.
   function fitDistance(systemRadius, fovDegrees, aspect, polar) {
     const vertical = Math.tan(fovDegrees * Math.PI / 360);
     const horizontal = vertical * positive(aspect, 1);
-    return 1.15 * Math.max(
-      systemRadius / horizontal,
-      systemRadius * Math.cos(polar) / vertical
+    const sin = Math.sin(polar);
+    const cos = Math.cos(polar);
+    return systemRadius * Math.max(
+      cos / vertical + sin,
+      Math.sqrt(1 / (horizontal * horizontal) + sin * sin)
     );
   }
 
