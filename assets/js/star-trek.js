@@ -15,6 +15,34 @@
   const TRANSPORTER_DURATION_MS = 2600;
   const LCARS_DURATION_MS = 5000;
 
+  const SOL_ASTROMETRICS = {
+    mercury: 'Sol I — Innermost terrestrial world; extreme solar flux.',
+    venus: 'Sol II — Dense greenhouse atmosphere; Starfleet Academy atmospheric probe target.',
+    earth: 'Sol III (Sector 001) — Starfleet Headquarters, San Francisco & Earth Spacedock.',
+    mars: 'Sol IV — Utopia Planitia Fleet Yards in orbit.',
+    jupiter: 'Sol V — Jupiter Station holoprogramming & propulsion research facility.',
+    saturn: 'Sol VI — Titan orbital flight range (Starfleet Academy training).',
+    uranus: 'Sol VII — Outer ice giant; Starfleet long-range relay waypoint.',
+    neptune: 'Sol VIII — Outer planetary boundary before the Kuiper Belt.'
+  };
+
+  const LCARS_TAGS = {
+    earth: 'SPACEDOCK',
+    mars: 'UTOPIA PLANITIA',
+    jupiter: 'JUPITER STATION',
+    saturn: 'TITAN RANGE'
+  };
+
+  function getActiveSpaceTarget() {
+    const nav = document.querySelector('[data-planet-navigator]');
+    if (!nav) return null;
+    const activeCard = nav.querySelector('.planet-card:not([hidden])');
+    if (!activeCard) return null;
+    const id = activeCard.id;
+    const name = (activeCard.dataset.planet || id || '').toUpperCase();
+    return { id: id, name: name, tag: LCARS_TAGS[id] || null };
+  }
+
   function createOverlayCanvas(className) {
     const canvas = document.createElement('canvas');
     canvas.className = className;
@@ -253,6 +281,11 @@
         ['SHIELDS', 'ONLINE // 100%'],
         ['BEVERAGE', 'TEA, EARL GREY, HOT']
       ];
+      const target = getActiveSpaceTarget();
+      if (target && target.name) {
+        const suffix = target.tag ? ` // ${target.tag}` : '';
+        rows.unshift(['ASTROMETRICS', `${target.name}${suffix}`]);
+      }
 
       const list = document.createElement('dl');
       list.className = 'trek-lcars-panel__list';
@@ -315,6 +348,20 @@
 
   document.addEventListener('keydown', function (e) {
     trekDispatcher.handleKey(e.key, e.target);
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const spaceNav = document.querySelector('[data-planet-navigator]');
+    if (!spaceNav) return;
+
+    console.log('%c🖖 ASTROMETRICS: Entering Sector 001 (Sol System — Orion Arm).', 'color: #99ccff; font-style: italic;');
+    spaceNav.addEventListener('planet:change', function (e) {
+      const id = e.detail && e.detail.id;
+      const note = id && SOL_ASTROMETRICS[id];
+      if (note) {
+        console.log(`%c🖖 ${note}`, 'color: #ff9900; font-style: italic;');
+      }
+    });
   });
 
   window.StarTrekEasterEggs = {
