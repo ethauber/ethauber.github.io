@@ -60,7 +60,7 @@ pre-commit run --all-files      # whitespace, YAML and large-file checks
 ```
 
 CI (`.github/workflows/deploy.yml`) builds every PR and runs html-proofer on
-internal links. Only pushes to `main` deploy.
+internal links. Pushes to `main` deploy; a PR deploys only with the `deploy` label.
 
 ## Architecture Overview
 

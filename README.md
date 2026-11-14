@@ -63,6 +63,11 @@ pip install pre-commit && pre-commit install
   internal link, image and script with html-proofer. Nothing is published.
 - **Pushes to `main`:** the same checks, then deploy to GitHub Pages. A failed
   check blocks the deploy.
+- **Deploy a PR before merging:** add the `deploy` label to the PR. That run
+  (and every later push to the PR while the label is on) publishes the PR build
+  to the live site. There is only one Pages site, so this replaces production
+  until the next deploy; merging or re-running the latest `main` run restores
+  it. Remove the label to stop. Forks cannot deploy.
 
 `.github/workflows/links.yml` checks outbound links every Monday, since those
 break without any change to this repo.
