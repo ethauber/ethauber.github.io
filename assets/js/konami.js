@@ -64,6 +64,10 @@ console.log(
     "%cTry entering the Konami Code (↑ ↑ ↓ ↓ ← → ← → B A) for a spin!",
     "color: #e67e22; font-style: italic;"
 );
+console.log(
+    "%c🖖 Live long and prosper! Try typing 'engage', 'redalert', 'makeitso', 'lcars', or 'trek'.",
+    "color: #ff9900; font-style: italic;"
+);
 
 /**
  * Easter Egg 3: Tab Title Marquee
@@ -73,7 +77,10 @@ const funTitles = [
     "Miss you already! 🚀",
     "Drifting in space... 🛸",
     "Come back to Earth! 🌍",
-    "System: Offline 🌑"
+    "System: Offline 🌑",
+    "Boldly going... 🖖",
+    "Hailing frequencies open 📡",
+    "Tea, Earl Grey, hot ☕"
 ];
 
 document.addEventListener('visibilitychange', () => {
