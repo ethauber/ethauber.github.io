@@ -25,7 +25,8 @@
 
   // Highlight the section currently under the top of the viewport.
   function updateActive() {
-    const marker = window.scrollY + navbar.offsetHeight + 1;
+    // A little past the navbar, to cover the scroll-padding set in main.css.
+    const marker = window.scrollY + navbar.offsetHeight + 24;
     let current = sections[0];
     sections.forEach(section => {
       if (section.offsetTop <= marker) current = section;

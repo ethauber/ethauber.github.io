@@ -22,7 +22,7 @@
   {%- endunless %}
   <span class="skill-links">
     {%- for link in item.links %}
-    <a href="{{ link.url }}" target="_blank" rel="noopener" class="badge badge-light border" title="{{ link.title | default: link.name }}">
+    <a href="{{ link.url }}" target="_blank" rel="noopener" class="badge badge-light" title="{{ link.title | default: link.name }}">
       {%- if link.icon %}<img src="/assets/icons/{{ link.icon }}" alt="" width="16" height="16">{% endif -%}
       {{ link.name }}</a>
     {%- endfor %}

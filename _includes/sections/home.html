@@ -1,21 +1,21 @@
 <section id="home" class="section">
   <div class="container">
     <div class="hero">
-      <img class="hero__photo" src="{{ site.logo }}" alt="{{ site.author.name }}" width="160" height="160">
+      <img class="hero__photo" src="{{ site.logo }}" alt="{{ site.author.name }}" width="168" height="168">
       <div>
+        <p class="eyebrow">{{ site.role }}</p>
         <h1 class="hero__name">{{ site.author.name }}</h1>
-        <p class="hero__role">{{ site.role }}</p>
       </div>
     </div>
 
-    <div class="contact-info mb-3">
-      <p><strong>Email:</strong> <a class="global" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-      <p><strong>Location:</strong> {{ site.location }}</p>
+    <div class="contact-info">
+      <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      <p>{{ site.location }}</p>
       {% include social-links.html %}
     </div>
 
-    <section class="summary mb-4 global">
-      <h2 class="h4">Professional Summary</h2>
+    <section class="summary home-block">
+      <h2 class="eyebrow">Professional Summary</h2>
       <p>I am a software engineer with {{ site.years_experience }} years of experience delivering software maintenance, architecture, prototypes, research, documentation, and testing.</p>
       <ul>
         <li>Formerly employed at <a href="https://www.linkedin.com/company/parus-holdings">Parus Holdings LLC</a> as a software engineer</li>
@@ -23,11 +23,11 @@
       </ul>
     </section>
 
-    <section class="skills mb-4 global">
-      <h2 class="h4">Technical Skills</h2>
+    <section class="skills home-block">
+      <h2 class="eyebrow">Technical Skills</h2>
       {%- for group in site.data.skills %}
-      <div class="mb-4">
-        <h3 class="h5 skill-heading">{{ group.category }}</h3>
+      <div class="skill-group">
+        <h3 class="skill-heading">{{ group.category }}</h3>
         <ul class="skill-grid">
           {%- for item in group.items %}
           {% include skill-card.html item=item %}
@@ -37,11 +37,11 @@
       {%- endfor %}
     </section>
 
-    <section class="work-experience mb-4">
-      <h2 class="h4">Work Experience</h2>
+    <section class="work-experience home-block">
+      <h2 class="eyebrow">Work Experience</h2>
       {%- for job in site.data.experience.work %}
       <div>
-        <h3 class="entry-heading">{{ job.title }} | {{ job.org }} | {{ job.years }}</h3>
+        <h3 class="entry-heading">{{ job.title }} <span>· {{ job.org }} · {{ job.years }}</span></h3>
         <ul>
           {%- for point in job.points %}
           <li>{{ point }}</li>
@@ -51,8 +51,8 @@
       {%- endfor %}
     </section>
 
-    <section class="certifications mb-4 global">
-      <h2 class="h4">Certifications</h2>
+    <section class="certifications home-block">
+      <h2 class="eyebrow">Certifications</h2>
       <ul class="skill-grid">
         {%- for cert in site.data.certifications %}
         <li>
@@ -65,11 +65,11 @@
       </ul>
     </section>
 
-    <section class="education mb-4">
-      <h2 class="h4">Education</h2>
+    <section class="education home-block">
+      <h2 class="eyebrow">Education</h2>
       {%- for school in site.data.experience.education %}
       <div>
-        <h3 class="entry-heading">{{ school.org }} | {{ school.years }}</h3>
+        <h3 class="entry-heading">{{ school.org }} <span>· {{ school.years }}</span></h3>
         <ul>
           {%- for point in school.points %}
           <li>{{ point }}</li>

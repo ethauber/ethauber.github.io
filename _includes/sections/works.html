@@ -5,7 +5,7 @@
     <{{ tag }} class="section-title">Elijah Hauber's Works</{{ tag }}>
 
     {%- for group in site.data.works %}
-    <h3 id="{{ group.id }}">{{ group.group }}</h3>
+    <h3 id="{{ group.id }}" class="work-group-title">{{ group.group }}</h3>
     <ul class="work-grid">
       {%- for item in group.items %}
       {% include work-card.html item=item %}
@@ -13,7 +13,7 @@
     </ul>
     {%- endfor %}
 
-    <h3 id="fractals">Fractals</h3>
+    <h3 id="fractals" class="work-group-title">Fractals</h3>
     <div class="fractal-grid">
       {% include fractal.html kind="mandelbrot" title="Mandelbrot Set" %}
       {% include fractal.html kind="julia" title="Julia Set" %}

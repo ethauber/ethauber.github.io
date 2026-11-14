@@ -1,9 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top site-nav" aria-label="Main">
+{%- comment %}
+  Brand on the left; links, theme toggle and (on small screens) the menu
+  button on the right. The toggle sits outside the collapsing menu so it is
+  always visible.
+{% endcomment -%}
+<nav class="navbar navbar-expand-lg fixed-top site-nav" aria-label="Main">
   <div class="container">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-      aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="site-nav__brand" href="/#home">{{ site.author.name }}</a>
+    <div class="site-nav__actions">
+      {% include theme-toggle.html %}
+      <button class="icon-btn site-nav__menu-btn" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         {%- for item in site.data.nav %}
@@ -11,9 +20,6 @@
           <a class="nav-link" href="/#{{ item.section }}" data-section="{{ item.section }}">{{ item.name }}</a>
         </li>
         {%- endfor %}
-        <li class="nav-item d-flex align-items-center ml-lg-2">
-          {% include theme-toggle.html %}
-        </li>
       </ul>
     </div>
   </div>

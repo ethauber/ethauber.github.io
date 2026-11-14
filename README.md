@@ -18,7 +18,7 @@ GitHub Actions.
 | `arcana/` | The MTG color identity quiz, linked from Works. |
 | `games/` | Exported game builds (Godot, Unity). Do not edit by hand. |
 | `works/`, `blog/`, `about/`, `privacy/` | Standalone pages that reuse the same includes. |
-| `assets/css/main.css` | All site styles. `assets/css/vendor/` and `assets/js/vendor/` hold Bootstrap 4, jQuery and Popper. |
+| `assets/css/main.css` | All site styles. Colours and fonts are tokens at the top (one block for light, one for dark); `easter-eggs.css` and `terminal.css` only style the hidden extras. `assets/css/vendor/` and `assets/js/vendor/` hold Bootstrap 4, jQuery and Popper. |
 | `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `theme-toggle.js`, and the easter eggs (`konami.js`, `terminal.js`). |
 | `docs/`, `scripts/` | Notes and repo tooling. Not published. |
 
