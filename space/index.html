@@ -21,9 +21,15 @@ scripts: [planets.js, orbit-scale.js, orbit.js]
     <div class="space-layout">
     {%- comment %} Hidden until orbit.js has loaded Three.js and drawn the scene. {% endcomment %}
     <div class="orbit-view" data-orbit-view data-sun-color="{{ space.sun.color }}" hidden>
-      <div class="orbit-stage" data-orbit-stage role="img" aria-label="3D model of the solar system. The planets orbit the Sun; the planet shown in the card is highlighted."></div>
+      <div class="orbit-stage" data-orbit-stage role="img" aria-label="3D model of the solar system. The planets orbit the Sun; the planet shown in the card is highlighted. The buttons below turn the model."></div>
       <div class="orbit-toolbar">
-        <p class="orbit-hint">Drag to look around. Click or tap a planet to open its card. Not to scale.</p>
+        <p class="orbit-hint">Drag, or use the arrow buttons, to look around. Click or tap a planet to open its card. Not to scale.</p>
+        <div class="orbit-turn" role="group" aria-label="Turn the model">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="left" aria-label="Rotate left" title="Rotate left">&larr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="right" aria-label="Rotate right" title="Rotate right">&rarr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="up" aria-label="Tilt toward a top-down view" title="Tilt toward a top-down view">&uarr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="down" aria-label="Tilt toward a side-on view" title="Tilt toward a side-on view">&darr;</button>
+        </div>
         <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-toggle>Pause</button>
         <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-reset>Reset view</button>
       </div>

@@ -1005,6 +1005,15 @@ blockquote > :last-child {
     margin-top: 0.75rem;
 }
 
+.orbit-turn {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.orbit-turn .btn {
+    min-width: 2rem;
+}
+
 .orbit-hint {
     flex: 1 1 14rem;
     margin: 0;

@@ -46,6 +46,8 @@
     const MIN_POLAR = 0.15;
     const MAX_POLAR = 1.45;
     const DRAG_THRESHOLD = 5;     // px of movement before a press is a drag
+    const TURN_STEP = 0.25;       // radians per press of a rotate button
+    const TILT_STEP = 0.15;       // radians per press of a tilt button
     const FOV = 45;
 
     const styles = getComputedStyle(view);
@@ -241,6 +243,12 @@
       }
     }
 
+    function lookFrom(nextAzimuth, nextPolar) {
+      azimuth = nextAzimuth;
+      polar = scale.clamp(nextPolar, MIN_POLAR, MAX_POLAR);
+      dirty = true;
+    }
+
     function select(id) {
       const next = planets.findIndex(planet => planet.id === id);
       if (next === selected) return;
@@ -290,9 +298,7 @@
       if (!press.dragged && Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
       press.dragged = true;
       stage.classList.add('is-dragging');
-      azimuth = press.azimuth - dx * 0.008;
-      polar = scale.clamp(press.polar - dy * 0.006, MIN_POLAR, MAX_POLAR);
-      dirty = true;
+      lookFrom(press.azimuth - dx * 0.008, press.polar - dy * 0.006);
     });
 
     canvas.addEventListener('pointerup', event => {
@@ -328,12 +334,22 @@
 
     const reset = view.querySelector('[data-orbit-reset]');
     if (reset) {
-      reset.addEventListener('click', () => {
-        azimuth = DEFAULT_AZIMUTH;
-        polar = DEFAULT_POLAR;
-        dirty = true;
-      });
+      reset.addEventListener('click', () => lookFrom(DEFAULT_AZIMUTH, DEFAULT_POLAR));
     }
+
+    // Buttons do what dragging does, for keyboards, switches and touch
+    // screens (where an up or down drag scrolls the page instead).
+    const turns = {
+      left: [TURN_STEP, 0],
+      right: [-TURN_STEP, 0],
+      up: [0, -TILT_STEP],
+      down: [0, TILT_STEP]
+    };
+    view.querySelectorAll('[data-orbit-turn]').forEach(button => {
+      const turn = turns[button.dataset.orbitTurn];
+      if (!turn) return;
+      button.addEventListener('click', () => lookFrom(azimuth + turn[0], polar + turn[1]));
+    });
 
     navigator.addEventListener('planet:change', event => select(event.detail.id));
 
