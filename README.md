@@ -1,34 +1,73 @@
-## To Run On Windows
-Follow guide https://jekyllrb.com/docs/installation/windows/
-If using vscode close windows and reopen for the integrated terminal to recognize the install of ruby and then jekyll
-Use cmd jekyll serve --livereload to develop
+# ethauber.github.io
 
-## To Run On Mac
-```
-brew install rbenv
-rbenv install 3.1.7
-rbenv local 3.1.7
-```
+Personal site for Elijah Hauber: a single scrollable page (home, works, blog)
+plus a few standalone pages. Built with Jekyll and deployed to GitHub Pages by
+GitHub Actions.
 
-### Add to bottom of .zshrc
-```
-eval "$(rbenv init -)"
-```
+## Where things live
 
-### Restart term or source file
-```
-source ~/.zshrc
-ruby -v
-```
+| Path | What it is |
+| --- | --- |
+| `index.html` | The one-page site. It only stitches together the section includes. |
+| `_includes/sections/` | `home.html`, `works.html`, `blog.html`: one file per section. |
+| `_includes/` | Shared pieces: `head`, `nav`, `footer`, `social-links`, skill, work and fractal cards. |
+| `_layouts/` | `default` (nav, footer, scripts), `page` (simple pages), `post` (blog posts). |
+| `_data/` | The content. Edit these instead of HTML (see below). |
+| `_posts/` | Blog posts in Markdown. |
+| `space/` | The planet explorer, linked from Works. |
+| `arcana/` | The MTG color identity quiz, linked from Works. |
+| `games/` | Exported game builds (Godot, Unity). Do not edit by hand. |
+| `works/`, `blog/`, `about/`, `privacy/` | Standalone pages that reuse the same includes. |
+| `assets/css/main.css` | All site styles. `assets/css/vendor/` and `assets/js/vendor/` hold Bootstrap 4, jQuery and Popper. |
+| `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `theme-toggle.js`, and the easter eggs (`konami.js`, `terminal.js`). |
+| `docs/`, `scripts/` | Notes and repo tooling. Not published. |
 
-### Install bundler and dependencies
-```
-bundle init
+## Common edits
+
+- **Add a game or project:** add an item to `_data/works.yml`. Put a
+  screenshot in `assets/` and set `image:`; without one the card shows `emoji:`.
+- **Add or remove a skill:** edit `_data/skills.yml`. Icons go in `assets/icons/`.
+- **Update work history or education:** `_data/experience.yml`.
+- **Certifications:** `_data/certifications.yml`.
+- **Social links (hero and footer):** `_data/social.yml`.
+- **Planet facts:** `_data/space.yml`.
+- **Years of experience, email, location, analytics and ad ids:** `_config.yml`.
+- **New blog post:** add `_posts/YYYY-MM-DD-title.md` with `layout: post` and a
+  `title` in the front matter. Add `updated: YYYY-MM-DD` and a `## Changelog`
+  heading to show an updated date on the home page.
+- **Add a nav item:** `_data/nav.yml` (the `section` is the id of a section on
+  the home page).
+
+## Run locally
+
+Ruby version is pinned in `.ruby-version` and `mise.toml`.
+
+```bash
 bundle install
+bundle exec jekyll serve --livereload
 ```
 
-To run locally after everything is installed
-`bundle exec jekyll serve --livereload`
+On Windows, follow <https://jekyllrb.com/docs/installation/windows/> first.
+
+Optional, to run the same checks CI runs before you commit:
+
+```bash
+pip install pre-commit && pre-commit install
+```
+
+## CI/CD
+
+`.github/workflows/deploy.yml`
+
+- **Pull requests:** lint (pre-commit hooks), build the site, and check every
+  internal link, image and script with html-proofer. Nothing is published.
+- **Pushes to `main`:** the same checks, then deploy to GitHub Pages. A failed
+  check blocks the deploy.
+
+`.github/workflows/links.yml` checks outbound links every Monday, since those
+break without any change to this repo.
+
+Dependabot opens monthly PRs for GitHub Actions and gems.
 
 ## Issue Tracking with Beads
 
@@ -52,41 +91,3 @@ For detailed setup and usage, see [AGENTS.md](./AGENTS.md) and [CLAUDE.md](./CLA
 - Change `"dolt_database": "ethauber.github.io"` to `"dolt_database": "ethauber_github_io"` (replace dots with underscores).
 
 This is typically resolved automatically, but can occur after certain operations or migrations.
-
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/ethauber/ethauber.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ethauber/ethauber.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.

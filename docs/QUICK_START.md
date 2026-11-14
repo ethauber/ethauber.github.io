@@ -1,3 +1,7 @@
+> Historical note: written before the site was restructured. File paths below
+> (`/css`, `/js`, inline scripts in `index.html`) predate the move to `assets/`
+> and `_includes/`. See the README for the current layout.
+
 # Quick Start Guide - Performance Optimizations
 
 ## 🚀 What's Been Optimized
