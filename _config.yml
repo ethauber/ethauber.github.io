@@ -1,6 +1,9 @@
 name: Elijah Hauber
 title: Elijah Hauber
 url: https://ethauber.github.io
+baseurl: ""
+# Lets jekyll-github-metadata work without a git remote or API token.
+repository: ethauber/ethauber.github.io
 lang: en
 author:
   name: Elijah Hauber
