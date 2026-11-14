@@ -1,4 +1,7 @@
 _site/
+# Bundler's per-machine settings and gems installed with `bundle config set --local path`
+.bundle/
+/vendor/bundle/
 .jekyll-cache/
 .vscode
 .DS_Store

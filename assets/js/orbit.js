@@ -14,9 +14,10 @@
 
   const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.min.js';
 
+  const scale = window.OrbitScale;   // orbit-scale.js, loaded just before this
   const view = document.querySelector('[data-orbit-view]');
   const navigator = document.querySelector('[data-planet-navigator]');
-  if (!view || !navigator) return;
+  if (!scale || !view || !navigator) return;
 
   const stage = view.querySelector('[data-orbit-stage]');
   const cards = Array.from(navigator.querySelectorAll('.planet-card[data-orbit-distance]'));
@@ -36,12 +37,9 @@
   }
 
   function start(THREE) {
-    // ----- Tuning. Real distances and sizes are compressed to fit on screen.
+    // ----- Tuning. How distances, sizes and speeds are compressed to fit on
+    // screen lives in orbit-scale.js.
     const SUN_RADIUS = 1.3;
-    const INNER_ORBIT = 2.6;      // scene radius of the closest orbit
-    const ORBIT_SPREAD = 3.6;     // extra radius per e-fold of real distance
-    const PLANET_SCALE = 0.3;     // scene radius of an Earth-sized planet
-    const EARTH_SPEED = 0.25;     // radians per second for a 365 day orbit
     const MIN_HIT_RADIUS = 0.9;   // small planets still get a fair click target
     const DEFAULT_AZIMUTH = 0.6;
     const DEFAULT_POLAR = 1.0;    // radians down from straight overhead
@@ -82,15 +80,14 @@
     scene.add(makeGlow(sunColor, SUN_RADIUS * 5));
     scene.add(makeStars(500));
 
-    const firstDistance = Math.min.apply(null, cards.map(card => Number(card.dataset.orbitDistance) || 1));
+    const innermost = Math.min.apply(null, cards.map(card => Number(card.dataset.orbitDistance) || Infinity));
     const circle = unitCircle(128);
 
     const planets = cards.map((card, i) => {
       const data = card.dataset;
-      const au = Number(data.orbitDistance) || 1;
-      const distance = INNER_ORBIT + ORBIT_SPREAD * Math.log(au / firstDistance);
-      const size = PLANET_SCALE * Math.pow(Number(data.orbitRadius) || 1, 0.4);
-      const speed = EARTH_SPEED * Math.sqrt(365 / (Number(data.orbitPeriod) || 365));
+      const distance = scale.orbitRadius(data.orbitDistance, innermost);
+      const size = scale.planetSize(data.orbitRadius);
+      const speed = scale.orbitSpeed(data.orbitPeriod);
 
       const mesh = new THREE.Mesh(
         new THREE.SphereGeometry(size, 32, 24),
@@ -172,16 +169,6 @@
       camera.lookAt(0, 0, 0);
     }
 
-    // Pull the camera back far enough that the outermost orbit fits.
-    function fitCamera() {
-      const vertical = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
-      const horizontal = vertical * camera.aspect;
-      cameraDistance = 1.15 * Math.max(
-        systemRadius / horizontal,
-        systemRadius * Math.cos(DEFAULT_POLAR) / vertical
-      );
-    }
-
     function resize() {
       width = stage.clientWidth;
       height = stage.clientHeight;
@@ -189,7 +176,8 @@
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      fitCamera();
+      // Pull the camera back far enough that the outermost orbit fits.
+      cameraDistance = scale.fitDistance(systemRadius, FOV, camera.aspect, DEFAULT_POLAR);
       dirty = true;
     }
 
@@ -302,7 +290,7 @@
       press.dragged = true;
       stage.classList.add('is-dragging');
       azimuth = press.azimuth - dx * 0.008;
-      polar = Math.min(MAX_POLAR, Math.max(MIN_POLAR, press.polar - dy * 0.006));
+      polar = scale.clamp(press.polar - dy * 0.006, MIN_POLAR, MAX_POLAR);
       dirty = true;
     });
 

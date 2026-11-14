@@ -38,6 +38,9 @@
     const current = cards[index];
     current.classList.add('is-fading');
     await wait(FADE_MS);
+    // Hiding a card that holds focus would drop focus to <body> and the arrow
+    // keys would stop reaching the navigator, so hand focus to it first.
+    if (current.contains(document.activeElement)) root.focus({ preventScroll: true });
     current.hidden = true;
     current.classList.remove('is-fading');
 

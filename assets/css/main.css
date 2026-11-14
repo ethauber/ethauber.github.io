@@ -281,8 +281,12 @@ code {
     transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Slides away on scroll down, back on scroll up (see assets/js/site.js) */
-.site-nav.navbar-hidden {
+/* Slides away on scroll down, back on scroll up (see assets/js/site.js).
+   It stays put while a control inside has keyboard focus, so tabbing never
+   lands on something off screen. :focus-visible rather than :focus-within,
+   because the theme toggle keeps plain focus after a mouse click and the bar
+   would then stay stuck open. */
+.site-nav.navbar-hidden:not(:has(:focus-visible)) {
     transform: translateY(-100%);
 }
 

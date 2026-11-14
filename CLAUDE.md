@@ -56,6 +56,7 @@ bd close <id>         # Complete work
 bundle install
 bundle exec jekyll build        # output in _site/
 bundle exec jekyll serve --livereload
+node --test tests/*.test.js     # unit tests, no install needed
 pre-commit run --all-files      # whitespace, YAML and large-file checks
 ```
 
