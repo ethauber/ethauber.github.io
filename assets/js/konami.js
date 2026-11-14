@@ -11,48 +11,32 @@ const konamiCode = [
 const haloCode = ["h", "a", "l", "o"];
 
 // State
-let konamiIndex = 0;
-let haloIndex = 0;
 let haloRotationIndex = 0;
 let isHaloActive = false;
 
-// Consolidated Keydown Listener
-document.addEventListener('keydown', function(e) {
-    const key = e.key;
-
-    // --- Konami Code Logic ---
-    if (key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            activateKonami();
-            konamiIndex = 0;
-        }
-    } else {
-        // Reset and check if the key starts the sequence again
-        konamiIndex = 0;
-        if (key === konamiCode[0]) {
-            konamiIndex = 1;
-        }
-    }
-
-    // --- Halo Code Logic ---
-    // Using strict equality for consistency (case-sensitive input required)
-    if (key.toLowerCase() === haloCode[haloIndex]) {
-        haloIndex++;
-        if (haloIndex === haloCode.length) {
-            if (!isHaloActive) {
-                cycleHaloEffect();
+// Consolidated Keydown Listener via EasterEggUtils
+if (window.EasterEggUtils) {
+    const konamiDispatcher = window.EasterEggUtils.createSequenceDispatcher([
+        {
+            sequence: konamiCode,
+            caseInsensitive: false,
+            onMatch: activateKonami
+        },
+        {
+            sequence: haloCode,
+            caseInsensitive: true,
+            onMatch: () => {
+                if (!isHaloActive) {
+                    cycleHaloEffect();
+                }
             }
-            haloIndex = 0;
         }
-    } else {
-        // Reset and check if the key starts the sequence again (e.g. "hah" -> "h")
-        haloIndex = 0;
-        if (key.toLowerCase() === haloCode[0]) {
-            haloIndex = 1;
-        }
-    }
-});
+    ]);
+
+    document.addEventListener('keydown', function(e) {
+        konamiDispatcher.handleKey(e.key, e.target);
+    });
+}
 
 function activateKonami() {
     console.log("Konami Code Activated! Do a barrel roll!");
