@@ -1,0 +1,23 @@
+# Work history and education on the home page.
+work:
+  - title: Software Engineer
+    org: Parus Holdings LLC
+    years: 2018-2025
+    points:
+      - Implemented an AI LLM-powered personalized email reminder system with Langchain, OpenAI, and MongoDB.
+      - Implemented a dedicated full stack password reset website on AWS.
+      - Maintained PHP web applications and wrote documentation.
+      - Primarily worked as a back-end engineer, with recent full stack experience.
+  - title: IT Security Operator
+    org: Purdue University
+    years: 2017-2018
+    points:
+      - Responded to tickets submitted by users of the Purdue University internet network.
+      - Classified tickets as spam, phishing, update requests, or compromised email accounts.
+education:
+  - org: Purdue University West Lafayette
+    years: 2014-2018
+    points:
+      - Bachelor of Science in Computer Science, Security Track
+      - "GPA: 3.29/4.00"
+      - "Relevant Coursework: Problem Solving and Object-Oriented Programming, Data Structures and Algorithms, Software Engineering, Software Testing, Operating Systems, Systems Programming, Computer Security, Cryptography, and Information Systems."

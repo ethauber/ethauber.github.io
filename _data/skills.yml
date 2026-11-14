@@ -1,0 +1,200 @@
+# Technical skills shown on the home page, grouped by category.
+# icon: file in assets/icons/ (or a full URL). links: optional sub-badges under a card.
+- category: Programming Languages
+  items:
+    - name: Python
+      url: https://www.python.org/
+      icon: python.svg
+    - name: JavaScript
+      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+      icon: javascript.svg
+    - name: Java
+      url: https://www.java.com/
+      icon: java.svg
+    - name: C
+      url: https://en.cppreference.com/w/c.html
+      icon: c.svg
+    - name: C++
+      url: https://isocpp.org/
+      icon: c++.svg
+    - name: C#
+      url: https://docs.microsoft.com/en-us/dotnet/csharp/
+      icon: c#.svg
+    - name: HTML
+      url: https://developer.mozilla.org/en-US/docs/Web/HTML
+      icon: html.svg
+    - name: CSS
+      url: https://developer.mozilla.org/en-US/docs/Web/CSS
+      icon: css.svg
+    - name: Apache Velocity
+      url: https://velocity.apache.org/
+      icon: apache.svg
+      icon_width: 64
+    - name: Apache Spark
+      url: https://spark.apache.org/
+      icon: apache-spark.svg
+- category: Cloud and Infrastructure
+  items:
+    - name: AWS
+      url: https://aws.amazon.com/
+      hide_name: true
+      icon: aws.svg
+      links:
+        - name: CloudFormation
+          url: https://aws.amazon.com/cloudformation/
+        - name: EC2
+          url: https://aws.amazon.com/ec2/
+        - name: ALB
+          url: https://aws.amazon.com/elasticloadbalancing/
+        - name: Route 53
+          url: https://aws.amazon.com/route53/
+        - name: API Gateway
+          url: https://aws.amazon.com/api-gateway/
+        - name: Lambda
+          url: https://aws.amazon.com/lambda/
+        - name: S3
+          url: https://aws.amazon.com/s3/
+        - name: CloudFront
+          url: https://aws.amazon.com/cloudfront/
+        - name: EFS
+          url: https://aws.amazon.com/efs/
+    - name: Terraform
+      url: https://www.terraform.io/
+      icon: terraform.svg
+    - name: Docker
+      url: https://www.docker.com/
+      icon: docker.svg
+- category: Databases
+  items:
+    - name: MongoDB
+      url: https://www.mongodb.com/
+      icon: mongodb-icon.svg
+    - name: SAP ASE
+      url: https://www.sap.com/products/technology-platform/sybase-ase.html
+      icon: sap-icon.svg
+    - name: PostgreSQL
+      url: https://www.postgresql.org/
+      icon: postgresql-icon.svg
+- category: DevOps and Tools
+  items:
+    - name: Git
+      url: https://git-scm.com/
+      icon: git-scm-icon.svg
+    - name: GitHub
+      url: https://github.com/
+      icon: github-tile.svg
+    - name: Postman
+      url: https://www.postman.com/
+      icon: getpostman-icon.svg
+    - name: Vim
+      url: https://www.vim.org/
+      icon: vim-icon.svg
+    - name: VS Code
+      url: https://code.visualstudio.com/
+      title: Visual Studio Code
+      icon: visualstudio_code-icon.svg
+      alt: Visual Studio Code
+    - name: Cursor
+      url: https://cursor.sh/
+      icon: cursor-ai.svg
+    - name: Sentry
+      url: https://sentry.io/
+      icon: sentryio-icon.svg
+    - name: DBeaver
+      url: https://dbeaver.io/
+      icon: dbeaver.svg
+    - name: Swagger
+      url: https://swagger.io/
+      icon: swagger.svg
+    - name: iTerm2
+      url: https://iterm2.com/
+      icon: iterm2.svg
+    - name: SSH
+      url: https://www.openssh.com/
+      icon: ssh.svg
+    - name: FFmpeg
+      url: https://ffmpeg.org/
+      icon: ffmpeg.svg
+    - name: LogRocket
+      url: https://logrocket.com/
+      icon: logrocket.svg
+- category: Operating Systems
+  items:
+    - name: macOS
+      url: https://www.apple.com/macos/
+      icon: macos-finder.svg
+    - name: Linux
+      url: https://www.linux.org/
+      icon: linux-icon.svg
+    - name: Windows
+      url: https://www.microsoft.com/en-us/windows
+      icon: windows.svg
+- category: Collaboration and Communication
+  items:
+    - name: Slack
+      url: https://slack.com/
+      icon: slack-tile.svg
+    - name: Google Meet
+      url: https://meet.google.com/
+      icon: google-meet.svg
+    - name: Google Workspace
+      url: https://workspace.google.com/
+      inline_name: true
+      icon: google-tile.svg
+      links:
+        - name: Docs
+          url: https://docs.google.com/
+          title: Google Docs
+          icon: google-docs.svg
+        - name: Sheets
+          url: https://sheets.google.com/
+          title: Google Sheets
+          icon: google-sheets.svg
+        - name: Drive
+          url: https://drive.google.com/
+          title: Google Drive
+          icon: google-drive.svg
+    - name: Zoom
+      url: https://zoom.us/
+      icon: zoomus-icon.svg
+    - name: Teams
+      url: https://www.microsoft.com/en-us/microsoft-teams/
+      title: Microsoft Teams
+      icon: microsoft-teams.svg
+      alt: Microsoft Teams
+    - name: Discord
+      url: https://discord.com/
+      icon: discord-tile.svg
+    - name: Figma
+      url: https://www.figma.com/
+      icon: figma-icon.svg
+- category: AI and LLM Engineering
+  items:
+    - name: OpenAI
+      url: https://openai.com/
+      icon: openai.svg
+    - name: Anthropic
+      url: https://www.anthropic.com/
+      icon: anthropic.svg
+    - name: Atlas Vector Search
+      url: https://www.mongodb.com/products/platform/atlas-vector-search
+      title: MongoDB Atlas Vector Search
+      icon: mongodb-icon.svg
+    - name: LangChain
+      url: https://www.langchain.com/
+      icon: langchain.svg
+    - name: RAG
+      url: https://en.wikipedia.org/wiki/Retrieval-augmented_generation
+      title: Retrieval-Augmented Generation (RAG)
+      icon: rag.svg
+    - name: LLM Integration
+      url: https://python.langchain.com/docs/integrations/providers/
+      title: LLM API Integration
+      icon: llm-integration.svg
+      links:
+        - name: OpenAI Guide
+          url: https://platform.openai.com/docs/guides/text
+          title: OpenAI API Guide
+        - name: LLM Wikipedia
+          url: https://en.wikipedia.org/wiki/Large_language_model
+          title: LLM Overview

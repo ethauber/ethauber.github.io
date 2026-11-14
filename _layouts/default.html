@@ -1,116 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <script>
-    (function() {
-      var savedTheme = null;
-      try {
-        if (typeof window !== 'undefined' && 'localStorage' in window && window.localStorage) {
-          savedTheme = window.localStorage.getItem('theme');
-        }
-      } catch (e) {
-        // Ignore storage access errors and fall back to system or default theme
-      }
-
-      var prefersDark = false;
-      try {
-        if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
-          var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          prefersDark = !!(mediaQuery && mediaQuery.matches);
-        }
-      } catch (e) {
-        // Ignore matchMedia errors and fall back to default theme
-      }
-
-      var theme = savedTheme || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
-  <meta charset="utf-8">
-  <title>{{ page.title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}Elijah Hauber - Software Engineer with 6 years of experience in web development, Python, JavaScript, and cloud technologies.{% endif %}">
-
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/coffee.svg" as="image">
-
-  <link rel="shortcut icon" type="image/svg" href="/coffee.svg">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap-4.3.1.min.css">
-
-  <!-- Bootstrap overrides -->
-  <link rel="stylesheet" href="/css/boot-overrides.css?v={{ site.time | date: '%s' }}">
-
-  <!-- Terminal Easter Egg CSS -->
-  <link rel="stylesheet" href="/css/terminal.css?v={{ site.time | date: '%s' }}">
-
-  <!-- Main stylesheet. Do not preload this since it does not work with live reload -->
-  <link rel="stylesheet" type="text/css" href="/css/main.css?v={{ site.time | date: '%s' }}">
-
-  <!-- Modern Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-100709643-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-100709643-1');
-  </script>
-
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-</head>
+<html lang="{{ site.lang | default: 'en' }}">
+{% include head.html %}
 
 <body class="d-flex flex-column{% if page.classes %} {{ page.classes }}{% endif %}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include nav.html %}
+  <main id="main">
     {{ content }}
-    <footer class="footer mt-auto">
-      <div class="container">
-        <ul class="social-links">
-          <li>
-            <a href="https://www.linkedin.com/in/ethauber">
-              <img src="/assets/icons/linkedin.svg" alt="LinkedIn" style="width: 20px; height: 20px;"> linkedin.com/in/ethauber
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/ethauber">
-              <img src="/assets/icons/github.svg" alt="GitHub" style="width: 20px; height: 20px;"> github.com/ethauber
-            </a>
-          </li>
-          <li>
-            <a href="https://medium.com/@ethauber">
-              <img src="/assets/icons/medium.svg" alt="Medium" style="width: 20px; height: 20px;"> medium.com/@ethauber
-            </a>
-          </li>
-          <li>
-            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" role="switch" aria-checked="false">
-              <span class="toggle-thumb" data-emoji="🌙"></span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </footer>
+  </main>
+  {% include footer.html %}
 
-    <!-- Load Bootstrap JavaScript -->
-    <script src="/js/jquery-3.5.1.min.js"></script>
-    <script src="/js/popper-1.14.7.min.js"></script>
-    <script src="/js/bootstrap-4.3.1.min.js"></script>
-
-    <!-- AdSense - load after page content -->
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-1717785919257585",
-        enable_page_level_ads: true
-      });
-    </script>
-
-    <!-- Konami Code Easter Egg -->
-    <script src="/js/konami.js?v={{ site.time | date: '%s' }}"></script>
-    <!-- Terminal Easter Egg -->
-    <script src="/js/terminal.js?v={{ site.time | date: '%s' }}"></script>
-    <script src="/js/theme-toggle.js"></script>
+  {%- assign v = site.time | date: '%s' %}
+  <script src="/assets/js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="/assets/js/vendor/popper-1.14.7.min.js"></script>
+  <script src="/assets/js/vendor/bootstrap-4.3.1.min.js"></script>
+  <script src="/assets/js/theme-toggle.js?v={{ v }}"></script>
+  <script src="/assets/js/site.js?v={{ v }}"></script>
+  {%- for script in page.scripts %}
+  <script src="/assets/js/{{ script }}?v={{ v }}"></script>
+  {%- endfor %}
+  {%- comment %} Easter eggs: Konami code, "halo", and the backtick terminal. {% endcomment %}
+  <script src="/assets/js/konami.js?v={{ v }}"></script>
+  <script src="/assets/js/terminal.js?v={{ v }}"></script>
 </body>
 
 </html>

@@ -2,15 +2,4 @@
 layout: default
 title: Elijah Hauber's Blog
 ---
-	<h1>{{ page.title }}</h1>
-	<ul class="posts">
-
-	  {% for post in site.posts %}
-	    <li><span>{{ post.date | date_to_string }}</span>{% if post.updated %} <span class="updated">(Updated: {{ post.updated | date_to_string }})</span>{% endif %} » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-	  {% endfor %}
-	</ul>
-
-	<div class="medium-profile mt-4">
-		<h4>More Posts</h4>
-		<p>You can also find additional posts on my <a href="https://medium.com/@ethauber" target="_blank">Medium profile</a>.</p>
-	</div>
+{% include sections/blog.html heading="h1" %}

@@ -1,0 +1,52 @@
+---
+layout: default
+title: Space - Orion Spur/Arm (we are here)
+description: Flip through the planets of the solar system, with facts and NASA imagery.
+scripts: [planets.js]
+---
+{%- assign space = site.data.space -%}
+<section id="space" class="section">
+  <div class="container">
+    <a href="/#works" class="btn btn-outline-secondary btn-sm mb-4">&larr; Back to Works</a>
+    <h1 class="section-title">Space - Orion Spur/Arm <small>(we are here)</small></h1>
+
+    <nav class="space-breadcrumb-row" aria-label="Where we are in the universe">
+      {%- for crumb in space.breadcrumb %}
+      <a href="{{ crumb.url }}" target="_blank" rel="noopener" class="badge badge-light" title="{{ crumb.title }}">
+        {%- if forloop.last %}<strong>{{ crumb.name }}</strong>{% else %}{{ crumb.name }}{% endif -%}
+      </a>{% unless forloop.last %} <span aria-hidden="true">→</span>{% endunless %}
+      {%- endfor %}
+    </nav>
+
+    <div class="planet-navigator" data-planet-navigator tabindex="0" aria-label="Planets. Use the arrow keys or buttons to change planet.">
+      <div class="planet-controls">
+        <button type="button" class="arrow-up" data-planet-prev aria-label="Previous planet" title="Previous planet"></button>
+        <span id="planetCounter" aria-live="polite">{{ space.planets.first.name }} (1 of {{ space.planets.size }})</span>
+        <button type="button" class="arrow-down" data-planet-next aria-label="Next planet" title="Next planet"></button>
+      </div>
+
+      {%- for planet in space.planets %}
+      <article id="{{ planet.id }}" class="planet-card card" data-planet="{{ planet.name }}"{% unless forloop.first %} hidden{% endunless %}>
+        <a href="{{ planet.image_credit_url }}" target="_blank" rel="noopener">
+          <img src="/assets/{{ planet.image }}" class="card-img-top" alt="{{ planet.name }}, image courtesy of NASA"{% unless forloop.first %} loading="lazy"{% endunless %}>
+        </a>
+        <div class="card-body">
+          <h2 class="card-title h5">{{ planet.name }}</h2>
+          <div class="card-text">
+            <p><a href="{{ planet.maps_url }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">{{ planet.name }} in Space via Google</a></p>
+            <ul>
+              {%- for fact in planet.facts %}
+              <li>{{ fact }}</li>
+              {%- endfor %}
+            </ul>
+            <p>
+              <a href="{{ planet.nasa_url }}" target="_blank" rel="noopener" class="btn btn-link">NASA.gov Page On {{ planet.name }}</a>
+              <a href="{{ planet.source_url }}" target="_blank" rel="noopener" class="btn btn-light btn-sm">Source<span class="sr-only"> for {{ planet.name }} facts</span></a>
+            </p>
+          </div>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

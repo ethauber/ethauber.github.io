@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="terminal-content">
                 <div class="terminal-header">
                     <pre>
-  _____ _ _   _       _       
- | ____| (_) (_) __ _| |__    
- |  _| | | | | |/ _\` | '_ \\   
- | |___| | | | | (_| | | | |  
- |_____|_|_|_/ |\\__,_|_| |_|  
-           |__/               
+  _____ _ _   _       _
+ | ____| (_) (_) __ _| |__
+ |  _| | | | | |/ _\` | '_ \\
+ | |___| | | | | (_| | | | |
+ |_____|_|_|_/ |\\__,_|_| |_|
+           |__/
                     </pre>
                     <p>Elijah Hauber Interactive Terminal [Version 1.0.0]</p>
                     <p>Type 'help' for available commands.</p>
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeTerminal();
             }
         }
-        
+
         // Escape to close
         if (e.key === 'Escape' && isOpen) {
             closeTerminal();
@@ -158,10 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         projects: () => {
             print("Checking ./works directory...");
-            print("- <a href='#works' class='terminal-link' data-close-terminal>Pong</a> (Game)");
-            print("- <a href='#works' class='terminal-link' data-close-terminal>Flappy Flyer</a> (Game)");
-            print("- <a href='#works' class='terminal-link' data-close-terminal>Mandelbrot/Julia Sets</a> (Math/Art)");
-            print("- <a href='/arcana' class='terminal-link'>Arcana Quiz</a> (App)");
+            print("- <a href='https://audietdev.itch.io/audiet' class='terminal-link' target='_blank' rel='noopener noreferrer'>Audiet</a> (Game, itch.io)");
+            print("- <a href='/#works' class='terminal-link' data-close-terminal>Pong</a> (Game)");
+            print("- <a href='/#works' class='terminal-link' data-close-terminal>Flappy Flyer</a> (Game)");
+            print("- <a href='/#works' class='terminal-link' data-close-terminal>Mandelbrot/Julia Sets</a> (Math/Art)");
+            print("- <a href='/arcana/' class='terminal-link'>Arcana Quiz</a> (App)");
+            print("- <a href='/space/' class='terminal-link'>Space - Orion Spur/Arm</a> (Web toy)");
         },
         clear: () => {
             history.innerHTML = '';

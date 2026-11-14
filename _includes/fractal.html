@@ -1,0 +1,12 @@
+{%- comment %} One fractal canvas. include.kind is "mandelbrot" or "julia". {% endcomment -%}
+<figure class="fractal" data-fractal="{{ include.kind }}">
+  <figcaption><h4>{{ include.title }}</h4></figcaption>
+  <div class="fractal__frame">
+    <canvas width="600" height="600" class="img-fluid" role="img" aria-label="{{ include.title }} rendering"></canvas>
+    <div class="fractal__loader" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <div role="status">Rendering {{ include.title }}...</div>
+    </div>
+  </div>
+  <button type="button" class="btn-render">Re-render {{ include.title }}</button>
+</figure>

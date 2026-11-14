@@ -1,50 +1,96 @@
-name: Deploy Jekyll site to Pages
+name: Build, check and deploy
 
+# Pull requests: build the site and check it. Nothing is published, unless the
+#   PR carries the "deploy" label, in which case the PR build goes live on
+#   Pages (handy for checking a change on the real site before merging).
+# Pushes to main (and manual runs on main): build, check, then deploy to Pages.
+#
+# There is only one Pages site, so a labelled PR deploy replaces what is live
+# until the next deploy. Merging, or re-running the latest main run, restores it.
 on:
   push:
     branches: ["main"]
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, labeled]
   workflow_dispatch:
+
+env:
+  # true for main, and for same-repo PRs labelled "deploy" (never forks)
+  SHOULD_DEPLOY: >-
+    ${{
+      (github.ref == 'refs/heads/main' && github.event_name != 'pull_request') ||
+      (github.event_name == 'pull_request' &&
+       contains(github.event.pull_request.labels.*.name, 'deploy') &&
+       github.event.pull_request.head.repo.full_name == github.repository)
+    }}
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: pages-${{ github.ref }}
+  # Never cancel a production deploy half way; do cancel superseded PR runs.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && !github.event.pull_request.draft)
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Run pre-commit hooks
+        uses: pre-commit/action@v3.0.1
+
+  build:
+    name: Build and check links
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ env.SHOULD_DEPLOY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.11'
-          bundler-cache: true
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
+        env:
+          JEKYLL_ENV: production
         with:
           source: ./
           destination: ./_site
-      - name: Upload artifact
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+      - name: Check internal links, images and scripts
+        run: |
+          gem install html-proofer -v "~> 5.0" --no-document
+          htmlproofer ./_site \
+            --disable-external \
+            --ignore-files "/\/games\//" \
+            --no-enforce-https
+      - name: Upload Pages artifact
+        if: env.SHOULD_DEPLOY == 'true'
         uses: actions/upload-pages-artifact@v3
 
   deploy:
+    name: Deploy to GitHub Pages
+    if: needs.build.outputs.deploy == 'true'
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    # One deploy at a time across main and labelled PRs; never cancel one mid-flight.
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && !github.event.pull_request.draft)
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

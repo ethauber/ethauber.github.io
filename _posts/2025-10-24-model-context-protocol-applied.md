@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Model Context Protocol Applied"
+date: 2025-10-24
+---
+
 Your AI's interface to the world.
 {: .tagline-subtle}
 

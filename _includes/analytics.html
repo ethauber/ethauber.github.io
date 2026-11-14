@@ -1,0 +1,20 @@
+{%- comment %} Third-party scripts, switched on by ids in _config.yml. {% endcomment -%}
+{%- if site.google_analytics and jekyll.environment == 'production' %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.google_analytics }}');
+  </script>
+{%- endif %}
+{%- if site.adsense_client and jekyll.environment == 'production' %}
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "{{ site.adsense_client }}",
+      enable_page_level_ads: true
+    });
+  </script>
+{%- endif %}

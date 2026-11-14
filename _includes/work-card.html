@@ -1,0 +1,36 @@
+{%- comment %} One card in the Works grid. Expects include.item from _data/works.yml. {% endcomment -%}
+{%- assign item = include.item -%}
+{%- assign first = item.url | slice: 0 -%}
+{%- if first == '/' %}{% assign external = false %}{% else %}{% assign external = true %}{% endif -%}
+<li class="work-card card{% if item.featured %} work-card--featured{% endif %}">
+  <div class="work-card__media{% if item.image_fit == 'contain' %} work-card__media--contain{% endif %}" aria-hidden="true">
+    {%- if item.image %}
+    {%- assign img_first = item.image | slice: 0 %}
+    <img src="{% unless img_first == '/' %}/assets/{% endunless %}{{ item.image }}" alt="" loading="lazy">
+    {%- else %}
+    <span class="work-card__emoji">{{ item.emoji | default: "✨" }}</span>
+    {%- endif %}
+  </div>
+  <div class="work-card__body">
+    <h4 class="work-card__title">
+      <a class="work-card__link" href="{{ item.url }}"{% if external %} target="_blank" rel="noopener"{% endif %}>{{ item.name }}</a>
+    </h4>
+    {%- if item.description %}
+    <p class="work-card__desc">{{ item.description }}</p>
+    {%- endif %}
+    {%- if item.tags %}
+    <ul class="work-card__tags" aria-label="Tags">
+      {%- for tag in item.tags %}
+      <li class="badge badge-light">{{ tag }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- if item.links %}
+    <p class="work-card__links">
+      {%- for link in item.links %}
+      <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.name }}</a>
+      {%- endfor %}
+    </p>
+    {%- endif %}
+  </div>
+</li>

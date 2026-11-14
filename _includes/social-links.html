@@ -1,0 +1,9 @@
+<ul class="social-links">
+  {%- for link in site.data.social %}
+  <li>
+    <a href="{{ link.url }}" rel="me noopener">
+      <img src="/assets/icons/{{ link.icon }}" alt="" width="20" height="20"> <span><span class="sr-only">{{ link.name }}: </span>{{ link.label }}</span>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>

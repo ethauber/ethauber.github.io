@@ -52,18 +52,32 @@ bd close <id>         # Complete work
 
 ## Build & Test
 
-_Add your build and test commands here_
-
 ```bash
-# Example:
-# npm install
-# npm test
+bundle install
+bundle exec jekyll build        # output in _site/
+bundle exec jekyll serve --livereload
+pre-commit run --all-files      # whitespace, YAML and large-file checks
 ```
+
+CI (`.github/workflows/deploy.yml`) builds every PR and runs html-proofer on
+internal links. Pushes to `main` deploy; a PR deploys only with the `deploy` label.
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture_
+Jekyll site on GitHub Pages. `index.html` is a single scrollable page made of
+`_includes/sections/{home,works,blog}.html`. Content lives in `_data/*.yml`
+(skills, works, experience, certifications, social, space, nav). `/space/` and
+`/arcana/` are standalone pages linked from the Works section. See `README.md`
+for the full map.
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+- Change content in `_data/`, not in HTML. Do not remove content; move it and link it.
+- No inline `style` attributes or inline `<script>` blocks. Styles go in
+  `assets/css/main.css`, scripts in `assets/js/` (page-specific scripts are
+  listed in the page's `scripts:` front matter).
+- Colors come from the CSS variables at the top of `main.css` so light and dark
+  themes both work. The palette follows audiet.dev (slate, cream, violet accent),
+  kept a little more neutral. Never hard-code a colour in a component rule.
+- Do not edit `games/` or `assets/*/vendor/` by hand.
+- Commit messages follow `.github/commit-message.md`.

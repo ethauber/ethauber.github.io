@@ -1,0 +1,82 @@
+<section id="home" class="section">
+  <div class="container">
+    <div class="hero">
+      <img class="hero__photo" src="{{ site.logo }}" alt="{{ site.author.name }}" width="168" height="168">
+      <div>
+        <p class="eyebrow">{{ site.role }}</p>
+        <h1 class="hero__name">{{ site.author.name }}</h1>
+      </div>
+    </div>
+
+    <div class="contact-info">
+      <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      <p>{{ site.location }}</p>
+      {% include social-links.html %}
+    </div>
+
+    <section class="summary home-block">
+      <h2 class="eyebrow">Professional Summary</h2>
+      <p>I am a software engineer with {{ site.years_experience }} years of experience delivering software maintenance, architecture, prototypes, research, documentation, and testing.</p>
+      <ul>
+        <li>Formerly employed at <a href="https://www.linkedin.com/company/parus-holdings">Parus Holdings LLC</a> as a software engineer</li>
+        <li>Bachelor's Degree in Computer Science from <a href="https://www.cs.purdue.edu/" target="_blank" rel="noopener">Purdue University</a></li>
+      </ul>
+    </section>
+
+    <section class="skills home-block">
+      <h2 class="eyebrow">Technical Skills</h2>
+      {%- for group in site.data.skills %}
+      <div class="skill-group">
+        <h3 class="skill-heading">{{ group.category }}</h3>
+        <ul class="skill-grid">
+          {%- for item in group.items %}
+          {% include skill-card.html item=item %}
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </section>
+
+    <section class="work-experience home-block">
+      <h2 class="eyebrow">Work Experience</h2>
+      {%- for job in site.data.experience.work %}
+      <div>
+        <h3 class="entry-heading">{{ job.title }} <span>· {{ job.org }} · {{ job.years }}</span></h3>
+        <ul>
+          {%- for point in job.points %}
+          <li>{{ point }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </section>
+
+    <section class="certifications home-block">
+      <h2 class="eyebrow">Certifications</h2>
+      <ul class="skill-grid">
+        {%- for cert in site.data.certifications %}
+        <li>
+          <a class="card skill-card skill-card--cert" href="{{ cert.url }}" target="_blank" rel="noopener" title="{{ cert.name }}">
+            <img src="{{ cert.image }}" alt="" width="64" height="64" loading="lazy">
+            <span class="small">{{ cert.name }}</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </section>
+
+    <section class="education home-block">
+      <h2 class="eyebrow">Education</h2>
+      {%- for school in site.data.experience.education %}
+      <div>
+        <h3 class="entry-heading">{{ school.org }} <span>· {{ school.years }}</span></h3>
+        <ul>
+          {%- for point in school.points %}
+          <li>{{ point }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </section>
+  </div>
+</section>

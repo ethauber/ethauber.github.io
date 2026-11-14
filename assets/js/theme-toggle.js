@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateToggles(theme) {
         toggles.forEach(btn => {
-            const thumb = btn.querySelector('.toggle-thumb');
-            const emoji = theme === 'dark' ? '☀️' : '🌙';
-            if (thumb) {
-                // Update data attribute (used by CSS)
-                thumb.setAttribute('data-emoji', emoji);
-            }
             btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             // Using role="switch" on the button, expose state with aria-checked only
             btn.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
