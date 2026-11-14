@@ -1,0 +1,39 @@
+{%- assign tag = include.heading | default: 'h2' -%}
+<section id="blog" class="section global">
+  <div class="container">
+    <{{ tag }} class="section-title">Elijah Hauber's Blog</{{ tag }}>
+    <div class="table-responsive">
+      <table class="posts">
+        <thead>
+          <tr>
+            <th scope="col">Updated</th>
+            <th scope="col">Title</th>
+            <th scope="col">Published</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for post in site.posts %}
+          <tr>
+            <td>
+              {%- if post.updated %}
+              <a href="{{ post.url | relative_url }}#changelog" title="Changelog for {{ post.title | strip_html | escape }}">
+                <time datetime="{{ post.updated | date_to_xmlschema }}">{{ post.updated | date: "%b %-d, %Y" }}</time>
+              </a>
+              {%- else %}
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+              {%- endif %}
+            </td>
+            <td><a href="{{ post.url | relative_url }}">{{ post.title }}</a></td>
+            <td><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time></td>
+          </tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="medium-profile mt-4">
+      <h3 class="h4">More Posts</h3>
+      <p>You can also find additional posts on my Medium profile.
+        <a href="https://medium.com/@ethauber"><img src="/assets/icons/medium.svg" alt="" width="20" height="20"> medium.com/@ethauber</a></p>
+    </div>
+  </div>
+</section>

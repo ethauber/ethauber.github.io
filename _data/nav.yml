@@ -1,0 +1,7 @@
+# Top navigation. Sections live on the home page, so links are /#anchor.
+- name: Home
+  section: home
+- name: Works
+  section: works
+- name: Blog
+  section: blog

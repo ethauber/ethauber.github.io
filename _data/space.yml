@@ -1,0 +1,125 @@
+# Data for the /space/ page.
+breadcrumb:
+  - name: Universe
+    url: https://science.nasa.gov/universe/
+    title: NASA Universe Overview
+  - name: Laniakea Supercluster
+    url: https://en.wikipedia.org/wiki/Laniakea_Supercluster
+    title: Laniakea Supercluster
+  - name: Virgo Cluster
+    url: https://en.wikipedia.org/wiki/Virgo_Cluster
+    title: Virgo Cluster
+  - name: Local Group
+    url: https://en.wikipedia.org/wiki/Local_Group
+    title: Local Group
+  - name: Milky Way Galaxy
+    url: https://science.nasa.gov/resource/the-milky-way-galaxy
+    title: Milky Way Galaxy
+  - name: Orion's Arm
+    url: https://en.wikipedia.org/wiki/Orion_Arm
+    title: Orion's Arm
+  - name: Solar System (Earth)
+    url: https://science.nasa.gov/solar-system
+    title: Solar System
+planets:
+  - id: mercury
+    name: Mercury
+    image: 439_MercurySubtleColors1200w.jpg
+    image_credit_url: https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury
+    facts:
+      - 'Distance from Sun: 35.98 million mi'
+      - 'Orbital period: 88 days'
+      - 'Mass: 3.285 x 10^23 kg (0.055 M⊕)'
+      - 'Surface area: 28.88 million mi²'
+      - 'Length of day: 58d 15h 30m'
+    maps_url: https://www.google.com/maps/space/mercury
+    nasa_url: https://science.nasa.gov/mercury/
+    source_url: https://g.co/kgs/p2NV4e
+  - id: venus
+    name: Venus
+    image: venusglobe.jpg
+    image_credit_url: https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html
+    facts:
+      - 'Distance from Sun: 67.24 million mi'
+      - 'Orbital period: 225 days'
+      - 'Length of day: 116d 18h 0m'
+      - 'Surface area: 177.7 million mi²'
+      - 'Equatorial rotation velocity: 6.52 km/h (1.81 m/s)'
+    maps_url: https://www.google.com/maps/space/venus
+    nasa_url: https://solarsystem.nasa.gov/planets/venus/overview/
+    source_url: https://share.google/yxVjpHpSm3gKtvEEr
+  - id: earth
+    name: Earth
+    image: westernhemisphere_geos_2019246_lrg.jpg
+    image_credit_url: https://www.nasa.gov/topics/earth/images/index.html
+    facts:
+      - 'Age: 4.543 billion years'
+      - 'Distance from Sun: 92.96 million mi'
+      - 'Radius: 3,958.8 mi'
+      - 'Population: 7.53 billion (2017) World Bank'
+      - Earth is wider around the equator
+    maps_url: https://www.google.com/maps/space/earth
+    nasa_url: https://www.nasa.gov/topics/earth/index.html
+    source_url: https://g.co/kgs/bdiXLa
+  - id: mars
+    name: Mars
+    image: marsglobe1.jpg
+    image_credit_url: https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html
+    facts:
+      - 'Distance from Sun: 141.6 million mi'
+      - 'Orbital period: 687 days'
+      - 'Length of day: 1d 0h 37m'
+      - 'Surface pressure: 0.636 (0.4-0.87) kPa; 0.00628 atm'
+    maps_url: https://www.google.com/maps/space/mars
+    nasa_url: https://solarsystem.nasa.gov/planets/mars/overview/
+    source_url: https://g.co/kgs/c1k2gk
+  - id: jupiter
+    name: Jupiter
+    image: jupiterglobe.jpg
+    image_credit_url: https://solarsystem.nasa.gov/planets/jupiter/overview/
+    facts:
+      - 'Distance from Sun: 483.8 million mi'
+      - 'Mass: 1.898 x 10^27 kg (317.8 M⊕)'
+      - 'Orbital period: 12 years'
+      - 'Radius: 43,441 mi'
+      - 'Surface area: 23.71 billion mi²'
+    maps_url: https://www.google.com/maps/space/jupiter
+    nasa_url: https://solarsystem.nasa.gov/planets/jupiter/overview/
+    source_url: https://g.co/kgs/FsEG8W
+  - id: saturn
+    name: Saturn
+    image: saturngloberesize.png
+    image_credit_url: https://solarsystem.nasa.gov/planets/saturn/overview/
+    facts:
+      - 'Distance from Sun: 890.8 million mi'
+      - 'Orbital period: 29 years'
+      - 'Mass: 5.683 x 10^26 kg (95.16 M⊕)'
+      - 'Radius: 36,184 mi'
+    maps_url: https://www.google.com/maps/space/saturn
+    nasa_url: https://solarsystem.nasa.gov/planets/saturn/overview/
+    source_url: https://g.co/kgs/WU4hYp
+  - id: uranus
+    name: Uranus
+    image: uranusglobe.jpg
+    image_credit_url: https://solarsystem.nasa.gov/planets/uranus/overview/
+    facts:
+      - 'Distance from Sun: 1.784 billion mi'
+      - 'Orbital period: 84 years'
+      - 'Mass: 8.681 x 10^25 kg (14.54 M⊕)'
+      - 'Radius: 15,759 mi'
+      - 'Surface area: 3.121 billion mi²'
+    maps_url: https://www.google.com/maps/space/uranus
+    nasa_url: https://solarsystem.nasa.gov/planets/uranus/overview/
+    source_url: https://g.co/kgs/RQHkiH
+  - id: neptune
+    name: Neptune
+    image: neptuneglobe.jpg
+    image_credit_url: https://solarsystem.nasa.gov/planets/neptune/overview/
+    facts:
+      - 'Distance from Sun: 2.793 billion mi'
+      - 'Orbital period: 165 years'
+      - 'Mass: 1.024 x 10^26 kg (17.15 M⊕)'
+      - 'Radius: 15,299 mi'
+    maps_url: https://www.google.com/maps/space/neptune
+    nasa_url: https://solarsystem.nasa.gov/planets/neptune/overview/
+    source_url: https://g.co/kgs/LQa88m

@@ -2,17 +2,14 @@
 layout: default
 classes: post-page
 ---
-<div class="container">
-  <header class="d-flex justify-content-between align-items-center mb-4">
-    <a href="/#blog" class="btn btn-outline-secondary">&larr; Back to Blog</a>
-    <button class="theme-toggle-btn" aria-label="Toggle Dark Mode" role="switch" aria-checked="false">
-      <span class="toggle-thumb" data-emoji="🌙"></span>
-    </button>
-  </header>
+<div class="container page">
+  <a href="/#blog" class="btn btn-outline-secondary">&larr; Back to Blog</a>
 </div>
 
-<div class="post" markdown="1">
+<article class="post" markdown="1">
   <h1>{{ page.title }}</h1>
-  <p class="post-meta">{{ page.date | date_to_string }}</p>
+  <p class="post-meta">
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
+  </p>
   {{ content }}
-</div>
+</article>

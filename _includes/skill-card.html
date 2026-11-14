@@ -1,0 +1,38 @@
+{%- comment %}
+  One skill tile. Expects include.item from _data/skills.yml.
+  Items with `links` render as a wider tile with sub-badges.
+{% endcomment -%}
+{%- assign item = include.item -%}
+{%- assign size = include.size | default: 32 -%}
+{%- if item.icon contains '://' -%}
+  {%- assign icon = item.icon -%}
+{%- else -%}
+  {%- assign icon = item.icon | replace: '#', '%23' | prepend: '/assets/icons/' -%}
+{%- endif -%}
+{%- capture img -%}
+<img src="{{ icon }}" alt="{% if item.hide_name %}{{ item.name }}{% endif %}" width="{{ item.icon_width | default: size }}" height="{{ size }}" loading="lazy">
+{%- endcapture -%}
+{%- if item.links %}
+<li class="card skill-card skill-card--group">
+  <a href="{{ item.url }}" target="_blank" rel="noopener" title="{{ item.title | default: item.name }}">
+    {{ img }}{% if item.inline_name %} {{ item.name }}{% endif %}
+  </a>
+  {%- unless item.hide_name or item.inline_name %}
+  <span class="small">{{ item.name }}</span>
+  {%- endunless %}
+  <span class="skill-links">
+    {%- for link in item.links %}
+    <a href="{{ link.url }}" target="_blank" rel="noopener" class="badge badge-light border" title="{{ link.title | default: link.name }}">
+      {%- if link.icon %}<img src="/assets/icons/{{ link.icon }}" alt="" width="16" height="16">{% endif -%}
+      {{ link.name }}</a>
+    {%- endfor %}
+  </span>
+</li>
+{%- else %}
+<li>
+  <a class="card skill-card" href="{{ item.url }}" target="_blank" rel="noopener" title="{{ item.title | default: item.name }}">
+    {{ img }}
+    <span class="small">{{ item.name }}</span>
+  </a>
+</li>
+{%- endif %}

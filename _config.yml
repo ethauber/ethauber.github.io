@@ -1,46 +1,56 @@
 name: Elijah Hauber
 title: Elijah Hauber
+url: https://ethauber.github.io
+lang: en
+author:
+  name: Elijah Hauber
+email: ethauber@outlook.com
+location: IN, USA
+role: Software Engineer
+# Single source of truth for the "N years of experience" copy.
+years_experience: 7
+# Keep the number below in step with years_experience (config can't interpolate).
+description: >-
+  Elijah Hauber - Software Engineer with 7 years of experience in web
+  development, Python, JavaScript, and cloud technologies.
+logo: /assets/myphoto2025.jpeg
+
+# jekyll-seo-tag
+social:
+  name: Elijah Hauber
+  links:
+    - https://www.linkedin.com/in/ethauber
+    - https://github.com/ethauber
+    - https://medium.com/@ethauber
+
+# Third-party scripts. Leave a value empty to turn that script off.
+# The old Universal Analytics property (UA-100709643-1) stopped collecting
+# data when Google retired UA, so it is off until a GA4 "G-..." id is set.
+google_analytics:
+adsense_client: ca-pub-1717785919257585
 
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
 
-# Performance optimizations
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  ignore:
-    envs: [development]
-
-# Plugins for performance
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# These are not allowed on GitHub Pages by default
-# https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll
-# https://pages.github.com/versions.json
-#   - jekyll-compress-images
-#   - jekyll-minifier
-
-# jekyll-minifier:
-#   exclude:
-#     - assets/**/*.svg
-
-# Image optimization
-# compress_images:
-#   images_path: "assets/**/*.{gif,png,jpg,jpeg,svg}"
-
-# Sass configuration for CSS optimization
 sass:
   style: compressed
   sourcemap: never
 
-# Exclude unnecessary files from build
+# Keep repo tooling and docs out of the published site.
 exclude:
   - README.md
+  - AGENTS.md
+  - CLAUDE.md
   - Gemfile
   - Gemfile.lock
+  - mise.toml
+  - docs
+  - scripts
   - node_modules
   - vendor
+  - arcana/generate_badges.py
   - _compress_images_cache.yml

@@ -1,0 +1,63 @@
+# Everything listed in the Works section of the home page (and /works/).
+# Each group renders as a heading plus a card grid.
+#   url:    where the card goes (internal paths start with /)
+#   image:  optional, file in assets/ or a full /path (add screenshots here later)
+#   emoji:  shown as a placeholder when there is no image
+#   tags:   small labels under the title (engine, platform, status)
+#   links:  optional extra links shown at the bottom of the card
+- group: Games
+  id: games
+  items:
+    - name: Audiet
+      url: https://audietdev.itch.io/audiet
+      emoji: "🎧"
+      featured: true
+      description: >-
+        A choice-driven audio mystery where every line of dialogue is exactly
+        what you heard. Branching story built for replayability and multiple
+        endings.
+      tags: [itch.io, Mobile, Alpha]
+      links:
+        - name: Play on itch.io
+          url: https://audietdev.itch.io/audiet
+        - name: audiet.dev
+          url: https://audiet.dev
+    - name: Audiet Dev
+      url: https://audiet.dev
+      emoji: "🎮"
+      description: >-
+        My independent game studio. Home of Audiet and Purrfect Stack, a casual
+        cat-stacking mobile game currently in closed alpha.
+      tags: [Studio, Indie]
+    - name: Flappy Flyer
+      url: /games/flappy/
+      image: flappy.png
+      description: A Flappy-style arcade game. Plays in the browser.
+      tags: [Godot, Web]
+    - name: Pong
+      url: /games/pong/
+      image: pong.png
+      description: The classic, rebuilt. Plays in the browser.
+      tags: [Unity, WebGL]
+
+- group: Web toys
+  id: web-toys
+  items:
+    - name: Space - Orion Spur/Arm
+      url: /space/
+      image: saturnglobe.jpg
+      description: >-
+        We are here. Flip through the planets of the solar system with facts
+        and NASA imagery.
+      tags: [JavaScript, NASA]
+    - name: Arcana - MTG Color Identity Quiz
+      url: /arcana/
+      image: /arcana/assets/badges/wubrg.svg
+      image_fit: contain
+      description: A short quiz that works out your Magic color identity.
+      tags: [JavaScript, Quiz]
+    - name: Fractals
+      url: "/#fractals"
+      emoji: "🌀"
+      description: Mandelbrot and Julia sets rendered live on a canvas, just below.
+      tags: [Canvas, Math]

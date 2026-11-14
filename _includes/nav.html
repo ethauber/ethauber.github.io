@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top site-nav" aria-label="Main">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+      aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav">
+        {%- for item in site.data.nav %}
+        <li class="nav-item">
+          <a class="nav-link" href="/#{{ item.section }}" data-section="{{ item.section }}">{{ item.name }}</a>
+        </li>
+        {%- endfor %}
+        <li class="nav-item d-flex align-items-center ml-lg-2">
+          {% include theme-toggle.html %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

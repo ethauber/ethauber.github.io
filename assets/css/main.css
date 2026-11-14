@@ -1,4 +1,8 @@
-/* Performance-optimized main stylesheet */
+/*
+ * Site stylesheet. Loaded after Bootstrap 4, so rules here win.
+ * Order: theme variables, base, navigation, footer, home, works, blog/posts,
+ * space, about/404, easter eggs.
+ */
 :root {
     /* Light Mode (Default) */
     --bg-color: #fafafa;
@@ -137,14 +141,14 @@ ul.posts li {
 }
 
 /* Typography */
-h1 {
+h1, .section-title {
     font-size: clamp(2rem, 5vw, 3rem);
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     margin: 0.75rem;
     font-weight: normal;
 }
 
-h3, h4, h5 {
+h3, h4, h5, .h3, .h4, .h5 {
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
     margin: 1rem 0 0.5rem 0;
 }
@@ -169,54 +173,76 @@ p {
     padding: 0 15px;
 }
 
-.content-container {
-    align-items: center;
-    flex-grow: 2;
+body {
+    padding-top: 56px; /* room for the fixed navbar */
 }
 
-/* Flexbox utilities */
-.d-flex {
-    display: flex;
+main {
+    flex: 1 0 auto;
 }
 
-.justify-content-center {
-    justify-content: center;
+.section {
+    padding-bottom: 2rem;
+    scroll-margin-top: 1rem;
 }
 
-.flex-column {
-    flex-direction: column;
+.page {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
 }
 
-.min-vh-100 {
-    min-height: 100vh;
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    z-index: 2000;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: #2b2b2b;
 }
 
-/* Margin utilities */
-.mt-auto {
-    margin-top: auto;
-}
-
-.mt-3 {
-    margin-top: 1rem;
-}
-
-.mb-3 {
-    margin-bottom: 1rem;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem;
+.skip-link:focus {
+    left: 0;
 }
 
 /* Navigation */
-nav {
-    background-color: var(--nav-bg-color);
-    display: flex;
-    justify-content: center;
+.site-nav {
+    background-color: var(--nav-bg-color) !important;
     font-weight: bold;
     font-family: 'Helvetica', 'Arial', 'Sans-Serif';
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Slides away on scroll down, back on scroll up (see assets/js/site.js) */
+.site-nav.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.site-nav .navbar-collapse {
+    justify-content: flex-start;
+}
+
+.site-nav .navbar-nav {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.site-nav .navbar-toggler {
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.site-nav .nav-link {
+    transition: color 0.2s ease;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+    color: #6c757d !important;
+}
+
+.site-nav .nav-link.active {
+    font-weight: bold;
 }
 
 /* Dark-mode overrides for Bootstrap navbar (prevent dark-on-dark text) */
@@ -231,7 +257,7 @@ nav {
     color: var(--accent-color) !important;
 }
 
-nav ul, footer ul {
+.site-nav ul, footer ul {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -239,12 +265,12 @@ nav ul, footer ul {
     padding: 0;
 }
 
-nav ul li, footer ul li {
+.site-nav ul li, footer ul li {
     display: inline;
     margin-right: 15px;
 }
 
-nav ul li:last-child, footer ul li:last-child {
+.site-nav ul li:last-child, footer ul li:last-child {
     margin-right: 0;
 }
 
@@ -313,15 +339,11 @@ nav ul li:last-child, footer ul li:last-child {
 
 
 
-/* Navigation icons */
-.bars {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-image: url("/assets/bars.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+/* Planet navigator arrows */
+.arrow-up, .arrow-down {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
 }
 
 .arrow-up {
@@ -485,12 +507,17 @@ table.posts tbody tr:hover td {
         padding: 0 10px;
     }
 
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
+    .site-nav {
+        padding: 0.25rem 0.5rem;
     }
 
-    h1 {
+    .site-nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0.5rem 0;
+    }
+
+    h1, .section-title {
         font-size: 2rem;
         margin: 0.5rem;
     }
@@ -506,7 +533,7 @@ table.posts tbody tr:hover td {
         padding: 0 5px;
     }
 
-    h1 {
+    h1, .section-title {
         font-size: 1.5rem;
     }
 
@@ -526,45 +553,15 @@ img {
     height: auto;
 }
 
-/* Preload hint for critical images */
-.critical-image {
-    will-change: transform;
-}
-
-/* Reduce repaints */
-.smooth-transition {
-    transition: all 0.3s ease;
-}
-
-/* GPU acceleration for animations */
-.gpu-accelerated {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-/* Simple navigation hover effects */
-.navbar-nav .nav-link {
-  transition: color 0.2s ease;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #6c757d !important;
-}
-
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
 }
 
-/* Simple page load animation */
-main .container .mt-3 {
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Post content dark-mode compatibility fixes */
@@ -605,7 +602,7 @@ main .container .mt-3 {
 }
 
 /* Professional gradient text effect for the name */
-h2.display-5 {
+.hero__name {
   background: linear-gradient(135deg, #2c3e50, #34495e);
   background-clip: text;
   -webkit-background-clip: text;
@@ -617,14 +614,14 @@ h2.display-5 {
 }
 
 /* Ensure prominent name gradient is visible in dark mode */
-[data-theme="dark"] h2.display-5 {
+[data-theme="dark"] .hero__name {
     background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(220,220,220,0.9));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
 }
 
-h2.display-5:hover {
+.hero__name:hover {
   background: linear-gradient(135deg, #34495e, #2c3e50);
   background-clip: text;
   -webkit-background-clip: text;
@@ -633,40 +630,10 @@ h2.display-5:hover {
   text-shadow: 1.6180px 3.14159265359px rgba(0,0,0,0.12);
 }
 
-/* Certification section styling */
-.certification-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.certification-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease;
-}
-
-.certification-link:hover {
-  transform: translate(0.25rem, -2px);
-  text-decoration: none;
-  color: inherit;
-}
-
-.certification-details {
-  flex: 1;
-}
-
 /* Planet card alignment and centering */
-#planetsContainer {
-  display: block;
-  text-align: left;
-  margin-bottom: 2rem; /* Ensure gap between cards and footer */
-}
-
 .planet-card {
   display: flex;
+  opacity: 1;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 0;
@@ -675,8 +642,8 @@ h2.display-5:hover {
   height: auto;
   min-height: 600px; /* Ensure consistent minimum height */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  margin-bottom: 1rem; /* Space between cards if multiple are shown */
+  transition: opacity 0.15s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .planet-card:hover {
@@ -749,6 +716,374 @@ h2.display-5:hover {
     font-size: 0.9rem;
 }
 
+/* ---------- Cards (Bootstrap overrides) ---------- */
+.card {
+    background-color: var(--card-bg-color) !important;
+    border: none !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    transition: background-color 0.3s ease;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 30vw;
+    object-fit: cover;
+}
+
+/* ---------- Home: hero ---------- */
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 1.1618rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.hero__photo {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--card-bg-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.hero__name {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+}
+
+.hero__role {
+    font-family: 'Helvetica', 'Arial', 'Sans-Serif';
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .hero__photo {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Inline links inside the summary bullets */
+.summary ul {
+    list-style: none;
+}
+
+.summary.global li:not(.badge):not(.btn) {
+    display: block;
+}
+
+.entry-heading {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0.5rem 0 0;
+}
+
+/* ---------- Home: skills and certifications ---------- */
+.skill-heading {
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.skill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.skill-grid > li {
+    display: flex;
+}
+
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 5rem;
+    padding: 1.25rem 0.9rem;
+    text-align: center;
+}
+
+a.skill-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12) !important;
+    text-decoration: none;
+}
+
+a.skill-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.skill-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+/* SVG icons have no intrinsic size, so size them here */
+.skill-card img {
+    width: 32px;
+    height: 32px;
+    max-width: none;
+    flex-shrink: 0;
+}
+
+.skill-card img[width="64"] {
+    width: 64px;
+}
+
+.skill-card--cert img {
+    width: 64px;
+    height: 64px;
+}
+
+.skill-card .skill-links img {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+/* ---------- Works ---------- */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0.75rem 0 2rem;
+    padding: 0;
+}
+
+.work-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.work-card:hover,
+.work-card:focus-within {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15) !important;
+}
+
+.work-card--featured {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 2px var(--accent-color) !important;
+}
+
+.work-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    background: linear-gradient(135deg, var(--accent-color), #8a2be2);
+}
+
+.work-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.work-card__media--contain {
+    background: var(--hover-bg-color);
+}
+
+.work-card__media--contain img {
+    object-fit: contain;
+    padding: 0.75rem;
+}
+
+.work-card__emoji {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.work-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.work-card__title {
+    font-size: 1.15rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.work-card__link {
+    color: var(--heading-color);
+}
+
+/* The whole card is clickable through the title link */
+.work-card__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.work-card__desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.work-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+}
+
+.work-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.work-card__links a {
+    position: relative; /* sits above the card-wide link */
+    z-index: 1;
+    text-decoration: underline;
+}
+
+/* ---------- Works: fractals ---------- */
+.fractal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.fractal {
+    margin: 0;
+}
+
+.fractal__frame {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.fractal canvas {
+    display: block;
+    border: 1px solid var(--border-color);
+}
+
+.fractal__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    background: var(--card-bg-color);
+    opacity: 0.92;
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto 10px;
+    border: 4px solid #f3f3f3;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.btn-render {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background: #3498db;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-render:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.btn-render:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---------- Blog ---------- */
+.medium-profile img {
+    vertical-align: text-bottom;
+}
+
+/* ---------- Space ---------- */
+.planet-navigator {
+    margin: 20px 0;
+}
+
+.planet-navigator:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 6px;
+}
+
+.planet-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.planet-card[hidden] {
+    display: none;
+}
+
+.planet-card.is-fading {
+    opacity: 0;
+}
+
+/* ---------- About and 404 ---------- */
+.about-mascot {
+    max-width: 150px;
+    height: auto;
+}
+
+.lost-planet {
+    max-width: 300px;
+    border-radius: 50%;
+}
+
+.contact-item a {
+    display: inline-block;
+    padding: 0.25rem 0;
+}
+
+/* ---------- Easter eggs ---------- */
 /* Konami Code Easter Egg Animation */
 .barrel-roll {
     -webkit-animation: barrelRoll 2s ease 1 normal;

@@ -1,0 +1,10 @@
+# Certification badges on the home page.
+- name: 'NVIDIA-Certified Associate: Generative AI LLMs'
+  url: https://www.credly.com/badges/7ce1f502-14a8-406f-b6da-5f54201386bf/public_url
+  image: https://images.credly.com/size/680x680/images/01c81db8-c1f5-41f6-b0f8-ac22442f8fa1/image.png
+- name: Google Cloud Digital Leader
+  url: https://www.credly.com/badges/5e9f7a56-57f3-44e8-8874-53cd7e8871b1/public_url
+  image: https://images.credly.com/size/680x680/images/44994cda-b5b0-44cb-9a6d-d29b57163073/image.png
+- name: Microsoft Azure Fundamentals
+  url: https://learn.microsoft.com/en-us/users/elih-8332/credentials/da01972dcb698ef2
+  image: https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-fundamentals-badge.svg

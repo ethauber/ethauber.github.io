@@ -5,10 +5,10 @@ layout: null
 <feed xmlns="http://www.w3.org/2005/Atom">
 
 	<title>Hank Elijah's Blog</title>
-	<link href="http://ethauber.github.io/blog/atom.xml" rel="self"/>
-	<link href="http://ethauber.github.io/blog"/>
+	<link href="https://ethauber.github.io/blog/atom.xml" rel="self"/>
+	<link href="https://ethauber.github.io/blog"/>
 	<updated>{{ site.time | date_to_xmlschema }}</updated>
-	<id>http://ethauber.github.io/blog</id>
+	<id>https://ethauber.github.io/blog</id>
 	<author>
 		<name>Elijah Hauber</name>
 		<email>\\0@gmail.com</email>
@@ -17,9 +17,9 @@ layout: null
 	{% for post in site.posts %}
 		<entry>
 			<title>{{ post.title }}</title>
-			<link href="http://ethauber.github.io{{ post.url }}"/>
+			<link href="https://ethauber.github.io{{ post.url }}"/>
 			<updated>{{ post.date | date_to_xmlschema }}</updated>
-			<id>http://ethauber.github.io{{ post.id }}</id>
+			<id>https://ethauber.github.io{{ post.id }}</id>
 			<content type="html">{{ post.content | xml_escape }}</content>
 		</entry>
 	{% endfor %}

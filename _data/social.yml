@@ -1,0 +1,13 @@
+# Social links shown in the hero and the footer.
+- name: LinkedIn
+  url: https://www.linkedin.com/in/ethauber
+  label: linkedin.com/in/ethauber
+  icon: linkedin.svg
+- name: GitHub
+  url: https://github.com/ethauber
+  label: github.com/ethauber
+  icon: github.svg
+- name: Medium
+  url: https://medium.com/@ethauber
+  label: medium.com/@ethauber
+  icon: medium.svg
