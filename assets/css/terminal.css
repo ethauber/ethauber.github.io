@@ -78,6 +78,19 @@
     cursor: pointer;
 }
 
+.terminal-cmd {
+    color: #fff;
+}
+
+.terminal-lcars {
+    color: #99ccff;
+    border-left: 3px solid #ff9900;
+    padding-left: 0.75rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
 /* Scanline effect */
 #terminal-overlay::before {
     content: " ";

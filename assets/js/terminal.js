@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let previousFocus = null;
 
     function isEditable(el) {
+        if (window.EasterEggUtils) {
+            return window.EasterEggUtils.isEditableElement(el);
+        }
         return el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
     }
 
@@ -126,16 +129,34 @@ document.addEventListener('DOMContentLoaded', () => {
         history.appendChild(line);
     }
 
+    function getStardate() {
+        return window.EasterEggUtils
+            ? window.EasterEggUtils.computeStardate(new Date())
+            : '80000.0';
+    }
+
+    function launchTrekEffect(message, triggerName) {
+        printText(message);
+        const eggs = window.StarTrekEasterEggs;
+        if (eggs && typeof eggs[triggerName] === 'function') {
+            setTimeout(() => {
+                closeTerminal();
+                eggs[triggerName]();
+            }, 350);
+        }
+    }
+
     const commands = {
         help: () => {
             print("Available commands:");
-            print("  <span style='color:#fff'>about</span>    - Who am I?");
-            print("  <span style='color:#fff'>skills</span>   - Technical capabilities");
-            print("  <span style='color:#fff'>contact</span>  - Get in touch");
-            print("  <span style='color:#fff'>projects</span> - View works");
-            print("  <span style='color:#fff'>clear</span>    - Clear the terminal");
-            print("  <span style='color:#fff'>exit</span>     - Close terminal");
-            print("  <span style='color:#fff'>sudo</span>     - ...don't");
+            print("  <span class='terminal-cmd'>about</span>    - Who am I?");
+            print("  <span class='terminal-cmd'>skills</span>   - Technical capabilities");
+            print("  <span class='terminal-cmd'>contact</span>  - Get in touch");
+            print("  <span class='terminal-cmd'>projects</span> - View works");
+            print("  <span class='terminal-cmd'>clear</span>    - Clear the terminal");
+            print("  <span class='terminal-cmd'>exit</span>     - Close terminal");
+            print("  <span class='terminal-cmd'>sudo</span>     - ...don't");
+            print("  <span class='terminal-cmd'>computer</span> - Starfleet LCARS interface");
         },
         about: () => {
             print("Elijah Hauber");
@@ -176,13 +197,61 @@ document.addEventListener('DOMContentLoaded', () => {
             print("Nice try. 😉");
         },
         ls: () => {
-            print("about.txt  contact.md  skills.json  projects/  _secrets/");
+            print("about.txt  contact.md  skills.json  stardate.log  projects/  _secrets/");
         },
         whoami: () => {
             print("visitor");
         },
         date: () => {
             print(new Date().toString());
+        },
+        stardate: () => {
+            printText(`Stardate ${getStardate()}`);
+        },
+        tea: () => {
+            printText("Replicating: Tea. Earl Grey. Hot. ☕");
+        },
+        computer: () => {
+            printText("LCARS Library Computer Access/Retrieval System online.");
+            print("  <span class='terminal-cmd'>stardate</span>  - Current Starfleet stardate");
+            print("  <span class='terminal-cmd'>lcars</span>     - Ship telemetry (add 'hud' for overlay)");
+            print("  <span class='terminal-cmd'>engage</span>    - Engage warp drive (alias: warp)");
+            print("  <span class='terminal-cmd'>redalert</span>  - Raise shields and sound Red Alert");
+            print("  <span class='terminal-cmd'>beam</span>      - Energize transporter (alias: energize)");
+            print("  <span class='terminal-cmd'>tea</span>       - Replicate Captain's beverage");
+            print("  <span class='terminal-cmd'>kobayashi</span> - Load Academy command test");
+        },
+        lcars: (args) => {
+            if (args && args[0] && args[0].toLowerCase() === 'hud') {
+                launchTrekEffect("LCARS HUD initialized.", "triggerLcars");
+                return;
+            }
+            printText(
+                `LCARS 47634 // USS ENTERPRISE NCC-1701-D\n` +
+                `STARDATE : ${getStardate()}\n` +
+                `SECTOR   : 001 (ORION SPUR/ARM)\n` +
+                `WARP CORE: NOMINAL // SHIELDS: 100%`,
+                "terminal-lcars"
+            );
+        },
+        engage: () => {
+            launchTrekEffect("Helm: Course laid in. Ahead warp factor 9.975. Engage!", "triggerWarp");
+        },
+        warp: () => {
+            commands.engage();
+        },
+        redalert: () => {
+            launchTrekEffect("Tactical: Shields up! All hands to battlestations!", "triggerRedAlert");
+        },
+        beam: () => {
+            launchTrekEffect("Transporter Room: Coordinates locked. Energizing...", "triggerTransporter");
+        },
+        energize: () => {
+            commands.beam();
+        },
+        kobayashi: () => {
+            printText("Simulation loaded: Kobayashi Maru.", "terminal-lcars");
+            print("Warning: No-win scenario detected. (Unless you reprogram the simulation...)", "command-error");
         },
         cat: (args) => {
             if (!args || args.length === 0) {
@@ -193,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file === 'about.txt') commands.about();
             else if (file === 'contact.md') commands.contact();
             else if (file === 'skills.json') commands.skills();
+            else if (file === 'stardate.log') printText(`Captain's Log, Stardate ${getStardate()}. Exploring the Orion Spur.`, "terminal-lcars");
             else if (file === '_secrets/' || file === '_secrets') print("Access Denied: Biometric scan required.", "command-error");
             else printText(`cat: ${file}: No such file or directory`, "command-error");
         }
