@@ -1,4 +1,15 @@
 # Data for the /space/ page.
+#
+# Each planet's `orbit` block feeds the 3D orbit view (assets/js/orbit.js).
+# The numbers are the real ones; the script compresses them so everything
+# fits on screen.
+#   distance_au:   average distance from the Sun, in astronomical units
+#   period_days:   time to go around the Sun once, in Earth days
+#   radius_earths: planet radius relative to Earth
+#   color:         colour of the planet in the 3D view
+#   ring:          true draws a ring (Saturn)
+sun:
+  color: "#ffcf6b"
 breadcrumb:
   - name: Universe
     url: https://science.nasa.gov/universe/
@@ -24,6 +35,11 @@ breadcrumb:
 planets:
   - id: mercury
     name: Mercury
+    orbit:
+      distance_au: 0.39
+      period_days: 88
+      radius_earths: 0.383
+      color: "#a39d97"
     image: 439_MercurySubtleColors1200w.jpg
     image_credit_url: https://solarsystem.nasa.gov/resources/439/mercurys-subtle-colors/?category=planets_mercury
     facts:
@@ -37,6 +53,11 @@ planets:
     source_url: https://g.co/kgs/p2NV4e
   - id: venus
     name: Venus
+    orbit:
+      distance_au: 0.72
+      period_days: 225
+      radius_earths: 0.949
+      color: "#dcb67c"
     image: venusglobe.jpg
     image_credit_url: https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-venus.html
     facts:
@@ -50,6 +71,11 @@ planets:
     source_url: https://share.google/yxVjpHpSm3gKtvEEr
   - id: earth
     name: Earth
+    orbit:
+      distance_au: 1.0
+      period_days: 365
+      radius_earths: 1.0
+      color: "#4f86d1"
     image: westernhemisphere_geos_2019246_lrg.jpg
     image_credit_url: https://www.nasa.gov/topics/earth/images/index.html
     facts:
@@ -63,6 +89,11 @@ planets:
     source_url: https://g.co/kgs/bdiXLa
   - id: mars
     name: Mars
+    orbit:
+      distance_au: 1.52
+      period_days: 687
+      radius_earths: 0.532
+      color: "#c65a33"
     image: marsglobe1.jpg
     image_credit_url: https://nssdc.gsfc.nasa.gov/photo_gallery/photogallery-mars.html
     facts:
@@ -75,6 +106,11 @@ planets:
     source_url: https://g.co/kgs/c1k2gk
   - id: jupiter
     name: Jupiter
+    orbit:
+      distance_au: 5.2
+      period_days: 4333
+      radius_earths: 11.21
+      color: "#cda57d"
     image: jupiterglobe.jpg
     image_credit_url: https://solarsystem.nasa.gov/planets/jupiter/overview/
     facts:
@@ -88,6 +124,12 @@ planets:
     source_url: https://g.co/kgs/FsEG8W
   - id: saturn
     name: Saturn
+    orbit:
+      distance_au: 9.58
+      period_days: 10759
+      radius_earths: 9.45
+      color: "#dec790"
+      ring: true
     image: saturngloberesize.png
     image_credit_url: https://solarsystem.nasa.gov/planets/saturn/overview/
     facts:
@@ -100,6 +142,11 @@ planets:
     source_url: https://g.co/kgs/WU4hYp
   - id: uranus
     name: Uranus
+    orbit:
+      distance_au: 19.2
+      period_days: 30687
+      radius_earths: 4.01
+      color: "#a2d8de"
     image: uranusglobe.jpg
     image_credit_url: https://solarsystem.nasa.gov/planets/uranus/overview/
     facts:
@@ -113,6 +160,11 @@ planets:
     source_url: https://g.co/kgs/RQHkiH
   - id: neptune
     name: Neptune
+    orbit:
+      distance_au: 30.05
+      period_days: 60190
+      radius_earths: 3.88
+      color: "#4d72d9"
     image: neptuneglobe.jpg
     image_credit_url: https://solarsystem.nasa.gov/planets/neptune/overview/
     facts:

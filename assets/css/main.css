@@ -30,6 +30,13 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --radius: 12px;
     --nav-height: 64px;
+
+    /* The orbit view on /space/ is night sky in both themes. */
+    --space-bg: #0d0e1a;
+    --space-line: #3a3c4c;
+    --space-highlight: #c9a0e8;
+    --space-star: #f4f1e4;
+    --space-label: #f4f1e4;
 }
 
 [data-theme="dark"] {
@@ -274,8 +281,12 @@ code {
     transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Slides away on scroll down, back on scroll up (see assets/js/site.js) */
-.site-nav.navbar-hidden {
+/* Slides away on scroll down, back on scroll up (see assets/js/site.js).
+   It stays put while a control inside has keyboard focus, so tabbing never
+   lands on something off screen. :focus-visible rather than :focus-within,
+   because the theme toggle keeps plain focus after a mouse click and the bar
+   would then stay stuck open. */
+.site-nav.navbar-hidden:not(:has(:focus-visible)) {
     transform: translateY(-100%);
 }
 
@@ -923,6 +934,106 @@ blockquote > :last-child {
 .space-breadcrumb-row .badge {
     font-size: 0.85rem;
     line-height: 1.2;
+}
+
+/* Orbit view beside the planet card on wide screens, above it on small ones. */
+.space-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 2rem;
+    align-items: start;
+}
+
+.orbit-view {
+    margin: 1.25rem 0;
+}
+
+.orbit-stage {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--space-bg);
+    box-shadow: var(--shadow);
+    cursor: grab;
+    /* Sideways drags turn the view; vertical swipes still scroll the page. */
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.orbit-stage.is-pointing {
+    cursor: pointer;
+}
+
+.orbit-stage.is-dragging {
+    cursor: grabbing;
+}
+
+.orbit-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.orbit-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: -1.4em 0 0 -3em;
+    width: 6em;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--space-label);
+    text-shadow: 0 0 4px var(--space-bg), 0 0 8px var(--space-bg);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.orbit-label--selected {
+    color: var(--space-highlight);
+}
+
+.orbit-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.orbit-turn {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.orbit-turn .btn {
+    min-width: 2rem;
+}
+
+.orbit-hint {
+    flex: 1 1 14rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted-color);
+}
+
+@media (min-width: 992px) {
+    .space-layout {
+        grid-template-columns: minmax(0, 1fr) 22rem;
+    }
+
+    .space-layout > .planet-navigator:first-child,
+    .space-layout > .orbit-view[hidden] + .planet-navigator {
+        grid-column: 1 / -1;
+    }
+
+    .orbit-stage {
+        height: 520px;
+    }
 }
 
 .planet-navigator {

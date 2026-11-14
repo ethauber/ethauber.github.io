@@ -23,8 +23,15 @@ jobs:
       - name: Check external links
         uses: lycheeverse/lychee-action@v2
         with:
+          # The built pages use root-relative links (/assets/..., /#home).
+          # lychee needs --root-dir to resolve those, and errors without it.
+          # Internal links are html-proofer's job in deploy.yml, so only
+          # http(s) links are checked here.
           args: >-
             --no-progress
+            --root-dir "${{ github.workspace }}/_site"
+            --scheme http
+            --scheme https
             --max-retries 2
             --accept 200..=299,403,429
             --exclude-path _site/games

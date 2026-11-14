@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Space - Orion Spur/Arm (we are here)
-description: Flip through the planets of the solar system, with facts and NASA imagery.
-scripts: [planets.js]
+description: Spin a 3D model of the solar system and flip through the planets, with facts and NASA imagery.
+scripts: [planets.js, orbit-scale.js, orbit.js]
 ---
 {%- assign space = site.data.space -%}
 <section id="space" class="section">
@@ -18,6 +18,23 @@ scripts: [planets.js]
       {%- endfor %}
     </nav>
 
+    <div class="space-layout">
+    {%- comment %} Hidden until orbit.js has loaded Three.js and drawn the scene. {% endcomment %}
+    <div class="orbit-view" data-orbit-view data-sun-color="{{ space.sun.color }}" hidden>
+      <div class="orbit-stage" data-orbit-stage role="img" aria-label="3D model of the solar system. The planets orbit the Sun; the planet shown in the card is highlighted. The buttons below turn the model."></div>
+      <div class="orbit-toolbar">
+        <p class="orbit-hint">Drag, or use the arrow buttons, to look around. Click or tap a planet to open its card. Not to scale.</p>
+        <div class="orbit-turn" role="group" aria-label="Turn the model">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="left" aria-label="Rotate left" title="Rotate left">&larr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="right" aria-label="Rotate right" title="Rotate right">&rarr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="up" aria-label="Tilt toward a top-down view" title="Tilt toward a top-down view">&uarr;</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-turn="down" aria-label="Tilt toward a side-on view" title="Tilt toward a side-on view">&darr;</button>
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-toggle>Pause</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-orbit-reset>Reset view</button>
+      </div>
+    </div>
+
     <div class="planet-navigator" data-planet-navigator tabindex="0" aria-label="Planets. Use the arrow keys or buttons to change planet.">
       <div class="planet-controls">
         <button type="button" class="arrow-up" data-planet-prev aria-label="Previous planet" title="Previous planet"></button>
@@ -26,7 +43,9 @@ scripts: [planets.js]
       </div>
 
       {%- for planet in space.planets %}
-      <article id="{{ planet.id }}" class="planet-card card" data-planet="{{ planet.name }}"{% unless forloop.first %} hidden{% endunless %}>
+      <article id="{{ planet.id }}" class="planet-card card" data-planet="{{ planet.name }}"
+        {%- if planet.orbit %} data-orbit-distance="{{ planet.orbit.distance_au }}" data-orbit-period="{{ planet.orbit.period_days }}" data-orbit-radius="{{ planet.orbit.radius_earths }}" data-orbit-color="{{ planet.orbit.color }}"{% if planet.orbit.ring %} data-orbit-ring="true"{% endif %}{% endif -%}
+        {% unless forloop.first %} hidden{% endunless %}>
         <a href="{{ planet.image_credit_url }}" target="_blank" rel="noopener">
           <img src="/assets/{{ planet.image }}" class="card-img-top" alt="{{ planet.name }}, image courtesy of NASA"{% unless forloop.first %} loading="lazy"{% endunless %}>
         </a>
@@ -47,6 +66,7 @@ scripts: [planets.js]
         </div>
       </article>
       {%- endfor %}
+    </div>
     </div>
   </div>
 </section>

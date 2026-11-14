@@ -53,6 +53,7 @@ exclude:
   - mise.toml
   - docs
   - scripts
+  - tests
   - node_modules
   - vendor
   - arcana/generate_badges.py

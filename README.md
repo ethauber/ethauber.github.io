@@ -19,7 +19,7 @@ GitHub Actions.
 | `games/` | Exported game builds (Godot, Unity). Do not edit by hand. |
 | `works/`, `blog/`, `about/`, `privacy/` | Standalone pages that reuse the same includes. |
 | `assets/css/main.css` | All site styles. Colours and fonts are tokens at the top (one block for light, one for dark); `easter-eggs.css` and `terminal.css` only style the hidden extras. `assets/css/vendor/` and `assets/js/vendor/` hold Bootstrap 4, jQuery and Popper. |
-| `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `theme-toggle.js`, and the easter eggs (`konami.js`, `terminal.js`). |
+| `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `orbit.js` and `orbit-scale.js` (3D orbit view on `/space/`; loads Three.js from a CDN), `theme-toggle.js`, and the easter eggs (`konami.js`, `terminal.js`). |
 | `docs/`, `scripts/` | Notes and repo tooling. Not published. |
 
 ## Common edits
@@ -48,6 +48,17 @@ bundle exec jekyll serve --livereload
 ```
 
 On Windows, follow <https://jekyllrb.com/docs/installation/windows/> first.
+
+Bundler's own settings (`.bundle/`) are per machine and not committed. To keep
+gems inside the repo instead of system-wide, run
+`bundle config set --local path vendor/bundle` once.
+
+The small amount of pure JavaScript logic has unit tests that need nothing
+installed beyond Node:
+
+```bash
+node --test tests/*.test.js
+```
 
 Optional, to run the same checks CI runs before you commit:
 

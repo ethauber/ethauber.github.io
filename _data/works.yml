@@ -47,9 +47,9 @@
       url: /space/
       image: saturnglobe.jpg
       description: >-
-        We are here. Flip through the planets of the solar system with facts
-        and NASA imagery.
-      tags: [JavaScript, NASA]
+        We are here. Spin a 3D model of the solar system, click a planet, and
+        read its facts alongside NASA imagery.
+      tags: [JavaScript, Three.js, NASA]
     - name: Arcana - MTG Color Identity Quiz
       url: /arcana/
       image: /arcana/assets/badges/wubrg.svg
