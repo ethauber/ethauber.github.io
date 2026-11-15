@@ -10,6 +10,14 @@
   const sections = links
     .map(link => document.getElementById(link.dataset.section))
     .filter(Boolean);
+  const menuBtn = navbar.querySelector('[data-nav-toggle]');
+  const menu = navbar.querySelector('[data-nav-menu]');
+
+  function setMenuOpen(open) {
+    if (!menuBtn || !menu) return;
+    menu.classList.toggle('show', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+  }
 
   function setActive(id) {
     links.forEach(link => {
@@ -42,7 +50,7 @@
   let ticking = false;
   function onScroll() {
     const y = window.scrollY;
-    const menuOpen = navbar.querySelector('.navbar-collapse.show');
+    const menuOpen = Boolean(menuBtn && menuBtn.getClientRects().length && menu && menu.classList.contains('show'));
     if (y > lastY && y > 100 && !menuOpen) {
       navbar.classList.add('navbar-hidden');
     } else {
@@ -59,11 +67,22 @@
     }
   }, { passive: true });
 
-  // Close the mobile menu after choosing a link (Bootstrap 4 collapse API).
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.jQuery) window.jQuery('.navbar-collapse.show').collapse('hide');
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', () => {
+      setMenuOpen(!menu.classList.contains('show'));
     });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menu.classList.contains('show')) {
+        setMenuOpen(false);
+        menuBtn.focus();
+      }
+    });
+  }
+
+  // Close the mobile menu after choosing a link.
+  links.forEach(link => {
+    link.addEventListener('click', () => setMenuOpen(false));
   });
 
   if (sections.length) updateActive();

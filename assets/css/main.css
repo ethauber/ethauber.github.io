@@ -273,6 +273,11 @@ code {
 
 /* ---------- 3. Navigation ---------- */
 .site-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
     min-height: var(--nav-height);
     padding: 0.5rem 0;
     background-color: var(--nav-bg-color);
@@ -313,12 +318,15 @@ code {
 }
 
 .site-nav .navbar-nav {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
 .site-nav .nav-link {
+    display: block;
     padding: 0.5rem 0.9rem;
     font-weight: 500;
     color: var(--muted-color);
@@ -374,8 +382,14 @@ code {
 
 @media (min-width: 992px) {
     .site-nav .navbar-collapse {
+        display: flex;
         flex-grow: 0;
         order: 1;
+    }
+
+    .site-nav .navbar-nav {
+        flex-direction: row;
+        align-items: center;
     }
 
     .site-nav__actions {
@@ -389,8 +403,13 @@ code {
 
 @media (max-width: 991.98px) {
     .site-nav .navbar-collapse {
+        display: none;
         flex-basis: 100%;
         order: 3;
+    }
+
+    .site-nav .navbar-collapse.show {
+        display: block;
     }
 
     .site-nav .navbar-nav {
