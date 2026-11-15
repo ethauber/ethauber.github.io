@@ -130,6 +130,27 @@ document.addEventListener('DOMContentLoaded', () => {
         history.appendChild(line);
     }
 
+    function printLinkLine(prefixText, linkText, href, suffixText = '') {
+        const line = document.createElement('div');
+        line.className = 'command-output';
+        if (prefixText) line.appendChild(document.createTextNode(prefixText));
+
+        const link = document.createElement('a');
+        link.className = 'terminal-link';
+        link.href = href;
+        link.textContent = linkText;
+        if (/^https?:\/\//i.test(href)) {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+        } else if (href && href.startsWith('/')) {
+            link.dataset.closeTerminal = 'true';
+        }
+        line.appendChild(link);
+
+        if (suffixText) line.appendChild(document.createTextNode(suffixText));
+        history.appendChild(line);
+    }
+
     function printCommand(cmd) {
         const line = document.createElement('div');
         line.className = 'terminal-line';
@@ -195,32 +216,41 @@ document.addEventListener('DOMContentLoaded', () => {
             print("  <span class='terminal-cmd'>echoverse</span> - Reality Fracture surveillance node");
         },
         about: () => {
-            print("Elijah Hauber");
-            print("Software Engineer with 8 years of experience.");
-            print("Specializing in: Maintenance, Architecture, Prototypes, Research, Documentation, and Testing.");
-            print("Formerly at Parus Holdings LLC.");
-            print("Purdue University CS Graduate.");
+            const about = (window.TerminalData && window.TerminalData.about) || {};
+            const role = about.role || 'Software Engineer';
+            const years = about.yearsExperience || 8;
+            printText(about.name || 'Elijah Hauber');
+            printText(`${role} with ${years} years of experience.`);
+            printText(`Specializing in: ${about.specialties || 'Maintenance, Architecture, Prototypes, Research, Documentation, and Testing'}.`);
+            if (about.latestOrg !== '') printText(`Formerly at ${about.latestOrg || 'Parus Holdings LLC'}.`);
+            if (about.educationOrg !== '') printText(`${about.educationOrg || 'Purdue University'} CS Graduate.`);
         },
         skills: () => {
-            print("LANGUAGES: Python, JavaScript, Java, C, C++, C#, HTML, CSS");
-            print("CLOUD: AWS (EC2, Lambda, S3, etc.), Terraform, Docker");
-            print("DATA: MongoDB, SAP ASE, PostgreSQL, Apache Spark");
-            print("TOOLS: Git, Vim, VS Code, Cursor, Postman");
-            print("AI: OpenAI API, Anthropic, LangChain, RAG");
+            const groups = (window.TerminalData && Array.isArray(window.TerminalData.skills)) ? window.TerminalData.skills : [];
+            if (!groups.length) {
+                printText('Skills data unavailable.');
+                return;
+            }
+            groups.forEach((group) => {
+                printText(`${group.category.toUpperCase()}: ${(group.items || []).join(', ')}`);
+            });
         },
         contact: () => {
-            print("Email: <a href='mailto:ethauber@outlook.com' class='terminal-link'>ethauber@outlook.com</a>");
-            print("LinkedIn: <a href='https://www.linkedin.com/in/ethauber' class='terminal-link' target='_blank' rel='noopener noreferrer'>linkedin.com/in/ethauber</a>");
-            print("GitHub: <a href='https://github.com/ethauber' class='terminal-link' target='_blank' rel='noopener noreferrer'>github.com/ethauber</a>");
+            const contact = (window.TerminalData && window.TerminalData.contact) || {};
+            const email = contact.email || 'ethauber@outlook.com';
+            const socials = Array.isArray(contact.socials) ? contact.socials : [];
+            printLinkLine('Email: ', email, `mailto:${email}`);
+            socials.forEach((social) => {
+                printLinkLine(`${social.name}: `, social.label || social.url, social.url);
+            });
         },
         projects: () => {
-            print("Checking ./works directory...");
-            print("- <a href='https://audietdev.itch.io/audiet' class='terminal-link' target='_blank' rel='noopener noreferrer'>Audiet</a> (Game, itch.io)");
-            print("- <a href='/#works' class='terminal-link' data-close-terminal>Pong</a> (Game)");
-            print("- <a href='/#works' class='terminal-link' data-close-terminal>Flappy Flyer</a> (Game)");
-            print("- <a href='/#works' class='terminal-link' data-close-terminal>Mandelbrot/Julia Sets</a> (Math/Art)");
-            print("- <a href='/arcana/' class='terminal-link'>Arcana Quiz</a> (App)");
-            print("- <a href='/space/' class='terminal-link'>Space - Orion Spur/Arm</a> (Web toy)");
+            const projects = (window.TerminalData && Array.isArray(window.TerminalData.projects)) ? window.TerminalData.projects : [];
+            printText('Checking ./works directory...');
+            projects.forEach((item) => {
+                const suffix = Array.isArray(item.tags) && item.tags.length ? ` (${item.tags.join(', ')})` : '';
+                printLinkLine('- ', item.name, item.url, suffix);
+            });
         },
         clear: () => {
             history.innerHTML = '';
