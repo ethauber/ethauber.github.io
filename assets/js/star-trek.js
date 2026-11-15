@@ -97,7 +97,8 @@
 
   // --- EFFECT 1: WARP SPEED ("engage" / "trek") ---
   function triggerWarpSpeed(options) {
-    const shouldNavigate = Boolean(options && options.navigateToSpace) && !isOnSpacePage();
+    const isEngage = Boolean(options && options.navigateToSpace);
+    const shouldNavigate = isEngage && !isOnSpacePage();
     return runExclusive(done => {
       console.log('%c🖖 HELM: Ahead warp factor 9.975. Engage!', 'color: #99ccff; font-weight: bold;');
       const reduced = utils.prefersReducedMotion();
@@ -171,7 +172,9 @@
         if (flashOverlay) flashOverlay.remove();
         done();
         if (shouldNavigate) {
-          window.location.assign('/space/');
+          window.location.assign('/space/?engage=1');
+        } else if (isEngage) {
+          window.dispatchEvent(new CustomEvent('star-trek:engage'));
         }
       }, durationMs);
     });

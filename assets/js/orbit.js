@@ -140,6 +140,17 @@
 
     const selectedLabel = makeLabel('orbit-label orbit-label--selected');
     const hoverLabel = makeLabel('orbit-label');
+    const enterpriseLabel = makeLabel('orbit-label orbit-label--enterprise');
+
+    const earth = planets.find(planet => planet.id === 'earth') || null;
+    const enterprise = earth ? makeEnterprise(THREE) : null;
+    let enterpriseActive = new URLSearchParams(window.location.search).get('engage') === '1';
+    let enterpriseAngle = 0.9;
+    let enterpriseHovered = false;
+    if (enterprise) {
+      enterprise.group.visible = enterpriseActive;
+      scene.add(enterprise.group);
+    }
 
     // ----- State
     let azimuth = DEFAULT_AZIMUTH;
@@ -154,12 +165,24 @@
     let width = 0;
     let height = 0;
 
+    function placeEnterprise() {
+      if (!enterprise || !earth || !enterpriseActive) return;
+      const orbitRadius = earth.size + 0.58;
+      const x = earth.mesh.position.x + Math.cos(enterpriseAngle) * orbitRadius;
+      const z = earth.mesh.position.z - Math.sin(enterpriseAngle) * orbitRadius;
+      const y = 0.16 * Math.sin(enterpriseAngle);
+      enterprise.group.position.set(x, y, z);
+      // Face tangent direction along the orbit around Earth (+Z is bow).
+      enterprise.group.rotation.y = Math.atan2(-Math.sin(enterpriseAngle), -Math.cos(enterpriseAngle));
+    }
+
     function placePlanets() {
       planets.forEach(planet => {
         planet.mesh.position.set(
           Math.cos(planet.angle) * planet.distance, 0, -Math.sin(planet.angle) * planet.distance
         );
       });
+      placeEnterprise();
     }
 
     // The distance is refitted every time, so the whole system stays in view
@@ -214,6 +237,16 @@
       renderer.render(scene, camera);
       positionLabel(selectedLabel, current);
       positionLabel(hoverLabel, hovered === selected ? null : planets[hovered]);
+      positionLabel(
+        enterpriseLabel,
+        enterprise && enterpriseActive
+          ? {
+              mesh: enterprise.group,
+              size: 0.24,
+              name: enterpriseHovered ? 'USS Enterprise (NCC-1701-D)' : 'NCC-1701-D'
+            }
+          : null
+      );
     }
 
     function frame(time) {
@@ -222,6 +255,7 @@
       lastTime = time;
       if (playing) {
         planets.forEach(planet => { planet.angle += planet.speed * delta; });
+        if (enterpriseActive) enterpriseAngle += 1.15 * delta;
         placePlanets();
         dirty = true;
       }
@@ -263,19 +297,23 @@
     const pointer = new THREE.Vector2();
     let press = null;
 
-    function planetAt(event) {
+    function targetAt(event) {
       const box = canvas.getBoundingClientRect();
       pointer.x = (event.clientX - box.left) / box.width * 2 - 1;
       pointer.y = -((event.clientY - box.top) / box.height) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
-      const found = raycaster.intersectObjects(hits, false)[0];
-      return found ? found.object.userData.planet : -1;
+      const candidates = enterprise && enterpriseActive ? [enterprise.hit].concat(hits) : hits;
+      const found = raycaster.intersectObjects(candidates, false)[0];
+      if (!found) return { planet: -1, enterprise: false };
+      if (found.object.userData.enterprise) return { planet: -1, enterprise: true };
+      return { planet: found.object.userData.planet, enterprise: false };
     }
 
-    function setHovered(next) {
-      if (next === hovered) return;
-      hovered = next;
-      stage.classList.toggle('is-pointing', hovered !== -1);
+    function setHovered(nextPlanet, nextEnterprise) {
+      if (nextPlanet === hovered && nextEnterprise === enterpriseHovered) return;
+      hovered = nextPlanet;
+      enterpriseHovered = nextEnterprise;
+      stage.classList.toggle('is-pointing', hovered !== -1 || enterpriseHovered);
       dirty = true;
     }
 
@@ -290,7 +328,10 @@
 
     canvas.addEventListener('pointermove', event => {
       if (!press || press.id !== event.pointerId) {
-        if (event.pointerType === 'mouse') setHovered(planetAt(event));
+        if (event.pointerType === 'mouse') {
+          const target = targetAt(event);
+          setHovered(target.planet, target.enterprise);
+        }
         return;
       }
       const dx = event.clientX - press.x;
@@ -307,9 +348,14 @@
       press = null;
       stage.classList.remove('is-dragging');
       if (wasDrag) return;
-      const index = planetAt(event);
-      if (index !== -1) {
-        navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: planets[index].id } }));
+      const target = targetAt(event);
+      if (target.enterprise) {
+        navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: 'earth' } }));
+        if (window.StarTrekEasterEggs && typeof window.StarTrekEasterEggs.triggerLcars === 'function') {
+          window.StarTrekEasterEggs.triggerLcars();
+        }
+      } else if (target.planet !== -1) {
+        navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: planets[target.planet].id } }));
       }
     });
 
@@ -318,7 +364,7 @@
       stage.classList.remove('is-dragging');
     });
 
-    canvas.addEventListener('pointerleave', () => setHovered(-1));
+    canvas.addEventListener('pointerleave', () => setHovered(-1, false));
 
     // ----- Controls
     const toggle = view.querySelector('[data-orbit-toggle]');
@@ -353,17 +399,33 @@
 
     navigator.addEventListener('planet:change', event => select(event.detail.id));
 
+    function activateEnterprise() {
+      if (!enterprise || !earth) return;
+      enterpriseActive = true;
+      enterprise.group.visible = true;
+      placeEnterprise();
+      navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: 'earth' } }));
+      dirty = true;
+    }
+
+    window.addEventListener('star-trek:engage', activateEnterprise);
+
     // ----- Go
     stage.appendChild(canvas);
     stage.appendChild(selectedLabel);
     stage.appendChild(hoverLabel);
+    stage.appendChild(enterpriseLabel);
     view.hidden = false;
 
     placePlanets();
     resize();
     updateToggle();
-    const visibleCard = cards.find(card => !card.hidden);
-    if (visibleCard) select(visibleCard.id);
+    if (enterpriseActive) {
+      activateEnterprise();
+    } else {
+      const visibleCard = cards.find(card => !card.hidden);
+      if (visibleCard) select(visibleCard.id);
+    }
 
     new ResizeObserver(resize).observe(stage);
     new IntersectionObserver(entries => {
@@ -423,6 +485,70 @@
       label.setAttribute('aria-hidden', 'true');
       label.hidden = true;
       return label;
+    }
+
+    // Stylized Galaxy-class USS Enterprise (NCC-1701-D) built from Three.js primitives.
+    function makeEnterprise(THREE) {
+      const group = new THREE.Group();
+      const hullMat = new THREE.MeshStandardMaterial({ color: 0xd8dee9, roughness: 0.45, metalness: 0.15 });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.6 });
+      const deflectorMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const bussardMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      const warpGlowMat = new THREE.MeshBasicMaterial({ color: 0x60a5fa });
+
+      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.19, 0.034, 24), hullMat);
+      saucer.scale.set(1.2, 1, 1);
+      saucer.position.set(0, 0.055, 0.15);
+      group.add(saucer);
+
+      const bridge = new THREE.Mesh(new THREE.SphereGeometry(0.048, 16, 10), hullMat);
+      bridge.scale.set(1.1, 0.45, 1.3);
+      bridge.position.set(0, 0.075, 0.15);
+      group.add(bridge);
+
+      const neck = new THREE.Mesh(new THREE.BoxGeometry(0.068, 0.10, 0.09), hullMat);
+      neck.rotation.x = 0.28;
+      neck.position.set(0, 0.01, 0.0);
+      group.add(neck);
+
+      const stardrive = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.058, 0.27, 16), hullMat);
+      stardrive.rotation.x = Math.PI / 2;
+      stardrive.position.set(0, -0.04, -0.08);
+      group.add(stardrive);
+
+      const deflector = new THREE.Mesh(new THREE.SphereGeometry(0.04, 12, 10), deflectorMat);
+      deflector.scale.set(1, 0.85, 0.5);
+      deflector.position.set(0, -0.04, 0.058);
+      group.add(deflector);
+
+      [-1, 1].forEach(side => {
+        const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.02, 0.05), darkMat);
+        pylon.position.set(side * 0.085, 0.01, -0.10);
+        pylon.rotation.z = side * 0.45;
+        group.add(pylon);
+
+        const nacelle = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.020, 0.30, 12), hullMat);
+        nacelle.rotation.x = Math.PI / 2;
+        nacelle.position.set(side * 0.15, 0.055, -0.13);
+        group.add(nacelle);
+
+        const bussard = new THREE.Mesh(new THREE.SphereGeometry(0.025, 10, 8), bussardMat);
+        bussard.position.set(side * 0.15, 0.055, 0.02);
+        group.add(bussard);
+
+        const warpStrip = new THREE.Mesh(new THREE.BoxGeometry(0.014, 0.012, 0.21), warpGlowMat);
+        warpStrip.position.set(side * 0.15, 0.072, -0.14);
+        group.add(warpStrip);
+      });
+
+      const hit = new THREE.Mesh(
+        new THREE.SphereGeometry(0.45, 10, 8),
+        new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+      );
+      hit.userData.enterprise = true;
+      group.add(hit);
+
+      return { group: group, hit: hit };
     }
   }
 })();
