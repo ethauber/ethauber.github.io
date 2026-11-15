@@ -19,8 +19,11 @@
   {%- for script in page.scripts %}
   <script src="/assets/js/{{ script }}?v={{ v }}"></script>
   {%- endfor %}
-  {%- comment %} Easter eggs: Konami code, "halo", and the backtick terminal. {% endcomment %}
+  {%- comment %} Easter eggs: shared utils, Konami code, "halo", Star Trek, Reality Fracture, and the backtick terminal. {% endcomment %}
+  <script src="/assets/js/easter-egg-utils.js?v={{ v }}"></script>
   <script src="/assets/js/konami.js?v={{ v }}"></script>
+  <script src="/assets/js/star-trek.js?v={{ v }}"></script>
+  <script src="/assets/js/reality-fracture.js?v={{ v }}"></script>
   <script src="/assets/js/terminal.js?v={{ v }}"></script>
 </body>
 

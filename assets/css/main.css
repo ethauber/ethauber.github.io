@@ -37,6 +37,7 @@
     --space-highlight: #c9a0e8;
     --space-star: #f4f1e4;
     --space-label: #f4f1e4;
+    --space-enterprise: #99ccff;
 }
 
 [data-theme="dark"] {
@@ -995,6 +996,12 @@ blockquote > :last-child {
 
 .orbit-label--selected {
     color: var(--space-highlight);
+}
+
+.orbit-label--enterprise {
+    width: 18em;
+    margin: -1.6em 0 0 -9em;
+    color: var(--space-enterprise);
 }
 
 .orbit-toolbar {

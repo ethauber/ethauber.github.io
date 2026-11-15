@@ -11,10 +11,10 @@ email: ethauber@outlook.com
 location: IN, USA
 role: Software Engineer
 # Single source of truth for the "N years of experience" copy.
-years_experience: 7
+years_experience: 8
 # Keep the number below in step with years_experience (config can't interpolate).
 description: >-
-  Elijah Hauber - Software Engineer with 7 years of experience in web
+  Elijah Hauber - Software Engineer with 8 years of experience in web
   development, Python, JavaScript, and cloud technologies.
 logo: /assets/myphoto2025.jpeg
 

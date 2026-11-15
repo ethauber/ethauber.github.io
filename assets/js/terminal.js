@@ -31,8 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let isOpen = false;
     let previousOverflow = '';
     let previousFocus = null;
+    let pendingTrekTimer = null;
+    let terminalSessionId = 0;
+
+    function clearPendingTrekLaunch() {
+        if (pendingTrekTimer !== null) {
+            clearTimeout(pendingTrekTimer);
+            pendingTrekTimer = null;
+        }
+    }
 
     function isEditable(el) {
+        if (window.EasterEggUtils) {
+            return window.EasterEggUtils.isEditableElement(el);
+        }
         return el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
     }
 
@@ -57,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openTerminal() {
+        clearPendingTrekLaunch();
+        terminalSessionId++;
         previousFocus = document.activeElement;
         previousOverflow = document.body.style.overflow;
         overlay.classList.add('open');
@@ -66,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeTerminal() {
+        clearPendingTrekLaunch();
         overlay.classList.remove('open');
         isOpen = false;
         document.body.style.overflow = previousOverflow; // Unlock scroll
@@ -126,20 +141,62 @@ document.addEventListener('DOMContentLoaded', () => {
         history.appendChild(line);
     }
 
+    function getStardate() {
+        return window.EasterEggUtils
+            ? window.EasterEggUtils.computeStardate(new Date())
+            : '80000.0';
+    }
+
+    function launchOverlayEffect(message, triggerFn) {
+        const effectBusy = window.EasterEggUtils && window.EasterEggUtils.effectLock.isActive();
+        if (pendingTrekTimer !== null || effectBusy) {
+            printText("Stand by: another sequence is already in progress.", "command-error");
+            return;
+        }
+        printText(message);
+        if (typeof triggerFn === 'function') {
+            const scheduledSession = terminalSessionId;
+            pendingTrekTimer = setTimeout(() => {
+                pendingTrekTimer = null;
+                if (!isOpen || terminalSessionId !== scheduledSession) return;
+                closeTerminal();
+                triggerFn();
+            }, 350);
+        }
+    }
+
+    function launchTrekEffect(message, triggerName) {
+        const eggs = window.StarTrekEasterEggs;
+        launchOverlayEffect(
+            message,
+            eggs && typeof eggs[triggerName] === 'function' ? eggs[triggerName] : null
+        );
+    }
+
+    function launchRealityFracture(message) {
+        const jace = window.RealityFractureEasterEgg;
+        launchOverlayEffect(
+            message,
+            jace && typeof jace.trigger === 'function' ? jace.trigger : null
+        );
+    }
+
     const commands = {
         help: () => {
             print("Available commands:");
-            print("  <span style='color:#fff'>about</span>    - Who am I?");
-            print("  <span style='color:#fff'>skills</span>   - Technical capabilities");
-            print("  <span style='color:#fff'>contact</span>  - Get in touch");
-            print("  <span style='color:#fff'>projects</span> - View works");
-            print("  <span style='color:#fff'>clear</span>    - Clear the terminal");
-            print("  <span style='color:#fff'>exit</span>     - Close terminal");
-            print("  <span style='color:#fff'>sudo</span>     - ...don't");
+            print("  <span class='terminal-cmd'>about</span>    - Who am I?");
+            print("  <span class='terminal-cmd'>skills</span>   - Technical capabilities");
+            print("  <span class='terminal-cmd'>contact</span>  - Get in touch");
+            print("  <span class='terminal-cmd'>projects</span> - View works");
+            print("  <span class='terminal-cmd'>clear</span>    - Clear the terminal");
+            print("  <span class='terminal-cmd'>exit</span>     - Close terminal");
+            print("  <span class='terminal-cmd'>sudo</span>     - ...don't");
+            print("  <span class='terminal-cmd'>computer</span> - Starfleet LCARS interface");
+            print("  <span class='terminal-cmd'>echoverse</span> - Reality Fracture surveillance node");
         },
         about: () => {
             print("Elijah Hauber");
-            print("Software Engineer with 7 years of experience.");
+            print("Software Engineer with 8 years of experience.");
             print("Specializing in: Maintenance, Architecture, Prototypes, Research, Documentation, and Testing.");
             print("Formerly at Parus Holdings LLC.");
             print("Purdue University CS Graduate.");
@@ -176,13 +233,81 @@ document.addEventListener('DOMContentLoaded', () => {
             print("Nice try. 😉");
         },
         ls: () => {
-            print("about.txt  contact.md  skills.json  projects/  _secrets/");
+            print("about.txt  contact.md  skills.json  stardate.log  projects/  _secrets/");
         },
         whoami: () => {
             print("visitor");
         },
         date: () => {
             print(new Date().toString());
+        },
+        stardate: () => {
+            printText(`Stardate ${getStardate()}`);
+        },
+        tea: () => {
+            printText("Replicating: Tea. Earl Grey. Hot. ☕");
+        },
+        computer: () => {
+            printText("LCARS Library Computer Access/Retrieval System online.");
+            print("  <span class='terminal-cmd'>stardate</span>  - Current Starfleet stardate");
+            print("  <span class='terminal-cmd'>lcars</span>     - Ship telemetry (add 'hud' for overlay)");
+            print("  <span class='terminal-cmd'>engage</span>    - Warp to /space/ (Sector 001)");
+            print("  <span class='terminal-cmd'>warp</span>      - Engage warp drive on current page");
+            print("  <span class='terminal-cmd'>redalert</span>  - Raise shields and sound Red Alert");
+            print("  <span class='terminal-cmd'>beam</span>      - Energize transporter (alias: energize)");
+            print("  <span class='terminal-cmd'>tea</span>       - Replicate Captain's beverage");
+            print("  <span class='terminal-cmd'>kobayashi</span> - Load Academy command test");
+        },
+        lcars: (args) => {
+            if (args && args[0] && args[0].toLowerCase() === 'hud') {
+                launchTrekEffect("LCARS HUD initialized.", "triggerLcars");
+                return;
+            }
+            printText(
+                `LCARS 47634 // USS ENTERPRISE NCC-1701-D\n` +
+                `STARDATE : ${getStardate()}\n` +
+                `SECTOR   : 001 (ORION SPUR/ARM)\n` +
+                `WARP CORE: NOMINAL // SHIELDS: 100%`,
+                "terminal-lcars"
+            );
+        },
+        engage: () => {
+            launchTrekEffect("Helm: Course laid in for Sector 001. Ahead warp factor 9.975. Engage!", "triggerEngage");
+        },
+        warp: () => {
+            launchTrekEffect("Helm: Ahead warp factor 9.975.", "triggerWarp");
+        },
+        redalert: () => {
+            launchTrekEffect("Tactical: Shields up! All hands to battlestations!", "triggerRedAlert");
+        },
+        beam: () => {
+            launchTrekEffect("Transporter Room: Coordinates locked. Energizing...", "triggerTransporter");
+        },
+        energize: () => {
+            commands.beam();
+        },
+        kobayashi: () => {
+            printText("Simulation loaded: Kobayashi Maru.", "terminal-lcars");
+            print("Warning: No-win scenario detected. (Unless you reprogram the simulation...)", "command-error");
+        },
+        echoverse: () => {
+            printText(
+                "REALITY FRACTURE // ECHOVERSE ARCHITECT\n" +
+                "SUBJECT   : Jace Beleren, The Theorist\n" +
+                "EMPATHY   : LOCKED // SANITIZED REALITY ACTIVE\n" +
+                "DIRECTIVE : MONITOR // ERASE // OVERWRITE\n" +
+                "Run 'theorist' or 'fracture' to manifest prism lattices.",
+                "terminal-jace"
+            );
+        },
+        jace: () => {
+            launchRealityFracture("The Theorist: Weaving kaleidoscopic prism lattices...");
+        },
+        theorist: () => {
+            commands.jace();
+        },
+        fracture: () => {
+            commands.jace();
         },
         cat: (args) => {
             if (!args || args.length === 0) {
@@ -193,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file === 'about.txt') commands.about();
             else if (file === 'contact.md') commands.contact();
             else if (file === 'skills.json') commands.skills();
+            else if (file === 'stardate.log') printText(`Captain's Log, Stardate ${getStardate()}. Exploring the Orion Spur.`, "terminal-lcars");
             else if (file === '_secrets/' || file === '_secrets') print("Access Denied: Biometric scan required.", "command-error");
             else printText(`cat: ${file}: No such file or directory`, "command-error");
         }

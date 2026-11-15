@@ -11,48 +11,37 @@ const konamiCode = [
 const haloCode = ["h", "a", "l", "o"];
 
 // State
-let konamiIndex = 0;
-let haloIndex = 0;
 let haloRotationIndex = 0;
-let isHaloActive = false;
 
-// Consolidated Keydown Listener
-document.addEventListener('keydown', function(e) {
-    const key = e.key;
+function acquireHaloLock() {
+    return window.EasterEggUtils && window.EasterEggUtils.effectLock.tryAcquire('halo');
+}
 
-    // --- Konami Code Logic ---
-    if (key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            activateKonami();
-            konamiIndex = 0;
-        }
-    } else {
-        // Reset and check if the key starts the sequence again
-        konamiIndex = 0;
-        if (key === konamiCode[0]) {
-            konamiIndex = 1;
-        }
+function releaseHaloLock() {
+    if (window.EasterEggUtils) {
+        window.EasterEggUtils.effectLock.release('halo');
     }
+}
 
-    // --- Halo Code Logic ---
-    // Using strict equality for consistency (case-sensitive input required)
-    if (key.toLowerCase() === haloCode[haloIndex]) {
-        haloIndex++;
-        if (haloIndex === haloCode.length) {
-            if (!isHaloActive) {
-                cycleHaloEffect();
-            }
-            haloIndex = 0;
+// Consolidated Keydown Listener via EasterEggUtils
+if (window.EasterEggUtils) {
+    const konamiDispatcher = window.EasterEggUtils.createSequenceDispatcher([
+        {
+            sequence: konamiCode,
+            caseInsensitive: false,
+            onMatch: activateKonami
+        },
+        {
+            sequence: haloCode,
+            caseInsensitive: true,
+            onMatch: cycleHaloEffect
         }
-    } else {
-        // Reset and check if the key starts the sequence again (e.g. "hah" -> "h")
-        haloIndex = 0;
-        if (key.toLowerCase() === haloCode[0]) {
-            haloIndex = 1;
-        }
-    }
-});
+    ]);
+
+    document.addEventListener('keydown', function(e) {
+        konamiDispatcher.handleKey(e.key, e.target);
+    });
+}
 
 function activateKonami() {
     console.log("Konami Code Activated! Do a barrel roll!");
@@ -80,6 +69,14 @@ console.log(
     "%cTry entering the Konami Code (↑ ↑ ↓ ↓ ← → ← → B A) for a spin!",
     "color: #e67e22; font-style: italic;"
 );
+console.log(
+    "%c🖖 Live long and prosper! Try typing 'engage', 'redalert', 'makeitso', 'lcars', or 'trek'.",
+    "color: #ff9900; font-style: italic;"
+);
+console.log(
+    "%c🔷 Echoverse online. Try typing 'theorist', 'fracture', or 'jace'.",
+    "color: #38bdf8; font-style: italic;"
+);
 
 /**
  * Easter Egg 3: Tab Title Marquee
@@ -89,7 +86,10 @@ const funTitles = [
     "Miss you already! 🚀",
     "Drifting in space... 🛸",
     "Come back to Earth! 🌍",
-    "System: Offline 🌑"
+    "System: Offline 🌑",
+    "Boldly going... 🖖",
+    "Hailing frequencies open 📡",
+    "Tea, Earl Grey, hot ☕"
 ];
 
 document.addEventListener('visibilitychange', () => {
@@ -112,7 +112,7 @@ document.addEventListener('visibilitychange', () => {
  * 4. Halo 1: Shield Recharge
  */
 function cycleHaloEffect() {
-    isHaloActive = true;
+    if (!acquireHaloLock()) return;
     console.log(`🦾 SPARTAN DETECTED. ACTIVATING PROTOCOL ${haloRotationIndex + 1}.`);
 
     switch(haloRotationIndex % 5) {
@@ -168,7 +168,7 @@ function triggerGruntBirthday() {
     setTimeout(() => {
         yayText.remove();
         confettiElements.forEach(el => el.remove());
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2000);
 }
 
@@ -179,7 +179,7 @@ function triggerArmorLock() {
 
     setTimeout(() => {
         body.classList.remove('halo-armor-lock');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2500);
 }
 
@@ -369,7 +369,7 @@ function triggerSandtrap() {
         eggContainer.remove(); // This also removes child beams
         if(killFeed) killFeed.remove();
         document.body.classList.remove('sandtrap-shake');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 5000);
 }
 
@@ -380,7 +380,7 @@ function triggerSuperBounce() {
 
     setTimeout(() => {
         body.classList.remove('halo-super-bounce');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2500);
 }
 
@@ -391,6 +391,6 @@ function triggerShieldRecharge() {
 
     setTimeout(() => {
         body.classList.remove('halo-shield-recharge');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2000);
 }

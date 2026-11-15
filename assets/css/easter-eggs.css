@@ -223,3 +223,352 @@
         display: block;
     }
 }
+
+/*
+   STAR TREK EASTER EGG ANIMATIONS
+   Warp speed ("engage"), Red Alert ("redalert"), Transporter ("makeitso"), LCARS ("lcars")
+*/
+
+.trek-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2002;
+}
+
+.trek-warp-flash {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(219, 234, 254, 0.75), rgba(153, 204, 255, 0.25), transparent 70%);
+    pointer-events: none;
+    z-index: 2004;
+    animation: trekWarpFlash 0.5s ease-out forwards;
+}
+
+@keyframes trekWarpFlash {
+    0% { opacity: 0; transform: scale(0.4); }
+    45% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1.4); }
+}
+
+.trek-red-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(180, 15, 25, 0.14);
+    box-shadow: inset 0 0 120px rgba(255, 38, 38, 0.75);
+    pointer-events: none;
+    z-index: 2001;
+    animation: trekRedAlertPulse 0.85s ease-in-out infinite alternate;
+}
+
+@keyframes trekRedAlertPulse {
+    0% { opacity: 0.35; }
+    100% { opacity: 0.95; }
+}
+
+.trek-red-alert-banner {
+    position: fixed;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(24, 6, 8, 0.92);
+    color: #ff6b6b;
+    border: 2px solid #ff3b3b;
+    border-radius: 6px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    z-index: 2006;
+    pointer-events: none;
+    box-shadow: 0 0 24px rgba(255, 59, 59, 0.45);
+    animation: trekBannerPulse 0.85s ease-in-out infinite alternate;
+}
+
+@keyframes trekBannerPulse {
+    0% { border-color: #ff3b3b; color: #ff8585; }
+    100% { border-color: #ff9900; color: #ffd166; }
+}
+
+.trek-transporter-sweep {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2003;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(125, 249, 255, 0.14) 40%,
+        rgba(255, 209, 102, 0.32) 50%,
+        rgba(125, 249, 255, 0.14) 60%,
+        transparent 100%
+    );
+    background-size: 100% 200%;
+    animation: trekBeamSweep 3s ease-in-out forwards;
+}
+
+@keyframes trekBeamSweep {
+    0% { background-position: 0 180%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { background-position: 0 -100%; opacity: 0; }
+}
+
+.trek-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    background: #141624;
+    color: #f4f1e4;
+    border: 2px solid #ff9900;
+    border-radius: 999px;
+    overflow: hidden;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    z-index: 2006;
+    pointer-events: none;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    animation: trekSlideUp 0.25s ease-out;
+}
+
+.trek-toast__badge {
+    background: #ff9900;
+    color: #141624;
+    padding: 8px 14px;
+    font-weight: 800;
+}
+
+.trek-toast__text {
+    padding: 8px 16px;
+    color: #99ccff;
+}
+
+.trek-lcars-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: min(360px, calc(100vw - 32px));
+    background: #111320;
+    color: #f4f1e4;
+    border-radius: 20px 8px 8px 20px;
+    border: 2px solid #ff9900;
+    overflow: hidden;
+    z-index: 2006;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    animation: trekSlideUp 0.25s ease-out;
+}
+
+.trek-lcars-panel__elbow {
+    background: linear-gradient(90deg, #ff9900 0%, #ff9900 58%, #cc99cc 58%, #cc99cc 84%, #99ccff 84%);
+    color: #111320;
+    padding: 8px 16px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.trek-lcars-panel__body {
+    padding: 14px 16px;
+}
+
+.trek-lcars-panel__title {
+    color: #ff9900;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+.trek-lcars-panel__list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 14px;
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+}
+
+.trek-lcars-panel__list dt {
+    color: #cc99cc;
+    font-weight: 700;
+}
+
+.trek-lcars-panel__list dd {
+    margin: 0;
+    color: #99ccff;
+}
+
+.trek-lcars-panel__close {
+    background: #ff9900;
+    color: #111320;
+    border: none;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.trek-lcars-panel__close:hover,
+.trek-lcars-panel__close:focus-visible {
+    background: #99ccff;
+    outline: 2px solid #f4f1e4;
+    outline-offset: 2px;
+}
+
+@keyframes trekSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trek-warp-flash,
+    .trek-red-alert-overlay,
+    .trek-red-alert-banner,
+    .trek-transporter-sweep,
+    .trek-toast,
+    .trek-lcars-panel {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .trek-red-alert-overlay {
+        opacity: 0.65;
+    }
+}
+
+/*
+   MTG REALITY FRACTURE EASTER EGG
+   Jace Beleren, The Theorist ("jace", "theorist", "fracture")
+*/
+
+.jace-fracture-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 165, 233, 0.08), rgba(15, 23, 42, 0.55) 75%);
+    box-shadow: inset 0 0 110px rgba(56, 189, 248, 0.55);
+    pointer-events: none;
+    z-index: 2001;
+    animation: jaceLatticePulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes jaceLatticePulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.jace-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2002;
+}
+
+.jace-dossier {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: min(390px, calc(100vw - 32px));
+    background: rgba(11, 20, 42, 0.94);
+    color: #e0f2fe;
+    border: 1.5px solid #38bdf8;
+    border-radius: 4px 18px 4px 18px;
+    box-shadow: 0 0 32px rgba(56, 189, 248, 0.35), 0 14px 36px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+    z-index: 2006;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    animation: trekSlideUp 0.28s ease-out;
+}
+
+.jace-dossier__crown {
+    background: linear-gradient(90deg, #0284c7, #38bdf8 50%, #6366f1);
+    color: #081226;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.jace-dossier__body {
+    padding: 14px 16px;
+}
+
+.jace-dossier__title {
+    color: #7dd3fc;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.jace-dossier__quote {
+    color: #bae6fd;
+    font-size: 0.78rem;
+    font-style: italic;
+    line-height: 1.45;
+    margin: 0 0 10px;
+}
+
+.jace-dossier__list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 12px;
+    margin: 0 0 12px;
+    font-size: 0.74rem;
+}
+
+.jace-dossier__list dt {
+    color: #818cf8;
+    font-weight: 700;
+}
+
+.jace-dossier__list dd {
+    margin: 0;
+    color: #e0f2fe;
+}
+
+.jace-dossier__close {
+    background: #38bdf8;
+    color: #081226;
+    border: none;
+    border-radius: 3px 10px 3px 10px;
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.jace-dossier__close:hover,
+.jace-dossier__close:focus-visible {
+    background: #bae6fd;
+    outline: 2px solid #e0f2fe;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .jace-fracture-overlay,
+    .jace-dossier {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .jace-fracture-overlay {
+        opacity: 0.85;
+    }
+}
