@@ -2,7 +2,7 @@
 <html lang="{{ site.lang | default: 'en' }}">
 {% include head.html %}
 
-<body class="d-flex flex-column{% if page.classes %} {{ page.classes }}{% endif %}">
+<body{% if page.classes %} class="{{ page.classes }}"{% endif %}>
   <a class="skip-link" href="#main">Skip to content</a>
   {% include nav.html %}
   <main id="main">

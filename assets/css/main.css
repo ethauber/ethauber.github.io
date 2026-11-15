@@ -1,5 +1,5 @@
 /*
- * Site stylesheet. Loaded after Bootstrap 4, so rules here win.
+ * Site stylesheet.
  *
  * 1. Theme tokens      4. Footer            7. Blog and posts
  * 2. Base and type     5. Home              8. Space
@@ -55,7 +55,7 @@
 }
 
 /* ---------- 2. Base and type ---------- */
-* {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -77,6 +77,9 @@ html {
 body {
     margin: 0;
     padding-top: var(--nav-height); /* room for the fixed navbar */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
@@ -91,8 +94,15 @@ main {
 }
 
 img {
+    vertical-align: middle;
     max-width: 100%;
     height: auto;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 h1, h2, h3, h4, h5,
@@ -111,18 +121,36 @@ h1, .section-title {
     margin: 0 0 1.5rem;
 }
 
+h2, .h2 { font-size: 2rem; }
+h3, .h3 { font-size: 1.75rem; }
+h4, .h4 { font-size: 1.5rem; }
+h5, .h5 { font-size: 1.25rem; }
+
 p {
     color: var(--text-color);
     margin: 0 0 0.75rem;
 }
 
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.small, small {
+    font-size: 80%;
+    font-weight: 400;
+}
+
 a {
     color: var(--link-color);
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
     color: var(--heading-color);
+    text-decoration: underline;
 }
 
 ul {
@@ -180,8 +208,41 @@ ul {
     outline-offset: 2px;
 }
 
-/* Bootstrap pieces, re-skinned with the tokens */
+/* Shared utilities and components (cards, badges, buttons) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.text-break {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
     background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
@@ -189,10 +250,36 @@ ul {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
 .card-img-top {
+    display: block;
     width: 100%;
     height: 30vw;
     object-fit: cover;
+    border-top-left-radius: calc(var(--radius) - 1px);
+    border-top-right-radius: calc(var(--radius) - 1px);
+}
+
+.badge {
+    display: inline-block;
+    font-size: 75%;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.35rem;
+    text-decoration: none;
+    transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .badge-light,
@@ -208,6 +295,44 @@ a.badge-light:hover,
 a.badge-light:focus {
     background-color: var(--accent-color);
     color: var(--bg-color);
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.4rem 0.85rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.35rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus {
+    text-decoration: none;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
+.btn-lg {
+    padding: 0.55rem 1.15rem;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    border-radius: 0.45rem;
 }
 
 .btn-primary,
@@ -241,7 +366,13 @@ a.badge-light:focus {
 }
 
 .btn-link {
+    border-color: transparent;
     color: var(--link-color);
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    text-decoration: underline;
 }
 
 .text-muted {
@@ -330,11 +461,13 @@ code {
     padding: 0.5rem 0.9rem;
     font-weight: 500;
     color: var(--muted-color);
+    text-decoration: none;
 }
 
 .site-nav .nav-link:hover,
 .site-nav .nav-link.active {
     color: var(--heading-color);
+    text-decoration: none;
 }
 
 /* Theme toggle and menu button stay on the right at every width */
@@ -425,6 +558,7 @@ code {
 /* ---------- 4. Footer ---------- */
 .footer {
     width: 100%;
+    margin-top: auto;
     padding: 1.5rem 0;
     font-size: 0.9rem;
     background-color: var(--footer-bg-color);
@@ -942,6 +1076,10 @@ blockquote > :last-child {
 }
 
 /* ---------- 8. Space ---------- */
+.back-link {
+    margin-bottom: 1.5rem;
+}
+
 .space-breadcrumb-row {
     display: flex;
     flex-wrap: wrap;
@@ -1150,19 +1288,83 @@ blockquote > :last-child {
 }
 
 /* ---------- 9. Small pages and responsive ---------- */
-.about-mascot {
-    max-width: 150px;
-    height: auto;
+.about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem 2rem;
+    align-items: start;
+    margin-top: 1rem;
 }
 
-.lost-planet {
-    max-width: 300px;
-    border-radius: 50%;
+.about-role {
+    color: var(--muted-color);
+    margin: 0 0 1.5rem;
+}
+
+.about-card {
+    box-shadow: var(--shadow);
+}
+
+.about-card__heading {
+    margin: 0 0 1rem;
+}
+
+.about-card .contact-info {
+    display: block;
+    margin-bottom: 1.25rem;
+    color: var(--text-color);
+}
+
+.contact-item {
+    margin-bottom: 0.75rem;
 }
 
 .contact-item a {
     display: inline-block;
     padding: 0.25rem 0;
+}
+
+.about-mascot-wrap {
+    text-align: center;
+}
+
+.about-mascot-link {
+    display: inline-block;
+}
+
+.about-mascot {
+    max-width: 150px;
+    height: auto;
+}
+
+.error-page {
+    text-align: center;
+    margin: 2.5rem 0;
+}
+
+.error-page__code {
+    font-size: clamp(4rem, 12vw, 6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0 0 0.75rem;
+}
+
+.lost-planet {
+    display: block;
+    max-width: 300px;
+    margin: 1.5rem auto;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+
+.error-page__actions {
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 992px) {
+    .about-layout {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
 }
 
 @media (max-width: 768px) {
