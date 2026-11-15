@@ -1,5 +1,5 @@
-# Third-party builds and minified vendor files are left exactly as shipped.
-exclude: ^(games/|assets/(css|js)/vendor/|\.beads/)
+# Third-party game builds are left as shipped.
+exclude: ^(games/|\.beads/)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0

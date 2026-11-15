@@ -80,5 +80,5 @@ for the full map.
 - Colors come from the CSS variables at the top of `main.css` so light and dark
   themes both work. The palette follows audiet.dev (slate, cream, violet accent),
   kept a little more neutral. Never hard-code a colour in a component rule.
-- Do not edit `games/` or `assets/*/vendor/` by hand.
+- Do not edit `games/` by hand.
 - Commit messages follow `.github/commit-message.md`.

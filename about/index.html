@@ -2,36 +2,36 @@
 layout: page
 title: About Elijah Hauber
 ---
-<div class="row mt-4">
-  <div class="col-lg-7 col-md-12 mb-4">
-    <h1 class="display-4 mb-3">{{ page.title }}</h1>
-    <p class="h3 text-muted mb-4">{{ site.role }}</p>
-    <section class="summary mb-4">
-      <h2 class="h4 mb-3">Professional Summary</h2>
+<div class="about-layout">
+  <div class="about-main">
+    <h1 class="section-title">{{ page.title }}</h1>
+    <p class="h3 about-role">{{ site.role }}</p>
+    <section class="summary">
+      <h2 class="h4">Professional Summary</h2>
       <p class="lead">I am a software engineer with {{ site.years_experience }} years of experience delivering software {{ site.specialties }}.</p>
     </section>
   </div>
-  <div class="col-lg-5 col-md-12">
-    <div class="card shadow-sm">
+  <div class="about-sidebar">
+    <div class="card about-card">
       <div class="card-body">
-        <div class="contact-info mb-4">
-          <h2 class="h5 mb-3">Contact Information</h2>
-          <div class="contact-item mb-2">
+        <div class="contact-info">
+          <h2 class="h5 about-card__heading">Contact Information</h2>
+          <div class="contact-item">
             <strong>Email:</strong><br>
             <a href="mailto:{{ site.email }}" class="text-break">{{ site.email }}</a>
           </div>
-          <div class="contact-item mb-2">
+          <div class="contact-item">
             <strong>Location:</strong><br>
             <span>{{ site.location }}</span>
           </div>
           {%- assign linkedin = site.data.social | where: 'name', 'LinkedIn' | first %}
-          <div class="contact-item mb-3">
+          <div class="contact-item">
             <strong>LinkedIn:</strong><br>
             <a href="{{ linkedin.url | default: 'https://www.linkedin.com/in/ethauber' }}" target="_blank" rel="noopener noreferrer">{{ site.author.name }}</a>
           </div>
         </div>
-        <div class="text-center">
-          <a href="https://www.pokemon.com/us/" class="d-inline-block">
+        <div class="about-mascot-wrap">
+          <a href="https://www.pokemon.com/us/" class="about-mascot-link" target="_blank" rel="noopener noreferrer">
             <img src="/assets/squirtle-seeklogo.com.svg" class="img-fluid about-mascot" title="Pokemon"
               alt="Squirtle from Pokemon...you know for a little fun...">
           </a>
