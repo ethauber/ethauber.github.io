@@ -31,6 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let isOpen = false;
     let previousOverflow = '';
     let previousFocus = null;
+    let pendingTrekTimer = null;
+    let terminalSessionId = 0;
+
+    function clearPendingTrekLaunch() {
+        if (pendingTrekTimer !== null) {
+            clearTimeout(pendingTrekTimer);
+            pendingTrekTimer = null;
+        }
+    }
 
     function isEditable(el) {
         if (window.EasterEggUtils) {
@@ -60,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openTerminal() {
+        clearPendingTrekLaunch();
+        terminalSessionId++;
         previousFocus = document.activeElement;
         previousOverflow = document.body.style.overflow;
         overlay.classList.add('open');
@@ -69,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeTerminal() {
+        clearPendingTrekLaunch();
         overlay.classList.remove('open');
         isOpen = false;
         document.body.style.overflow = previousOverflow; // Unlock scroll
@@ -136,10 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function launchTrekEffect(message, triggerName) {
-        printText(message);
         const eggs = window.StarTrekEasterEggs;
+        const effectBusy = eggs && typeof eggs.isActive === 'function' && eggs.isActive();
+        if (pendingTrekTimer !== null || effectBusy) {
+            printText("Stand by: another sequence is already in progress.", "command-error");
+            return;
+        }
+        printText(message);
         if (eggs && typeof eggs[triggerName] === 'function') {
-            setTimeout(() => {
+            const scheduledSession = terminalSessionId;
+            pendingTrekTimer = setTimeout(() => {
+                pendingTrekTimer = null;
+                if (!isOpen || terminalSessionId !== scheduledSession) return;
                 closeTerminal();
                 eggs[triggerName]();
             }, 350);
