@@ -8,7 +8,6 @@
   if (!utils) return;
 
   let trekRotationIndex = 0;
-  let isTrekActive = false;
 
   const WARP_DURATION_MS = 2800;
   const RED_ALERT_DURATION_MS = 3500;
@@ -76,11 +75,18 @@
     return toast;
   }
 
+  function createOverlayLayer(className) {
+    const el = document.createElement('div');
+    el.className = className;
+    el.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(el);
+    return el;
+  }
+
   function runExclusive(fn) {
-    if (isTrekActive) return false;
-    isTrekActive = true;
+    if (!utils.effectLock.tryAcquire('trek')) return false;
     fn(() => {
-      isTrekActive = false;
+      utils.effectLock.release('trek');
     });
     return true;
   }
@@ -145,16 +151,17 @@
 
       frameId = requestAnimationFrame(drawFrame);
 
+      let flashOverlay = null;
       if (!reduced) {
         setTimeout(() => {
-          document.body.classList.add('trek-warp-flash');
+          flashOverlay = createOverlayLayer('trek-warp-flash');
         }, WARP_DURATION_MS - 500);
       }
 
       setTimeout(() => {
         if (frameId) cancelAnimationFrame(frameId);
         canvas.remove();
-        document.body.classList.remove('trek-warp-flash');
+        if (flashOverlay) flashOverlay.remove();
         done();
       }, WARP_DURATION_MS);
     });
@@ -164,7 +171,7 @@
   function triggerRedAlert() {
     return runExclusive(done => {
       console.log('%c🚨 TACTICAL: RED ALERT! Shields up, all hands to battlestations!', 'color: #ff4d4d; font-weight: bold;');
-      document.body.classList.add('trek-red-alert');
+      const alertOverlay = createOverlayLayer('trek-red-alert-overlay');
 
       const banner = document.createElement('div');
       banner.className = 'trek-red-alert-banner';
@@ -185,7 +192,7 @@
 
       setTimeout(() => {
         banner.remove();
-        document.body.classList.remove('trek-red-alert');
+        alertOverlay.remove();
         done();
       }, RED_ALERT_DURATION_MS);
     });
@@ -365,6 +372,7 @@
   });
 
   window.StarTrekEasterEggs = {
+    isActive: () => utils.effectLock.isActive(),
     triggerWarp: triggerWarpSpeed,
     triggerRedAlert: triggerRedAlert,
     triggerTransporter: triggerTransporter,

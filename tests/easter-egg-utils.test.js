@@ -88,3 +88,20 @@ test('computeStardate returns deterministic TNG-style stardates', () => {
   // Invalid date falls back to a finite formatted stardate
   assert.match(utils.computeStardate(new Date('invalid')), /^\d+\.\d$/);
 });
+
+test('createEffectLock enforces mutual exclusion across easter egg families', () => {
+  const lock = utils.createEffectLock();
+  assert.equal(lock.isActive(), false);
+
+  assert.equal(lock.tryAcquire('halo'), true);
+  assert.equal(lock.isActive(), true);
+  assert.equal(lock.tryAcquire('trek'), false);
+
+  // Non-owner cannot release another family's active lock
+  lock.release('trek');
+  assert.equal(lock.isActive(), true);
+
+  lock.release('halo');
+  assert.equal(lock.isActive(), false);
+  assert.equal(lock.tryAcquire('trek'), true);
+});

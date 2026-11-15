@@ -128,11 +128,41 @@
     return stardate.toFixed(1);
   }
 
+  function createEffectLock() {
+    let activeOwner = null;
+
+    function tryAcquire(owner) {
+      if (activeOwner !== null) return false;
+      activeOwner = owner || 'effect';
+      return true;
+    }
+
+    function release(owner) {
+      if (owner === undefined || activeOwner === owner) {
+        activeOwner = null;
+      }
+    }
+
+    function isActive() {
+      return activeOwner !== null;
+    }
+
+    return {
+      tryAcquire: tryAcquire,
+      release: release,
+      isActive: isActive
+    };
+  }
+
+  const effectLock = createEffectLock();
+
   return {
     advanceSequence: advanceSequence,
     buildPrefixTable: buildPrefixTable,
     computeStardate: computeStardate,
+    createEffectLock: createEffectLock,
     createSequenceDispatcher: createSequenceDispatcher,
+    effectLock: effectLock,
     isEditableElement: isEditableElement,
     prefersReducedMotion: prefersReducedMotion
   };

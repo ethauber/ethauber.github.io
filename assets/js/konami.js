@@ -12,7 +12,16 @@ const haloCode = ["h", "a", "l", "o"];
 
 // State
 let haloRotationIndex = 0;
-let isHaloActive = false;
+
+function acquireHaloLock() {
+    return window.EasterEggUtils && window.EasterEggUtils.effectLock.tryAcquire('halo');
+}
+
+function releaseHaloLock() {
+    if (window.EasterEggUtils) {
+        window.EasterEggUtils.effectLock.release('halo');
+    }
+}
 
 // Consolidated Keydown Listener via EasterEggUtils
 if (window.EasterEggUtils) {
@@ -25,11 +34,7 @@ if (window.EasterEggUtils) {
         {
             sequence: haloCode,
             caseInsensitive: true,
-            onMatch: () => {
-                if (!isHaloActive) {
-                    cycleHaloEffect();
-                }
-            }
+            onMatch: cycleHaloEffect
         }
     ]);
 
@@ -103,7 +108,7 @@ document.addEventListener('visibilitychange', () => {
  * 4. Halo 1: Shield Recharge
  */
 function cycleHaloEffect() {
-    isHaloActive = true;
+    if (!acquireHaloLock()) return;
     console.log(`🦾 SPARTAN DETECTED. ACTIVATING PROTOCOL ${haloRotationIndex + 1}.`);
 
     switch(haloRotationIndex % 5) {
@@ -159,7 +164,7 @@ function triggerGruntBirthday() {
     setTimeout(() => {
         yayText.remove();
         confettiElements.forEach(el => el.remove());
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2000);
 }
 
@@ -170,7 +175,7 @@ function triggerArmorLock() {
 
     setTimeout(() => {
         body.classList.remove('halo-armor-lock');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2500);
 }
 
@@ -360,7 +365,7 @@ function triggerSandtrap() {
         eggContainer.remove(); // This also removes child beams
         if(killFeed) killFeed.remove();
         document.body.classList.remove('sandtrap-shake');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 5000);
 }
 
@@ -371,7 +376,7 @@ function triggerSuperBounce() {
 
     setTimeout(() => {
         body.classList.remove('halo-super-bounce');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2500);
 }
 
@@ -382,6 +387,6 @@ function triggerShieldRecharge() {
 
     setTimeout(() => {
         body.classList.remove('halo-shield-recharge');
-        isHaloActive = false;
+        releaseHaloLock();
     }, 2000);
 }

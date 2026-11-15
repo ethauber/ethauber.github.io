@@ -238,8 +238,7 @@
     z-index: 2002;
 }
 
-.trek-warp-flash::after {
-    content: "";
+.trek-warp-flash {
     position: fixed;
     inset: 0;
     background: radial-gradient(circle at center, rgba(219, 234, 254, 0.75), rgba(153, 204, 255, 0.25), transparent 70%);
@@ -254,8 +253,7 @@
     100% { opacity: 0; transform: scale(1.4); }
 }
 
-.trek-red-alert::after {
-    content: "";
+.trek-red-alert-overlay {
     position: fixed;
     inset: 0;
     background: rgba(180, 15, 25, 0.14);
@@ -436,8 +434,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .trek-warp-flash::after,
-    .trek-red-alert::after,
+    .trek-warp-flash,
+    .trek-red-alert-overlay,
     .trek-red-alert-banner,
     .trek-transporter-sweep,
     .trek-toast,
@@ -446,7 +444,7 @@
         transition: none !important;
     }
 
-    .trek-red-alert::after {
+    .trek-red-alert-overlay {
         opacity: 0.65;
     }
 }
