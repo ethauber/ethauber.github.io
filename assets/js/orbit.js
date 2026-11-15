@@ -350,11 +350,9 @@
       if (wasDrag) return;
       const target = targetAt(event);
       if (target.enterprise) {
-        navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: 'earth' } }));
-        if (window.StarTrekEasterEggs && typeof window.StarTrekEasterEggs.triggerLcars === 'function') {
-          window.StarTrekEasterEggs.triggerLcars();
-        }
+        selectEarthAndOpenHud();
       } else if (target.planet !== -1) {
+        pendingEnterpriseHud = false;
         navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: planets[target.planet].id } }));
       }
     });
@@ -397,7 +395,41 @@
       button.addEventListener('click', () => lookFrom(azimuth + turn[0], polar + turn[1]));
     });
 
-    navigator.addEventListener('planet:change', event => select(event.detail.id));
+    let pendingEnterpriseHud = false;
+
+    function openEnterpriseHud() {
+      if (window.StarTrekEasterEggs && typeof window.StarTrekEasterEggs.triggerLcars === 'function') {
+        window.StarTrekEasterEggs.triggerLcars();
+      }
+    }
+
+    function isEarthSettled() {
+      if (navigator.querySelector('.planet-card.is-fading')) return false;
+      const activeCard = navigator.querySelector('.planet-card:not([hidden])');
+      return Boolean(activeCard && activeCard.id === 'earth');
+    }
+
+    function selectEarthAndOpenHud() {
+      if (isEarthSettled()) {
+        pendingEnterpriseHud = false;
+        openEnterpriseHud();
+        return;
+      }
+      pendingEnterpriseHud = true;
+      navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: 'earth' } }));
+    }
+
+    navigator.addEventListener('planet:change', event => {
+      const id = event.detail.id;
+      select(id);
+      if (!pendingEnterpriseHud) return;
+      if (id === 'earth') {
+        pendingEnterpriseHud = false;
+        openEnterpriseHud();
+      } else {
+        navigator.dispatchEvent(new CustomEvent('planet:select', { detail: { id: 'earth' } }));
+      }
+    });
 
     function activateEnterprise() {
       if (!enterprise || !earth) return;
