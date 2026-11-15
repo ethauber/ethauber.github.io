@@ -78,6 +78,19 @@
         menuBtn.focus();
       }
     });
+
+    // Clear mobile menu state when widening to desktop so it stays closed if shrunk again.
+    if (window.matchMedia) {
+      const desktopQuery = window.matchMedia('(min-width: 992px)');
+      const onMediaChange = event => {
+        if (event.matches && menu.classList.contains('show')) setMenuOpen(false);
+      };
+      if (typeof desktopQuery.addEventListener === 'function') {
+        desktopQuery.addEventListener('change', onMediaChange);
+      } else if (typeof desktopQuery.addListener === 'function') {
+        desktopQuery.addListener(onMediaChange);
+      }
+    }
   }
 
   // Close the mobile menu after choosing a link.

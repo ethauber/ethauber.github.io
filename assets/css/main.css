@@ -525,6 +525,10 @@ code {
         align-items: center;
     }
 
+    .site-nav .nav-link {
+        padding: 0.5rem 0.55rem;
+    }
+
     .site-nav__actions {
         order: 2;
     }
@@ -1299,6 +1303,10 @@ blockquote > :last-child {
 .about-role {
     color: var(--muted-color);
     margin: 0 0 1.5rem;
+}
+
+.about-main .summary h2 {
+    margin-bottom: 1rem;
 }
 
 .about-card {
