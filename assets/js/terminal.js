@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         about: () => {
             print("Elijah Hauber");
-            print("Software Engineer with 7 years of experience.");
+            print("Software Engineer with 8 years of experience.");
             print("Specializing in: Maintenance, Architecture, Prototypes, Research, Documentation, and Testing.");
             print("Formerly at Parus Holdings LLC.");
             print("Purdue University CS Graduate.");
