@@ -10,8 +10,9 @@ author:
 email: ethauber@outlook.com
 location: IN, USA
 role: Software Engineer
-# Single source of truth for the "N years of experience" copy.
+# Single source of truth for the "N years of experience" and specialties copy.
 years_experience: 8
+specialties: "maintenance, architecture, prototypes, research, documentation, and testing"
 # Keep the number below in step with years_experience (config can't interpolate).
 description: >-
   Elijah Hauber - Software Engineer with 8 years of experience in web
@@ -29,8 +30,9 @@ social:
 # Third-party scripts. Leave a value empty to turn that script off.
 # The old Universal Analytics property (UA-100709643-1) stopped collecting
 # data when Google retired UA, so it is off until a GA4 "G-..." id is set.
+# AdSense is kept off to align with privacy/index.html (no third-party cookies).
 google_analytics:
-adsense_client: ca-pub-1717785919257585
+adsense_client:
 
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title

@@ -8,7 +8,7 @@ title: About Elijah Hauber
     <p class="h3 text-muted mb-4">{{ site.role }}</p>
     <section class="summary mb-4">
       <h2 class="h4 mb-3">Professional Summary</h2>
-      <p class="lead">I am a software engineer with {{ site.years_experience }} years of experience delivering software maintenance, prototypes, research, documentation, and testing.</p>
+      <p class="lead">I am a software engineer with {{ site.years_experience }} years of experience delivering software {{ site.specialties }}.</p>
     </section>
   </div>
   <div class="col-lg-5 col-md-12">
@@ -24,9 +24,10 @@ title: About Elijah Hauber
             <strong>Location:</strong><br>
             <span>{{ site.location }}</span>
           </div>
+          {%- assign linkedin = site.data.social | where: 'name', 'LinkedIn' | first %}
           <div class="contact-item mb-3">
             <strong>LinkedIn:</strong><br>
-            <a href="https://www.linkedin.com/in/elijah-hauber-7b20b6b3/" target="_blank" rel="noopener">Elijah Hauber</a>
+            <a href="{{ linkedin.url | default: 'https://www.linkedin.com/in/ethauber' }}" target="_blank" rel="noopener noreferrer">{{ site.author.name }}</a>
           </div>
         </div>
         <div class="text-center">
