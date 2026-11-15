@@ -91,11 +91,17 @@
     return true;
   }
 
-  // --- EFFECT 1: WARP SPEED ("engage") ---
-  function triggerWarpSpeed() {
+  function isOnSpacePage() {
+    return /^\/space(\/|$)/.test(window.location.pathname);
+  }
+
+  // --- EFFECT 1: WARP SPEED ("engage" / "trek") ---
+  function triggerWarpSpeed(options) {
+    const shouldNavigate = Boolean(options && options.navigateToSpace) && !isOnSpacePage();
     return runExclusive(done => {
       console.log('%c🖖 HELM: Ahead warp factor 9.975. Engage!', 'color: #99ccff; font-weight: bold;');
       const reduced = utils.prefersReducedMotion();
+      const durationMs = reduced && shouldNavigate ? 900 : WARP_DURATION_MS;
       const canvas = createOverlayCanvas('trek-canvas');
       const ctx = canvas.getContext('2d');
       const cx = canvas.width / 2;
@@ -109,14 +115,15 @@
         hue: Math.random() > 0.25 ? '#dbeafe' : '#99ccff'
       }));
 
-      showLcarsToast('WARP 9.975', 'ENGAGE — COURSE LAID IN', WARP_DURATION_MS);
+      const toastText = shouldNavigate ? 'ENGAGE — SETTING COURSE FOR /SPACE/' : 'ENGAGE — COURSE LAID IN';
+      showLcarsToast('WARP 9.975', toastText, durationMs);
 
       let frameId = null;
       const startTime = performance.now();
 
       function drawFrame(now) {
         const elapsed = now - startTime;
-        const progress = Math.min(elapsed / WARP_DURATION_MS, 1);
+        const progress = Math.min(elapsed / durationMs, 1);
         const accel = reduced ? 0 : 1 + progress * 14;
 
         ctx.fillStyle = reduced ? 'rgba(10, 14, 28, 0.78)' : 'rgba(10, 14, 28, 0.35)';
@@ -144,7 +151,7 @@
           ctx.stroke();
         });
 
-        if (!reduced && elapsed < WARP_DURATION_MS) {
+        if (!reduced && elapsed < durationMs) {
           frameId = requestAnimationFrame(drawFrame);
         }
       }
@@ -155,7 +162,7 @@
       if (!reduced) {
         setTimeout(() => {
           flashOverlay = createOverlayLayer('trek-warp-flash');
-        }, WARP_DURATION_MS - 500);
+        }, durationMs - 500);
       }
 
       setTimeout(() => {
@@ -163,8 +170,15 @@
         canvas.remove();
         if (flashOverlay) flashOverlay.remove();
         done();
-      }, WARP_DURATION_MS);
+        if (shouldNavigate) {
+          window.location.assign('/space/');
+        }
+      }, durationMs);
     });
+  }
+
+  function triggerEngage() {
+    return triggerWarpSpeed({ navigateToSpace: true });
   }
 
   // --- EFFECT 2: RED ALERT ("redalert") ---
@@ -338,7 +352,12 @@
   }
 
   function cycleTrekEffect() {
-    const effects = [triggerWarpSpeed, triggerRedAlert, triggerTransporter, triggerLcarsReadout];
+    const effects = [
+      () => triggerWarpSpeed({ navigateToSpace: false }),
+      triggerRedAlert,
+      triggerTransporter,
+      triggerLcarsReadout
+    ];
     const fn = effects[trekRotationIndex % effects.length];
     if (fn()) {
       trekRotationIndex++;
@@ -346,7 +365,7 @@
   }
 
   const trekDispatcher = utils.createSequenceDispatcher([
-    { sequence: ['e', 'n', 'g', 'a', 'g', 'e'], caseInsensitive: true, onMatch: triggerWarpSpeed },
+    { sequence: ['e', 'n', 'g', 'a', 'g', 'e'], caseInsensitive: true, onMatch: triggerEngage },
     { sequence: ['r', 'e', 'd', 'a', 'l', 'e', 'r', 't'], caseInsensitive: true, onMatch: triggerRedAlert },
     { sequence: ['m', 'a', 'k', 'e', 'i', 't', 's', 'o'], caseInsensitive: true, onMatch: triggerTransporter },
     { sequence: ['l', 'c', 'a', 'r', 's'], caseInsensitive: true, onMatch: triggerLcarsReadout },
@@ -373,7 +392,8 @@
 
   window.StarTrekEasterEggs = {
     isActive: () => utils.effectLock.isActive(),
-    triggerWarp: triggerWarpSpeed,
+    triggerEngage: triggerEngage,
+    triggerWarp: () => triggerWarpSpeed({ navigateToSpace: false }),
     triggerRedAlert: triggerRedAlert,
     triggerTransporter: triggerTransporter,
     triggerLcars: triggerLcarsReadout,

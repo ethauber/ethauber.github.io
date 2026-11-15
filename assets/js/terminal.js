@@ -235,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
             printText("LCARS Library Computer Access/Retrieval System online.");
             print("  <span class='terminal-cmd'>stardate</span>  - Current Starfleet stardate");
             print("  <span class='terminal-cmd'>lcars</span>     - Ship telemetry (add 'hud' for overlay)");
-            print("  <span class='terminal-cmd'>engage</span>    - Engage warp drive (alias: warp)");
+            print("  <span class='terminal-cmd'>engage</span>    - Warp to /space/ (Sector 001)");
+            print("  <span class='terminal-cmd'>warp</span>      - Engage warp drive on current page");
             print("  <span class='terminal-cmd'>redalert</span>  - Raise shields and sound Red Alert");
             print("  <span class='terminal-cmd'>beam</span>      - Energize transporter (alias: energize)");
             print("  <span class='terminal-cmd'>tea</span>       - Replicate Captain's beverage");
@@ -255,10 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         },
         engage: () => {
-            launchTrekEffect("Helm: Course laid in. Ahead warp factor 9.975. Engage!", "triggerWarp");
+            launchTrekEffect("Helm: Course laid in for Sector 001. Ahead warp factor 9.975. Engage!", "triggerEngage");
         },
         warp: () => {
-            commands.engage();
+            launchTrekEffect("Helm: Ahead warp factor 9.975.", "triggerWarp");
         },
         redalert: () => {
             launchTrekEffect("Tactical: Shields up! All hands to battlestations!", "triggerRedAlert");
