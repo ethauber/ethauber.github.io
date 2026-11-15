@@ -19,7 +19,7 @@ GitHub Actions.
 | `games/` | Exported game builds (Godot, Unity). Do not edit by hand. |
 | `works/`, `blog/`, `about/`, `privacy/` | Standalone pages that reuse the same includes. |
 | `assets/css/main.css` | All site styles. Colours and fonts are tokens at the top (one block for light, one for dark); `easter-eggs.css` and `terminal.css` only style the hidden extras. `assets/css/vendor/` and `assets/js/vendor/` hold Bootstrap 4, jQuery and Popper. |
-| `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `orbit.js` and `orbit-scale.js` (3D orbit view on `/space/`; loads Three.js from a CDN), `theme-toggle.js`, and the easter eggs (`easter-egg-utils.js`, `konami.js`, `star-trek.js`, `terminal.js`). |
+| `assets/js/` | `site.js` (nav), `fractals.js`, `planets.js`, `orbit.js` and `orbit-scale.js` (3D orbit view on `/space/`; loads Three.js from a CDN), `theme-toggle.js`, and the easter eggs (`easter-egg-utils.js`, `konami.js`, `star-trek.js`, `reality-fracture.js`, `terminal.js`). |
 | `docs/`, `scripts/` | Notes and repo tooling. Not published. |
 
 ## Common edits

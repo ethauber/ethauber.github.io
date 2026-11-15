@@ -448,3 +448,127 @@
         opacity: 0.65;
     }
 }
+
+/*
+   MTG REALITY FRACTURE EASTER EGG
+   Jace Beleren, The Theorist ("jace", "theorist", "fracture")
+*/
+
+.jace-fracture-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 165, 233, 0.08), rgba(15, 23, 42, 0.55) 75%);
+    box-shadow: inset 0 0 110px rgba(56, 189, 248, 0.55);
+    pointer-events: none;
+    z-index: 2001;
+    animation: jaceLatticePulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes jaceLatticePulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.jace-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2002;
+}
+
+.jace-dossier {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: min(390px, calc(100vw - 32px));
+    background: rgba(11, 20, 42, 0.94);
+    color: #e0f2fe;
+    border: 1.5px solid #38bdf8;
+    border-radius: 4px 18px 4px 18px;
+    box-shadow: 0 0 32px rgba(56, 189, 248, 0.35), 0 14px 36px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+    z-index: 2006;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    animation: trekSlideUp 0.28s ease-out;
+}
+
+.jace-dossier__crown {
+    background: linear-gradient(90deg, #0284c7, #38bdf8 50%, #6366f1);
+    color: #081226;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.jace-dossier__body {
+    padding: 14px 16px;
+}
+
+.jace-dossier__title {
+    color: #7dd3fc;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.jace-dossier__quote {
+    color: #bae6fd;
+    font-size: 0.78rem;
+    font-style: italic;
+    line-height: 1.45;
+    margin: 0 0 10px;
+}
+
+.jace-dossier__list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 12px;
+    margin: 0 0 12px;
+    font-size: 0.74rem;
+}
+
+.jace-dossier__list dt {
+    color: #818cf8;
+    font-weight: 700;
+}
+
+.jace-dossier__list dd {
+    margin: 0;
+    color: #e0f2fe;
+}
+
+.jace-dossier__close {
+    background: #38bdf8;
+    color: #081226;
+    border: none;
+    border-radius: 3px 10px 3px 10px;
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.jace-dossier__close:hover,
+.jace-dossier__close:focus-visible {
+    background: #bae6fd;
+    outline: 2px solid #e0f2fe;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .jace-fracture-overlay,
+    .jace-dossier {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .jace-fracture-overlay {
+        opacity: 0.85;
+    }
+}

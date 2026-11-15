@@ -127,6 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Focus management for accessibility
     resultTitle.focus();
+
+    if (bestIdentity.id && ['BLUE', 'DIMIR', 'AZORIUS', 'ESPER'].includes(bestIdentity.id.toUpperCase())) {
+      console.log(
+        "%c🔷 ECHOVERSE: The Theorist monitors your mind's resonance. Try typing 'theorist', 'fracture', or 'jace'.",
+        'color: #38bdf8; font-style: italic;'
+      );
+    }
   }
 
   function renderBreakdown(scores, maxScore) {

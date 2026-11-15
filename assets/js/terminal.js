@@ -147,23 +147,38 @@ document.addEventListener('DOMContentLoaded', () => {
             : '80000.0';
     }
 
-    function launchTrekEffect(message, triggerName) {
-        const eggs = window.StarTrekEasterEggs;
-        const effectBusy = eggs && typeof eggs.isActive === 'function' && eggs.isActive();
+    function launchOverlayEffect(message, triggerFn) {
+        const effectBusy = window.EasterEggUtils && window.EasterEggUtils.effectLock.isActive();
         if (pendingTrekTimer !== null || effectBusy) {
             printText("Stand by: another sequence is already in progress.", "command-error");
             return;
         }
         printText(message);
-        if (eggs && typeof eggs[triggerName] === 'function') {
+        if (typeof triggerFn === 'function') {
             const scheduledSession = terminalSessionId;
             pendingTrekTimer = setTimeout(() => {
                 pendingTrekTimer = null;
                 if (!isOpen || terminalSessionId !== scheduledSession) return;
                 closeTerminal();
-                eggs[triggerName]();
+                triggerFn();
             }, 350);
         }
+    }
+
+    function launchTrekEffect(message, triggerName) {
+        const eggs = window.StarTrekEasterEggs;
+        launchOverlayEffect(
+            message,
+            eggs && typeof eggs[triggerName] === 'function' ? eggs[triggerName] : null
+        );
+    }
+
+    function launchRealityFracture(message) {
+        const jace = window.RealityFractureEasterEgg;
+        launchOverlayEffect(
+            message,
+            jace && typeof jace.trigger === 'function' ? jace.trigger : null
+        );
     }
 
     const commands = {
@@ -177,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             print("  <span class='terminal-cmd'>exit</span>     - Close terminal");
             print("  <span class='terminal-cmd'>sudo</span>     - ...don't");
             print("  <span class='terminal-cmd'>computer</span> - Starfleet LCARS interface");
+            print("  <span class='terminal-cmd'>echoverse</span> - Reality Fracture surveillance node");
         },
         about: () => {
             print("Elijah Hauber");
@@ -273,6 +289,25 @@ document.addEventListener('DOMContentLoaded', () => {
         kobayashi: () => {
             printText("Simulation loaded: Kobayashi Maru.", "terminal-lcars");
             print("Warning: No-win scenario detected. (Unless you reprogram the simulation...)", "command-error");
+        },
+        echoverse: () => {
+            printText(
+                "REALITY FRACTURE // ECHOVERSE ARCHITECT\n" +
+                "SUBJECT   : Jace Beleren, The Theorist\n" +
+                "EMPATHY   : LOCKED // SANITIZED REALITY ACTIVE\n" +
+                "DIRECTIVE : MONITOR // ERASE // OVERWRITE\n" +
+                "Run 'theorist' or 'fracture' to manifest prism lattices.",
+                "terminal-jace"
+            );
+        },
+        jace: () => {
+            launchRealityFracture("The Theorist: Weaving kaleidoscopic prism lattices...");
+        },
+        theorist: () => {
+            commands.jace();
+        },
+        fracture: () => {
+            commands.jace();
         },
         cat: (args) => {
             if (!args || args.length === 0) {

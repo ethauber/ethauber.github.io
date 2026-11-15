@@ -73,6 +73,10 @@ console.log(
     "%c🖖 Live long and prosper! Try typing 'engage', 'redalert', 'makeitso', 'lcars', or 'trek'.",
     "color: #ff9900; font-style: italic;"
 );
+console.log(
+    "%c🔷 Echoverse online. Try typing 'theorist', 'fracture', or 'jace'.",
+    "color: #38bdf8; font-style: italic;"
+);
 
 /**
  * Easter Egg 3: Tab Title Marquee
