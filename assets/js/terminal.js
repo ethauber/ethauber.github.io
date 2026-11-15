@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const years = about.yearsExperience || 8;
             printText(about.name || 'Elijah Hauber');
             printText(`${role} with ${years} years of experience.`);
-            printText(`Specializing in: ${about.specialties || 'Maintenance, Architecture, Prototypes, Research, Documentation, and Testing'}.`);
+            printText(`Specializing in: ${about.specialties || 'maintenance, architecture, prototypes, research, documentation, and testing'}.`);
             if (about.latestOrg !== '') printText(`Formerly at ${about.latestOrg || 'Parus Holdings LLC'}.`);
             if (about.educationOrg !== '') printText(`${about.educationOrg || 'Purdue University'} CS Graduate.`);
         },

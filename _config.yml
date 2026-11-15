@@ -10,8 +10,9 @@ author:
 email: ethauber@outlook.com
 location: IN, USA
 role: Software Engineer
-# Single source of truth for the "N years of experience" copy.
+# Single source of truth for the "N years of experience" and specialties copy.
 years_experience: 8
+specialties: "maintenance, architecture, prototypes, research, documentation, and testing"
 # Keep the number below in step with years_experience (config can't interpolate).
 description: >-
   Elijah Hauber - Software Engineer with 8 years of experience in web

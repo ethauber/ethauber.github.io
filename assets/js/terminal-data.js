@@ -7,7 +7,7 @@ window.TerminalData = {
     name: {{ site.author.name | jsonify }},
     role: {{ site.role | jsonify }},
     yearsExperience: {{ site.years_experience | jsonify }},
-    specialties: "Maintenance, Architecture, Prototypes, Research, Documentation, and Testing",
+    specialties: {{ site.specialties | jsonify }},
     latestOrg: {{ site.data.experience.work.first.org | jsonify }},
     educationOrg: {{ site.data.experience.education.first.org | jsonify }}
   },
