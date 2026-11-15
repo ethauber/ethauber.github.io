@@ -23,9 +23,16 @@
   const cards = Array.from(navigator.querySelectorAll('.planet-card[data-orbit-distance]'));
   if (!stage || !cards.length || !hasWebGL()) return;
 
+  let pendingEngage = new URLSearchParams(window.location.search).get('engage') === '1';
+  const onEarlyEngage = () => { pendingEngage = true; };
+  window.addEventListener('star-trek:engage', onEarlyEngage);
+
   import(THREE_URL)
     .then(start)
-    .catch(() => { view.hidden = true; });
+    .catch(() => {
+      window.removeEventListener('star-trek:engage', onEarlyEngage);
+      view.hidden = true;
+    });
 
   function hasWebGL() {
     try {
@@ -144,7 +151,7 @@
 
     const earth = planets.find(planet => planet.id === 'earth') || null;
     const enterprise = earth ? makeEnterprise(THREE) : null;
-    let enterpriseActive = new URLSearchParams(window.location.search).get('engage') === '1';
+    let enterpriseActive = pendingEngage;
     let enterpriseAngle = 0.9;
     let enterpriseHovered = false;
     if (enterprise) {
@@ -440,6 +447,7 @@
       dirty = true;
     }
 
+    window.removeEventListener('star-trek:engage', onEarlyEngage);
     window.addEventListener('star-trek:engage', activateEnterprise);
 
     // ----- Go
@@ -452,7 +460,8 @@
     placePlanets();
     resize();
     updateToggle();
-    if (enterpriseActive) {
+    if (enterpriseActive || pendingEngage) {
+      pendingEngage = false;
       activateEnterprise();
     } else {
       const visibleCard = cards.find(card => !card.hidden);
