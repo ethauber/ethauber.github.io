@@ -10,9 +10,9 @@
   let trekRotationIndex = 0;
 
   const WARP_DURATION_MS = 2800;
-  const RED_ALERT_DURATION_MS = 3500;
-  const TRANSPORTER_DURATION_MS = 2600;
-  const LCARS_DURATION_MS = 5000;
+  const RED_ALERT_DURATION_MS = 4500;
+  const TRANSPORTER_DURATION_MS = 3200;
+  const LCARS_DURATION_MS = 9000;
 
   const SOL_ASTROMETRICS = {
     mercury: 'Sol I — Innermost terrestrial world; extreme solar flux.',

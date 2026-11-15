@@ -6,7 +6,7 @@
   const utils = window.EasterEggUtils;
   if (!utils) return;
 
-  const DURATION_MS = 5500;
+  const DURATION_MS = 9000;
   const SIGIL_COUNT = 8;
 
   function createOverlay(className) {
@@ -52,10 +52,9 @@
     const list = document.createElement('dl');
     list.className = 'jace-dossier__list';
     [
+      ['DOMAIN', 'ECHOVERSE'],
       ['EMPATHY', 'LOCKED // SUPPRESSED'],
-      ['PROTOCOL', 'MONITOR // ERASE // OVERWRITE'],
-      ['ATTIRE', 'CRYSTALLINE BLUE ROBES & SOVEREIGN SIGILS'],
-      ['MAGIC', 'KALEIDOSCOPIC FRACTALS & PRISM LATTICES']
+      ['PROTOCOL', 'MONITOR // ERASE // OVERWRITE']
     ].forEach(([term, desc]) => {
       const dt = document.createElement('dt');
       dt.textContent = term;
